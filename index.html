@@ -1,0 +1,2338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>营养与健康闯关之旅 · 海南工商职业学院·刘洋老师课程团队</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  height: 100%; overflow: hidden;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #fff; user-select: none;
+}
+.bg { position: fixed; inset: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); z-index: -2; }
+.bg::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(33,150,243,.25) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(76,175,80,.25) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255,107,53,.18) 0%, transparent 50%);
+}
+.float-food { position: fixed; font-size: 50px; opacity: 0.12; z-index: -1; animation: float 15s infinite ease-inotropy; }
+.float-food:nth-child(1) { top: 8%; left: 5%; }
+.float-food:nth-child(2) { top: 12%; right: 7%; animation-delay: 2s; }
+.float-food:nth-child(3) { bottom: 15%; left: 6%; animation-delay: 4s; }
+.float-food:nth-child(4) { bottom: 10%; right: 5%; animation-delay: 6s; }
+.float-food:nth-child(5) { top: 50%; left: 3%; animation-delay: 3s; }
+.float-food:nth-child(6) { top: 45%; right: 3%; animation-delay: 5s; }
+@keyframes float { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-30px) rotate(20deg); } }
+
+.top-bar {
+  background: linear-gradient(135deg, #1565C0 0%, #2196F3 50%, #42A5F5 100%);
+  padding: 8px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 2px solid rgba(255,255,255,.4);
+  box-shadow: 0 2px 12px rgba(21,101,192,.4);
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.school-logo {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, #ffc107, #ff6b35);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; box-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+.brand-text { line-height: 1.2; }
+.brand-text .school { font-size: 14px; font-weight: bold; letter-spacing: 1px; }
+.brand-text .team { font-size: 11px; opacity: 0.95; }
+.top-meta {
+  display: flex; gap: 14px; font-size: 12px;
+  background: rgba(255,255,255,.18); padding: 6px 14px;
+  border-radius: 16px; backdrop-filter: blur(4px);
+}
+.top-meta .item { display: flex; align-items: center; gap: 4px; }
+.back-btn {
+  background: rgba(255,255,255,.2);
+  border: 1px solid rgba(255,255,255,.4);
+  color: white; padding: 6px 14px;
+  border-radius: 16px; cursor: pointer; font-size: 12px;
+  backdrop-filter: blur(4px); transition: all .2s;
+  margin-right: 10px;
+}
+.back-btn:hover { background: rgba(255,255,255,.35); }
+
+.bottom-bar {
+  background: linear-gradient(135deg, #1565C0 0%, #2196F3 50%, #42A5F5 100%);
+  text-align: center; padding: 8px; font-size: 12px;
+  border-top: 2px solid rgba(255,255,255,.4);
+  box-shadow: 0 -2px 12px rgba(21,101,192,.4);
+}
+.bottom-bar span { margin: 0 8px; color: rgba(255,255,255,.7); }
+
+.view { display: none; height: calc(100vh - 110px); padding: 18px 30px; overflow: hidden; }
+.view.active { display: flex; flex-direction: column; }
+#view-nutri-quiz { overflow-y: auto; }
+#view-nutri-quiz::-webkit-scrollbar { width: 6px; }
+#view-nutri-quiz::-webkit-scrollbar-thumb { background: rgba(255,255,255,.3); border-radius: 3px; }
+
+/* 角色选择大厅 */
+.title-block { text-align: center; margin-bottom: 18px; flex-shrink: 0; }
+.title-block .pre-title {
+  display: inline-block; background: rgba(255,255,255,.2);
+  padding: 4px 16px; border-radius: 20px; font-size: 12px;
+  margin-bottom: 10px; backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,.3);
+}
+.title-block h1 {
+  font-size: 42px;
+  background: linear-gradient(90deg, #fff, #ffd54f, #fff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: 6px; letter-spacing: 2px;
+}
+.title-block .sub { font-size: 15px; color: rgba(255,255,255,.9); letter-spacing: 1px; }
+.title-block .sub b { color: #ffd54f; }
+
+.role-grid {
+  flex: 1; display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: 14px; max-width: 1200px;
+  margin: 0 auto; width: 100%;
+  align-content: center;
+}
+
+/* 三大板块卡片 */
+.section-grid {
+  flex: 1; display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px; max-width: 1100px;
+  margin: 20px auto; width: 100%;
+  align-content: center;
+}
+.section-card {
+  background: rgba(255,255,255,.12);
+  border: 2px solid rgba(255,255,255,.25);
+  border-radius: 24px;
+  padding: 24px 22px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .3s cubic-bezier(.4, 0, .2, 1);
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: space-between;
+  min-height: 340px;
+}
+.section-card::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--c1, #4CAF50), var(--c2, #FF9800));
+  opacity: 0; transition: opacity .3s; z-index: -1;
+}
+.section-card:hover { transform: translateY(-10px) scale(1.04); border-color: rgba(255,255,255,.6); box-shadow: 0 16px 36px rgba(0,0,0,.4); }
+.section-card:hover::before { opacity: 0.4; }
+.section-icon {
+  width: 100px; height: 100px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--c1, #4CAF50), var(--c2, #FF9800));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 52px; margin: 6px auto 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.3); transition: transform .3s;
+}
+.section-card:hover .section-icon { transform: rotate(10deg) scale(1.1); }
+.section-title { font-size: 22px; font-weight: bold; margin-bottom: 10px; color: #fff; line-height: 1.3; text-shadow: 0 2px 4px rgba(0,0,0,.4); }
+.section-desc { font-size: 13px; color: rgba(255,255,255,.9); line-height: 1.6; margin-bottom: 14px; min-height: 40px; }
+.section-targets { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 16px; min-height: 28px; }
+.section-target {
+  background: rgba(255,255,255,.25);
+  padding: 4px 12px; border-radius: 12px;
+  font-size: 11px; color: #fff;
+  backdrop-filter: blur(4px);
+}
+.section-btn {
+  background: linear-gradient(135deg, var(--c1, #4CAF50), var(--c2, #FF9800));
+  color: white; border: none;
+  padding: 10px 28px; border-radius: 22px;
+  font-size: 14px; font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,.3);
+  transition: all .2s;
+}
+.section-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.4); }
+.sc1 { --c1: #4CAF50; --c2: #8BC34A; }
+.sc2 { --c1: #2196F3; --c2: #42A5F5; }
+.sc3 { --c1: #FF9800; --c2: #FFB74D; }
+.role-card {
+  background: rgba(255,255,255,.12);
+  border: 2px solid rgba(255,255,255,.25);
+  border-radius: 16px; padding: 14px 10px;
+  text-align: center; cursor: pointer;
+  transition: all .3s cubic-bezier(.4, 0, .2, 1);
+  backdrop-filter: blur(8px); position: relative;
+  overflow: hidden; display: flex; flex-direction: column;
+  align-items: center; justify-content: space-between;
+}
+.role-card::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--c1, #4CAF50), var(--c2, #FF9800));
+  opacity: 0; transition: opacity .3s; z-index: -1;
+}
+.role-card:hover { transform: translateY(-8px) scale(1.04); border-color: rgba(255,255,255,.6); box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+.role-card:hover::before { opacity: 0.4; }
+.role-icon {
+  width: 70px; height: 70px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--c1, #4CAF50), var(--c2, #FF9800));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 38px; margin: 4px auto 8px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.3); transition: transform .3s;
+}
+.role-card:hover .role-icon { transform: rotate(10deg) scale(1.1); }
+.role-name { font-size: 16px; font-weight: bold; margin-bottom: 4px; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,.4); }
+.role-desc { font-size: 11px; color: rgba(255,255,255,.85); line-height: 1.4; margin-bottom: 8px; min-height: 30px; }
+.role-btn {
+  background: rgba(255,255,255,.95); color: var(--c1, #4CAF50);
+  border: none; padding: 5px 14px; border-radius: 14px;
+  font-size: 12px; font-weight: bold; cursor: pointer;
+  transition: all .2s; box-shadow: 0 2px 6px rgba(0,0,0,.2);
+}
+.role-card:hover .role-btn { background: #ffd54f; color: #1565C0; transform: scale(1.05); }
+.r1 { --c1:#4CAF50; --c2:#8BC34A; }
+.r2 { --c1:#E91E63; --c2:#FF80AB; }
+.r3 { --c1:#9C27B0; --c2:#BA68C8; }
+.r4 { --c1:#2196F3; --c2:#64B5F6; }
+.r5 { --c1:#FF9800; --c2:#FFB74D; }
+.r6 { --c1:#F44336; --c2:#E57373; }
+.r7 { --c1:#FFC107; --c2:#FFD54F; }
+.r8 { --c1:#00BCD4; --c2:#4DD0E1; }
+.r9 { --c1:#FF5722; --c2:#FF8A65; }
+.r10 { --c1:#607D8B; --c2:#90A4AE; }
+
+/* 子角色选择 */
+.subrole-header { text-align: center; margin-bottom: 14px; flex-shrink: 0; }
+.subrole-header h2 { font-size: 26px; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.3); margin-bottom: 4px; }
+.subrole-header .sub { font-size: 13px; color: rgba(255,255,255,.85); }
+.subrole-header .role-tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #9C27B0, #BA68C8);
+  padding: 3px 14px; border-radius: 14px;
+  font-size: 12px; margin-bottom: 8px;
+  box-shadow: 0 2px 6px rgba(156,39,176,.4);
+}
+.subrole-grid {
+  flex: 1; display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px; max-width: 1100px;
+  margin: 0 auto; width: 100%;
+  align-content: center;
+}
+.subrole-card {
+  background: rgba(255,255,255,.15);
+  border: 2px solid rgba(255,255,255,.3);
+  border-radius: 20px;
+  padding: 18px 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .3s cubic-bezier(.4, 0, .2, 1);
+  backdrop-filter: blur(8px);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: space-between;
+  min-height: 280px;
+}
+.subrole-card::before {
+  content: ""; position: absolute; inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--sc1, #FFB74D), var(--sc2, #FF9800));
+  opacity: 0; transition: opacity .3s; z-index: -1;
+}
+.subrole-card { position: relative; overflow: hidden; }
+.subrole-card:hover { transform: translateY(-6px) scale(1.03); border-color: rgba(255,255,255,.6); box-shadow: 0 12px 28px rgba(0,0,0,.3); }
+.subrole-card:hover::before { opacity: 0.35; }
+.subrole-icon { font-size: 70px; margin: 6px 0 8px; }
+.subrole-name { font-size: 20px; font-weight: bold; color: #ffd54f; margin-bottom: 4px; }
+.subrole-age {
+  display: inline-block;
+  background: rgba(255,255,255,.25);
+  padding: 2px 10px; border-radius: 10px;
+  font-size: 12px; margin-bottom: 10px;
+}
+.subrole-desc { font-size: 12px; color: rgba(255,255,255,.85); line-height: 1.5; margin-bottom: 12px; flex: 1; }
+.subrole-btn {
+  background: linear-gradient(135deg, #ff6b35, #ffd54f);
+  color: white; border: none;
+  padding: 7px 22px; border-radius: 18px;
+  font-size: 13px; font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(255,107,53,.3);
+  transition: all .2s;
+}
+.subrole-card:hover .subrole-btn { transform: scale(1.08); }
+.sr-newborn { --sc1:#FFB74D; --sc2:#FF9800; }
+.sr-infant { --sc1:#81C784; --sc2:#4CAF50; }
+.sr-preschool { --sc1:#64B5F6; --sc2:#2196F3; }
+.sr-child { --sc1:#BA68C8; --sc2:#9C27B0; }
+
+/* 关卡地图 */
+.nutri-map-header { text-align: center; margin-bottom: 14px; flex-shrink: 0; }
+.nutri-map-header h2 { font-size: 28px; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.3); margin-bottom: 4px; }
+.nutri-map-header .sub { font-size: 13px; color: rgba(255,255,255,.85); }
+.nutri-map-header .role-tag {
+  display: inline-block;
+  padding: 3px 14px; border-radius: 14px;
+  font-size: 12px; margin-bottom: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.3);
+}
+.level-map {
+  flex: 1; display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px; max-width: 1200px;
+  margin: 0 auto; width: 100%;
+  align-content: center;
+}
+.level-tile {
+  background: rgba(255,255,255,.15);
+  border: 2px solid rgba(255,255,255,.3);
+  border-radius: 16px; padding: 14px 10px;
+  text-align: center; cursor: pointer;
+  transition: all .3s; backdrop-filter: blur(8px);
+  position: relative; min-height: 170px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: space-between;
+}
+.level-tile:hover:not(.locked) { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,.3); border-color: #ffd54f; }
+.level-tile.locked { opacity: .5; cursor: not-allowed; }
+.level-tile .level-num {
+  position: absolute; top: 8px; left: 8px;
+  background: rgba(0,0,0,.4); color: #ffd54f;
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: bold;
+}
+.level-tile .level-icon { font-size: 50px; margin: 16px 0 8px; }
+.level-tile .level-name { font-size: 14px; font-weight: bold; margin-bottom: 4px; color: #fff; }
+.level-tile .level-desc { font-size: 11px; color: rgba(255,255,255,.8); line-height: 1.3; flex: 1; }
+.level-tile .level-status {
+  margin-top: 6px; font-size: 11px;
+  background: rgba(255,255,255,.2); padding: 3px 10px;
+  border-radius: 10px;
+}
+.badge-tile {
+  background: linear-gradient(135deg, rgba(255,215,0,.2), rgba(255,107,53,.2));
+  border: 2px dashed rgba(255,215,0,.5);
+}
+.badge-tile .badge-icon { font-size: 50px; margin: 16px 0 8px; filter: grayscale(.8); }
+.badge-tile.unlocked .badge-icon { filter: none; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+.badge-tile .badge-name { color: #ffd54f; font-size: 13px; font-weight: bold; }
+
+/* 答题 */
+.quiz-header {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 14px; flex-shrink: 0;
+  background: rgba(255,255,255,.15); padding: 10px 16px;
+  border-radius: 12px; backdrop-filter: blur(8px);
+}
+.quiz-header .quiz-title { font-size: 16px; font-weight: bold; }
+.quiz-header .quiz-progress { font-size: 13px; color: rgba(255,255,255,.9); display: flex; gap: 6px; }
+.quiz-header .dot { width: 24px; height: 6px; background: rgba(255,255,255,.3); border-radius: 3px; transition: all .3s; }
+.quiz-header .dot.done { background: #4CAF50; }
+.quiz-header .dot.current { background: #ffd54f; width: 32px; }
+
+.quiz-body {
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: center; max-width: 900px;
+  margin: 0 auto; width: 100%;
+  padding: 0 60px 100px;
+}
+#view-nutri-quiz .quiz-body { justify-content: flex-start; padding-top: 10px; }
+
+.question-card {
+  background: rgba(255,255,255,.97); color: #333;
+  border-radius: 20px; padding: 24px 28px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.25);
+  min-height: 360px;
+}
+.question-type {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 10px; font-size: 12px; margin-bottom: 12px;
+  font-weight: bold;
+}
+.qt-drag { background: #FF9800; color: white; }
+.qt-choice { background: #1565C0; color: white; }
+.qt-match { background: #9C27B0; color: white; }
+.qt-scenario { background: #E91E63; color: white; }
+.question-text { font-size: 18px; line-height: 1.5; margin-bottom: 18px; font-weight: 600; }
+.question-hint { font-size: 13px; color: #888; margin-bottom: 14px; }
+
+.bin-pool-row { display: flex; flex-direction: column; gap: 12px; }
+.bin-pool {
+  background: #f5f7fa; border-radius: 12px; padding: 10px;
+  display: flex; flex-wrap: wrap; gap: 8px; min-height: 56px;
+  align-items: center; justify-content: center;
+}
+.bin-pool .pool-label { font-size: 12px; color: #888; margin-right: 6px; }
+.drag-item {
+  background: white; border: 2px solid #e0e0e0;
+  border-radius: 18px; padding: 6px 12px;
+  cursor: grab; user-select: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,.06);
+  transition: all .15s;
+}
+.drag-item:hover { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,.1); }
+.drag-item.dragging { opacity: .4; cursor: grabbing; }
+.drag-item .di-icon { font-size: 18px; }
+.bin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.bin-cell {
+  background: #f5f7fa; border: 2px dashed #c0c4cc;
+  border-radius: 12px; padding: 10px;
+  min-height: 90px; text-align: center;
+  transition: all .15s;
+}
+.bin-cell.drag-over { background: #fff8e1; border-color: #ffc107; border-style: solid; }
+.bin-cell.correct { background: #e8f5e9; border-color: #4CAF50; border-style: solid; }
+.bin-cell.wrong { background: #ffebee; border-color: #F44336; border-style: solid; }
+.bin-head { font-size: 14px; font-weight: bold; margin-bottom: 4px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+.bin-head .bh-icon { font-size: 20px; }
+.bin-body { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; min-height: 28px; padding-top: 4px; }
+
+.ic-question-image { text-align: center; font-size: 80px; margin: 10px 0 18px; line-height: 1; }
+.ic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.ic-card {
+  background: #f5f7fa; border: 3px solid transparent;
+  border-radius: 14px; padding: 14px;
+  cursor: pointer; transition: all .15s;
+  display: flex; align-items: center; gap: 12px;
+  text-align: left;
+}
+.ic-card:hover { border-color: #ffc107; background: #fff8e1; }
+.ic-card.selected { border-color: #1565C0; background: #e3f2fd; }
+.ic-card.correct { border-color: #4CAF50; background: #e8f5e9; }
+.ic-card.wrong { border-color: #F44336; background: #ffebee; }
+.ic-card .ic-icon { font-size: 36px; flex-shrink: 0; }
+.ic-card .ic-text { font-size: 14px; line-height: 1.4; font-weight: 500; }
+
+.match-board { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.match-col { display: flex; flex-direction: column; gap: 8px; }
+.match-col-title { font-size: 13px; color: #666; text-align: center; margin-bottom: 4px; font-weight: bold; }
+.match-card {
+  background: #f5f7fa; border: 2px solid #e0e0e0;
+  border-radius: 10px; padding: 12px;
+  cursor: pointer; transition: all .15s;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; font-weight: 500;
+}
+.match-card:hover { border-color: #ffc107; background: #fff8e1; }
+.match-card.selected { border-color: #9C27B0; background: #f3e5f5; }
+.match-card.matched { opacity: .55; cursor: default; }
+.match-card.correct { background: #e8f5e9; border-color: #4CAF50; }
+.match-card.wrong { background: #ffebee; border-color: #F44336; }
+.match-card .mc-icon { font-size: 24px; flex-shrink: 0; }
+
+.scenario-box {
+  background: linear-gradient(135deg, #fff3e0, #fff8e1);
+  border-left: 4px solid #ff9800;
+  border-radius: 8px; padding: 14px 16px;
+  font-size: 14px; line-height: 1.7;
+  margin-bottom: 14px;
+}
+.scenario-box .sc-tag {
+  display: inline-block; background: #ff9800; color: white;
+  padding: 2px 10px; border-radius: 8px; font-size: 11px;
+  margin-right: 6px; font-weight: bold;
+}
+.sc-choices { display: flex; flex-direction: column; gap: 8px; }
+.sc-choice {
+  background: #f5f7fa; border: 3px solid transparent;
+  border-radius: 10px; padding: 10px 14px;
+  cursor: pointer; transition: all .15s;
+  font-size: 14px; display: flex; align-items: center; gap: 10px;
+}
+.sc-choice:hover { border-color: #ffc107; background: #fff8e1; }
+.sc-choice.selected { border-color: #E91E63; background: #fce4ec; }
+.sc-choice.correct { border-color: #4CAF50; background: #e8f5e9; }
+.sc-choice.wrong { border-color: #F44336; background: #ffebee; }
+.sc-choice .sc-key {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: #E91E63; color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: bold; flex-shrink: 0;
+}
+.sc-choice.correct .sc-key { background: #4CAF50; }
+.sc-choice.wrong .sc-key { background: #F44336; }
+
+.feedback {
+  margin-top: 16px; padding: 12px 14px;
+  border-radius: 10px; font-size: 13px; line-height: 1.6;
+  display: none;
+}
+.feedback.show { display: block; animation: slideIn .3s; }
+.feedback.correct { background: #e8f5e9; border-left: 4px solid #4CAF50; color: #2e7d32; }
+.feedback.wrong { background: #fff8e1; border-left: 4px solid #ff9800; color: #e65100; }
+.feedback .fb-title { font-weight: bold; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+.fab {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  z-index: 50;
+  background: linear-gradient(135deg, #1565C0, #42A5F5);
+  color: white; border: none;
+  padding: 22px 14px;
+  border-radius: 30px;
+  font-size: 14px; font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(21,101,192,.5);
+  transition: all .2s;
+  display: none;
+  letter-spacing: 2px;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+.fab.show { display: block; }
+.fab:hover { transform: translateY(-50%) scale(1.05); box-shadow: 0 10px 28px rgba(21,101,192,.65); }
+.fab.prev { left: 16px; background: linear-gradient(135deg, #607D8B, #90A4AE); box-shadow: 0 8px 24px rgba(96,125,139,.5); }
+.fab.prev:hover { box-shadow: 0 10px 28px rgba(96,125,139,.65); }
+.fab.prev:disabled, .fab.prev.disabled { background: rgba(96,125,139,.4); cursor: not-allowed; box-shadow: none; }
+.fab.next { right: 16px; background: linear-gradient(135deg, #ff6b35, #ffd54f); box-shadow: 0 8px 24px rgba(255,107,53,.5); }
+.fab.next:hover { box-shadow: 0 10px 28px rgba(255,107,53,.65); }
+.fab .fab-arrow { font-size: 16px; margin: 0 4px; }
+
+.badge-view { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.badge-card {
+  background: rgba(255,255,255,.95); color: #333;
+  border-radius: 24px; padding: 36px 44px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,.3);
+  max-width: 460px;
+}
+.badge-card .trophy { font-size: 80px; animation: bounce 1.5s infinite; }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.badge-card h2 { font-size: 24px; color: #1565C0; margin: 12px 0 6px; }
+.badge-card .badge-name {
+  font-size: 22px; font-weight: bold;
+  background: linear-gradient(90deg, #ff6b35, #ffd54f);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin: 8px 0;
+}
+.badge-card .summary { font-size: 14px; color: #666; line-height: 1.7; margin: 10px 0; }
+.badge-card .cred { background: #f1f8e9; padding: 10px; border-radius: 8px; font-size: 12px; color: #555; margin-top: 14px; }
+.badge-card .actions { display: flex; gap: 12px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+.btn {
+  background: rgba(255,255,255,.95); color: #1565C0;
+  border: none; padding: 9px 22px;
+  border-radius: 22px; font-size: 13px;
+  font-weight: bold; cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  transition: all .2s;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.3); }
+.btn.primary { background: linear-gradient(135deg, #1565C0, #2196F3); color: white; }
+
+@media (max-width: 1024px) {
+  .role-grid, .level-map { grid-template-columns: repeat(3, 1fr); }
+  .section-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .subrole-grid { grid-template-columns: repeat(2, 1fr); }
+  .quiz-body { padding: 0 50px 100px; }
+}
+@media (max-width: 768px) {
+  html, body { overflow-y: auto; height: auto; }
+  .view { height: auto; padding: 12px; min-height: calc(100vh - 110px); }
+  .role-grid, .level-map, .subrole-grid { grid-template-columns: repeat(2, 1fr); }
+  .section-grid { grid-template-columns: 1fr; gap: 14px; }
+  .section-card { min-height: auto; padding: 20px 16px; }
+  .section-icon { width: 80px; height: 80px; font-size: 42px; }
+  .section-title { font-size: 20px; }
+  .title-block h1 { font-size: 26px; }
+  .top-bar { flex-direction: column; gap: 4px; }
+  .quiz-body { padding: 0 12px 100px; }
+  .ic-grid { grid-template-columns: 1fr; }
+  .match-board { grid-template-columns: 1fr; }
+  .fab { padding: 14px 8px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="float-food">🥗</div>
+<div class="float-food">🍎</div>
+<div class="float-food">🥦</div>
+<div class="float-food">🍓</div>
+<div class="float-food">🥑</div>
+<div class="float-food">🥕</div>
+
+<div class="top-bar">
+  <div class="brand">
+    <button class="back-btn" id="backBtn" onclick="goBack()" style="display:none">← 返回</button>
+    <div class="school-logo">🎓</div>
+    <div class="brand-text">
+      <div class="school">海南工商职业学院</div>
+      <div class="team">营养与健康 · 刘洋老师课程团队</div>
+    </div>
+  </div>
+  <div class="top-meta">
+    <div class="item">📚 <span>《营养与健康》</span></div>
+    <div class="item">🏫 <span>HNGS-YJK-2026</span></div>
+  </div>
+</div>
+
+<!-- 角色选择大厅 -->
+<div class="view active" id="view-role-select">
+  <div class="title-block">
+    <div class="pre-title">🍎 海南工商职业学院·刘洋老师课程团队 倾力打造</div>
+    <h1>🎮 营养与健康 · 闯关之旅</h1>
+    <div class="sub">选择你的 <b>学习入口</b>，开启定制化营养闯关之路</div>
+  </div>
+
+  <div class="section-grid">
+    <!-- 板块 1：营养师通关秘籍 -->
+    <div class="section-card sc1" onclick="enterRole('nutritionist')">
+      <div class="section-icon">👨‍⚕️</div>
+      <div class="section-title">营养师<br>通关秘籍</div>
+      <div class="section-desc">系统掌握营养学专业知识<br>成为餐桌 MVP</div>
+      <div class="section-targets">
+        <div class="section-target">📚 4 大关卡</div>
+        <div class="section-target">🎖️ 营养师勋章</div>
+      </div>
+      <button class="section-btn">进入闯关 →</button>
+    </div>
+
+    <!-- 板块 2：一般人群·营养基本功 -->
+    <div class="section-card sc2" onclick="enterRole('general')">
+      <div class="section-icon">🥗</div>
+      <div class="section-title">一般人群<br>营养基本功</div>
+      <div class="section-desc">2 岁以上健康人群<br>通用膳食指导</div>
+      <div class="section-targets">
+        <div class="section-target">🧒 儿童</div>
+        <div class="section-target">🧑‍🎓 青少年</div>
+        <div class="section-target">👨‍💼 成年人</div>
+      </div>
+      <button class="section-btn">进入闯关 →</button>
+    </div>
+
+    <!-- 板块 3：特殊人群·定制营养指南 -->
+    <div class="section-card sc3" onclick="enterRole('special')">
+      <div class="section-icon">💎</div>
+      <div class="section-title">特殊人群<br>定制营养指南</div>
+      <div class="section-desc">专属人群定制方案<br>针对性营养支持</div>
+      <div class="section-targets">
+        <div class="section-target">🤰 孕妇</div>
+        <div class="section-target">👶 婴幼儿</div>
+        <div class="section-target">👵 老年人</div>
+        <div class="section-target">💊 疾病人群</div>
+        <div class="section-target">🏃 运动员</div>
+      </div>
+      <button class="section-btn">进入闯关 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- 一般人群子分类选择 -->
+<div class="view" id="view-general-roles">
+  <div class="subrole-header">
+    <div class="role-tag" style="background:linear-gradient(135deg,#2196F3,#42A5F5);">🥗 一般人群·营养基本功</div>
+    <h2>🌟 请选择学习人群</h2>
+    <div class="sub">2 岁以上健康人群的通用膳食指导</div>
+  </div>
+  <div class="subrole-grid" id="generalRolesGrid"></div>
+</div>
+
+<!-- 特殊人群子分类选择 -->
+<div class="view" id="view-special-roles">
+  <div class="subrole-header">
+    <div class="role-tag" style="background:linear-gradient(135deg,#FF9800,#FFB74D);">💎 特殊人群·定制营养指南</div>
+    <h2>🌟 请选择人群类别</h2>
+    <div class="sub">针对不同特殊人群的专属营养方案</div>
+  </div>
+  <div class="subrole-grid" id="specialRolesGrid"></div>
+</div>
+
+<!-- 子角色选择（新手爸妈·4 个子角色） -->
+<div class="view" id="view-subrole-select">
+  <div class="subrole-header">
+    <div class="role-tag">👶 新手爸妈·宝宝阶段选择</div>
+    <h2>🌟 请选择宝宝阶段</h2>
+    <div class="sub">不同月龄的宝宝营养需求差异很大，请选择对应的成长阶段</div>
+  </div>
+  <div class="subrole-grid" id="subRoleGrid"></div>
+</div>
+
+<!-- 关卡地图 -->
+<div class="view" id="view-nutri-map">
+  <div class="nutri-map-header">
+    <div class="role-tag" id="mapRoleTag">👨‍⚕️ 营养师·专业通关路线</div>
+    <h2 id="mapTitle">🏆 营养师闯关地图</h2>
+    <div class="sub" id="mapSub">完成 4 关专业关卡，颁发「吃货营养师·餐桌 MVP」称号</div>
+  </div>
+  <div class="level-map" id="nutriLevelMap"></div>
+</div>
+
+<!-- 答题 -->
+<div class="view" id="view-nutri-quiz">
+  <div class="quiz-header">
+    <div class="quiz-title" id="quizTitle">第 1 关</div>
+    <div class="quiz-progress" id="quizProgress"></div>
+  </div>
+  <div class="quiz-body">
+    <div class="question-card" id="questionCard"></div>
+  </div>
+</div>
+
+<button class="fab prev" id="fabPrev" onclick="prevQuestion()"><span class="fab-arrow">◀</span> 上一题</button>
+<button class="fab next" id="fabNext" onclick="nextQuestion()">下一题 <span class="fab-arrow">▶</span></button>
+
+<!-- 勋章 -->
+<div class="view" id="view-nutri-badge">
+  <div class="badge-view">
+    <div class="badge-card">
+      <div class="trophy">🏆</div>
+      <h2>🎉 恭喜通关！</h2>
+      <div class="badge-name" id="badgeName">吃货营养师 · 餐桌 MVP</div>
+      <div class="summary" id="badgeSummary">
+        从吃货到餐桌 MVP，你已掌握全部营养学核心技能！<br>
+        <span style="font-size:13px;color:#888;" id="badgeTopics"></span><br>
+        <span id="badgeStats"></span>
+      </div>
+      <div class="cred">
+        🏫 海南工商职业学院 · 营养与健康<br>
+        👨‍🏫 刘洋老师课程团队 认证<br>
+        📅 2026 · HNGS-YJK-2026
+      </div>
+      <div class="actions">
+        <button class="btn primary" onclick="restartRole()">🔄 再玩一次</button>
+        <button class="btn" onclick="goBackToRole()">🏠 返回角色大厅</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-bar">
+  © 2026 海南工商职业学院 · 营养与健康 · 刘洋老师课程团队
+  <span>|</span> 课程编号 HNGS-YJK-2026
+  <span>|</span> 🍎 食全食美 · 营养中国
+</div>
+
+<script>
+/* =============================================
+   主角色配置
+   ============================================= */
+const ROLES = {
+  nutritionist: {
+    name: '营养师',
+    tag: '👨‍⚕️ 营养师·专业通关路线',
+    mapTitle: '🏆 营养师闯关地图',
+    badgeName: '吃货营养师 · 餐桌 MVP',
+    badgeSummary: '从吃货到餐桌 MVP，你已掌握全部营养学核心技能！',
+    badgeTopics: '通关内容：食物营养价值 · 营养配餐 · 膳食调查评价 · 食谱制定',
+    levels: [
+      { id: 'nutri-1', icon: '🥗', name: '认识食物的营养价值', desc: '食材猎人·拖拽配对' },
+      { id: 'nutri-2', icon: '🍱', name: '营养配餐', desc: '膳食建筑师·配餐评一评' },
+      { id: 'nutri-3', icon: '📋', name: '膳食调查和评价', desc: '营养侦探·调查连连看' },
+      { id: 'nutri-4', icon: '🍳', name: '营养价值食谱的制定', desc: '配餐大师·食谱设计' }
+    ]
+  },
+  pregnant: {
+    name: '孕妇',
+    tag: '🤰 孕妇·母婴守护路线',
+    mapTitle: '🌸 孕妇闯关地图',
+    badgeName: '孕妈守护者 · 母婴营养师',
+    badgeSummary: '从孕早期到孕晚期，你已掌握全程营养要点！',
+    badgeTopics: '通关内容：孕期关键营养素 · 孕期膳食安排 · 孕期食物安全 · 孕期问题应对',
+    levels: [
+      { id: 'preg-1', icon: '🌱', name: '孕期关键营养素', desc: '叶酸·DHA·铁·钙' },
+      { id: 'preg-2', icon: '🍽', name: '孕期膳食安排', desc: '孕早中晚期·体重管理' },
+      { id: 'preg-3', icon: '⚠️', name: '孕期食物安全', desc: '禁忌食物·食品安全' },
+      { id: 'preg-4', icon: '💪', name: '孕期问题应对', desc: '孕吐·贫血·妊娠糖尿病' }
+    ]
+  },
+  newbie: {
+    name: '新手爸妈',
+    tag: '👶 新手爸妈·宝宝成长路线',
+    mapTitle: '👶 新手爸妈闯关地图',
+    badgeName: '新手爸妈 · 全能守护者',
+    badgeSummary: '你已掌握 0-6 岁宝宝全程营养要点！',
+    badgeTopics: '',
+    hasSubRoles: true,
+    levels: []
+  }
+};
+
+/* =============================================
+   子角色配置（新手爸妈专用）
+   ============================================= */
+const SUB_ROLES = {
+  newborn: {
+    parentRole: 'newbie',
+    name: '新生儿',
+    icon: '👶',
+    age: '0 - 1 个月',
+    desc: '母乳是新生儿最佳食物，按需哺乳、初乳富含免疫球蛋白',
+    badgeName: '初乳守护者 · 新生儿营养师',
+    badgeSummary: '掌握了新生儿喂养核心要点，是合格的初乳守护者！',
+    badgeTopics: '通关内容：母乳喂养基础·护理要点·常见问题·发育指标',
+    levels: [
+      { id: 'newborn-1', icon: '🤱', name: '母乳喂养基础', desc: '母乳·初乳·按需哺乳' },
+      { id: 'newborn-2', icon: '💧', name: '护理要点', desc: '维生素D·黄疸·吐奶' },
+      { id: 'newborn-3', icon: '🍼', name: '常见问题应对', desc: '母乳不足·配方奶·催乳' },
+      { id: 'newborn-4', icon: '📊', name: '发育指标监测', desc: '体重·大小便·睡眠' }
+    ],
+    cssClass: 'sr-newborn'
+  },
+  infant: {
+    parentRole: 'newbie',
+    name: '婴幼儿',
+    icon: '🍼',
+    age: '1 - 12 个月',
+    desc: '6 月龄开始添加辅食，由稀到稠、由少到多',
+    badgeName: '辅食魔法师 · 婴幼儿营养师',
+    badgeSummary: '掌握了辅食添加与转奶要点，是合格的辅食魔法师！',
+    badgeTopics: '通关内容：辅食基础·辅食进阶与转奶·营养与发育·饮食习惯',
+    levels: [
+      { id: 'infant-1', icon: '🥄', name: '辅食添加基础', desc: '6月龄·米糊·顺序' },
+      { id: 'infant-2', icon: '🔄', name: '辅食进阶与转奶', desc: '7-9月·转奶·过敏' },
+      { id: 'infant-3', icon: '🥛', name: '营养与发育', desc: '奶量·钙铁锌·咀嚼' },
+      { id: 'infant-4', icon: '🍴', name: '饮食习惯培养', desc: '兴趣·戒奶瓶·糖盐' }
+    ],
+    cssClass: 'sr-infant'
+  },
+  preschool: {
+    parentRole: 'newbie',
+    name: '学龄前儿童',
+    icon: '🧒',
+    age: '1 - 3 岁',
+    desc: '三餐两点制，每天 300-500ml 奶，挑食纠正',
+    badgeName: '餐桌引诱者 · 挑食终结者',
+    badgeSummary: '掌握了学龄前膳食安排要点，是合格的挑食终结者！',
+    badgeTopics: '通关内容：膳食结构·营养素需求·饮食习惯·零食与安全',
+    levels: [
+      { id: 'preschool-1', icon: '🍽', name: '膳食结构', desc: '三餐两点·奶·多样化' },
+      { id: 'preschool-2', icon: '🦴', name: '营养素需求', desc: '钙铁锌·维生素A' },
+      { id: 'preschool-3', icon: '🍴', name: '饮食习惯养成', desc: '挑食·氛围·细嚼' },
+      { id: 'preschool-4', icon: '🍪', name: '零食与安全', desc: '健康零食·糖·安全' }
+    ],
+    cssClass: 'sr-preschool'
+  },
+  child: {
+    parentRole: 'newbie',
+    name: '儿童',
+    icon: '👦',
+    age: '3 - 6 岁',
+    desc: '三餐合理搭配，钙铁锌补充，视力保护',
+    badgeName: '营养小当家 · 儿童守护者',
+    badgeSummary: '掌握了 3-6 岁儿童营养搭配要点，是合格的儿童守护者！',
+    badgeTopics: '通关内容：一日三餐·营养素强化·饮食习惯·特殊关注',
+    levels: [
+      { id: 'child-1', icon: '🍱', name: '一日三餐搭配', desc: '三餐·早餐·多样化' },
+      { id: 'child-2', icon: '💪', name: '营养素强化', desc: '钙·护眼·DHA·铁' },
+      { id: 'child-3', icon: '🍴', name: '饮食习惯', desc: '细嚼·控糖·饮水' },
+      { id: 'child-4', icon: '👁', name: '特殊关注', desc: '视力·身高·免疫·换牙' }
+    ],
+    cssClass: 'sr-child'
+  }
+};
+
+/* =============================================
+   一般人群子角色配置（一般人群·营养基本功）
+   ============================================= */
+const GENERAL_ROLES = {
+  child: {
+    parentSection: 'general',
+    name: '儿童',
+    icon: '🧒',
+    age: '3 - 12 岁',
+    desc: '学龄期是生长发育关键期，培养良好饮食习惯',
+    badgeName: '餐桌小达人 · 儿童守护者',
+    badgeSummary: '掌握了儿童期核心营养要点，成为餐桌小达人！',
+    badgeTopics: '通关内容：均衡膳食·营养素需求·饮食习惯·零食与视力',
+    levels: [
+      { id: 'gen-child-1', icon: '🍽', name: '均衡膳食基础', desc: '三餐·奶·食物多样' },
+      { id: 'gen-child-2', icon: '💪', name: '营养素需求', desc: '钙铁锌·维A·DHA' },
+      { id: 'gen-child-3', icon: '🍴', name: '饮食习惯养成', desc: '细嚼慢咽·不挑食·饮水' },
+      { id: 'gen-child-4', icon: '🍪', name: '零食与视力', desc: '健康零食·含糖饮料·护眼' }
+    ],
+    cssClass: 'sr-infant'
+  },
+  teen: {
+    parentSection: 'general',
+    name: '青少年',
+    icon: '🧑‍🎓',
+    age: '13 - 18 岁',
+    desc: '青春期发育冲刺、考试压力大，需要针对性营养',
+    badgeName: '青春营养师 · 活力满分',
+    badgeSummary: '掌握了青春期营养要点，活力满满迎接成长！',
+    badgeTopics: '通关内容：生长发育·考试营养·体重形象·心理与饮食',
+    levels: [
+      { id: 'gen-teen-1', icon: '📏', name: '生长发育关键期', desc: '身高·第二性征·骨骼' },
+      { id: 'gen-teen-2', icon: '🧠', name: '考试营养', desc: '健脑·补血·缓解疲劳' },
+      { id: 'gen-teen-3', icon: '⚖️', name: '体重与形象', desc: 'BMI·合理减重·不极端' },
+      { id: 'gen-teen-4', icon: '💆', name: '心理与饮食', desc: '情绪饮食·暴食预防' }
+    ],
+    cssClass: 'sr-preschool'
+  },
+  adult: {
+    parentSection: 'general',
+    name: '成年人',
+    icon: '👨‍💼',
+    age: '18 - 65 岁',
+    desc: '工作人群平衡膳食、慢病预防是关键',
+    badgeName: '健康基石 · 成年人专属',
+    badgeSummary: '掌握了成年人膳食要点，为健康人生打下基础！',
+    badgeTopics: '通关内容：膳食基础·办公室健康·压力营养·慢病预防',
+    levels: [
+      { id: 'gen-adult-1', icon: '📚', name: '健康膳食基础', desc: '膳食指南·食物多样' },
+      { id: 'gen-adult-2', icon: '💻', name: '办公室健康', desc: '久坐·外卖·应酬酒水' },
+      { id: 'gen-adult-3', icon: '😌', name: '压力与营养', desc: '抗压食物·睡眠·咖啡因' },
+      { id: 'gen-adult-4', icon: '🛡', name: '慢病早期预防', desc: '三高预防·肥胖管理' }
+    ],
+    cssClass: 'sr-child'
+  }
+};
+
+/* =============================================
+   题库
+   ============================================= */
+const QUESTION_BANK = {
+  nutritionist: {
+    'nutri-1': { title: '第 1 关 · 认识食物的营养价值', questions: [
+      { type:'drag-bin', prompt:'🥗 食材大冒险：把下列食物拖到对应的营养素类别', hint:'💡 拖动食物卡到下面的分类框中',
+        items:[{id:'egg',name:'鸡蛋',icon:'🥚'},{id:'rice',name:'米饭',icon:'🍚'},{id:'orange',name:'橙子',icon:'🍊'},{id:'milk',name:'牛奶',icon:'🥛'}],
+        bins:[{id:'protein',name:'蛋白质',icon:'💪'},{id:'carb',name:'碳水化合物',icon:'🍞'},{id:'vitc',name:'维生素 C',icon:'🍊'},{id:'calcium',name:'钙',icon:'🦴'}],
+        answer:{'egg':'protein','rice':'carb','orange':'vitc','milk':'calcium'},
+        exp:'鸡蛋富含蛋白质；米饭主要提供碳水；橙子富含维生素 C；牛奶是钙的优质来源。' },
+      { type:'image-choice', prompt:'🍚 看图选答：右图食物中含量最多的营养素是？', image:'🥚',
+        choices:[{icon:'🍞',text:'碳水化合物'},{icon:'💪',text:'蛋白质'},{icon:'🥑',text:'脂肪'},{icon:'🍊',text:'维生素 C'}],
+        answer:1, exp:'鸡蛋蛋白质含量约 13%，氨基酸模式接近人体需要，是优质蛋白来源。' },
+      { type:'match', prompt:'🔗 营养连连看：把维生素和对应的缺乏症配对',
+        left:[{id:'A',icon:'🥕',text:'维生素 A'},{id:'B',icon:'🌾',text:'维生素 B1'},{id:'C',icon:'🍋',text:'维生素 C'},{id:'D',icon:'☀️',text:'维生素 D'}],
+        right:[{id:'1',icon:'🌙',text:'夜盲症'},{id:'2',icon:'🦵',text:'脚气病'},{id:'3',icon:'🩸',text:'坏血病'},{id:'4',icon:'🦴',text:'佝偻病'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'VA 缺乏→夜盲症；VB1 缺乏→脚气病；VC 缺乏→坏血病；VD 缺乏→佝偻病。' },
+      { type:'image-choice', prompt:'🌙 症状诊断：出现夜盲症、毛发干枯，最可能缺乏？', image:'😵',
+        choices:[{icon:'🥕',text:'维生素 A'},{icon:'🍚',text:'碳水化合物'},{icon:'🧂',text:'食盐（钠）'},{icon:'🥩',text:'蛋白质'}],
+        answer:0, exp:'夜盲症、皮肤干燥、毛发干枯是维生素 A 缺乏的典型症状。' },
+      { type:'drag-bin', prompt:'🌟 优质蛋白筛选：把属于"优质蛋白"的食物拖入右侧', hint:'💡 优质蛋白含必需氨基酸齐全',
+        items:[{id:'tofu',name:'豆腐',icon:'🍢'},{id:'rice',name:'米饭',icon:'🍚'},{id:'fish',name:'鱼肉',icon:'🐟'},{id:'apple',name:'苹果',icon:'🍎'}],
+        bins:[{id:'good',name:'优质蛋白',icon:'✅'},{id:'normal',name:'普通蛋白',icon:'➖'}],
+        answer:{'tofu':'good','fish':'good','rice':'normal','apple':'normal'},
+        exp:'豆腐（大豆蛋白）和鱼肉是优质蛋白；米饭、苹果蛋白含量少且不完全。' }
+    ]},
+    'nutri-2': { title: '第 2 关 · 营养配餐', questions: [
+      { type:'drag-bin', prompt:'🗼 膳食建筑师：把下列食物放到膳食宝塔的正确层', hint:'💡 宝塔底层吃得最多，顶层最少',
+        items:[{id:'rice',name:'米饭',icon:'🍚'},{id:'veg',name:'菠菜',icon:'🥬'},{id:'meat',name:'猪肉',icon:'🥩'},{id:'oil',name:'植物油',icon:'🛢️'}],
+        bins:[{id:'bottom',name:'底层(最多)',icon:'⬇️'},{id:'mid2',name:'第三层',icon:'🥗'},{id:'mid3',name:'第四层',icon:'🍖'},{id:'top',name:'顶层(最少)',icon:'⬆️'}],
+        answer:{'rice':'bottom','veg':'mid2','meat':'mid3','oil':'top'},
+        exp:'宝塔 5 层：底层谷薯(多)，第二层蔬果，第三层动物性食物，第四层奶豆坚果，顶层油盐(少)。' },
+      { type:'image-choice', prompt:'🍱 三餐能量：推荐的早中晚三餐能量分配比例是？', image:'🍽️',
+        choices:[{icon:'①',text:'1:1:1'},{icon:'②',text:'3:4:3（推荐）'},{icon:'③',text:'4:4:2'},{icon:'④',text:'2:5:3'}],
+        answer:1, exp:'推荐早:午:晚 = 3:4:3。' },
+      { type:'image-choice', prompt:'🥬 蔬菜摄入：成年人每日蔬菜推荐摄入量为？', image:'🥦',
+        choices:[{icon:'🥗',text:'100-200 g'},{icon:'🥬',text:'300-500 g'},{icon:'🥒',text:'600-800 g'},{icon:'🍅',text:'1000 g 以上'}],
+        answer:1, exp:'推荐每日蔬菜 300-500 g，深色蔬菜应占一半以上。' },
+      { type:'scenario', prompt:'🧐 食谱评一评：以下学生一日食谱合理吗？',
+        scenario:'早餐：油条 + 甜豆浆\n午餐：炸鸡腿 + 可乐 + 少量米饭\n晚餐：红烧肉 + 米饭 + 咸菜',
+        choices:[{key:'A',text:'合理'},{key:'B',text:'不合理：缺蔬果、油过多、缺奶豆'},{key:'C',text:'合理，蛋白质充足'},{key:'D',text:'不合理：早餐太清淡'}],
+        answer:1, exp:'缺蔬菜水果，油炸过多、油盐超标，无奶豆。' },
+      { type:'image-choice', prompt:'🌈 食物多样：建议每天食物种类不少于多少种？', image:'🍱',
+        choices:[{icon:'5',text:'5 种'},{icon:'8',text:'8 种'},{icon:'12',text:'12 种'},{icon:'20',text:'20 种'}],
+        answer:2, exp:'每天食物种类不少于 12 种，每周不少于 25 种。' }
+    ]},
+    'nutri-3': { title: '第 3 关 · 膳食调查和评价', questions: [
+      { type:'match', prompt:'🔍 调查方法连连看：把方法和特点配对',
+        left:[{id:'A',icon:'⏱️',text:'24h 回顾法'},{id:'B',icon:'⚖️',text:'称重法'},{id:'C',icon:'📒',text:'记账法'},{id:'D',icon:'📋',text:'食物频率法'}],
+        right:[{id:'1',icon:'🎯',text:'准确度最高'},{id:'2',icon:'👥',text:'适合大样本'},{id:'3',icon:'🕐',text:'调查过去 24 小时'},{id:'4',icon:'📆',text:'调查长期习惯'}],
+        answer:{'A':'3','B':'1','C':'2','D':'4'},
+        exp:'称重法准确度最高；记账法适合大样本；24h 回顾法调查过去 24 小时；食物频率法调查长期习惯。' },
+      { type:'image-choice', prompt:'📖 缩写解读：DRIs 是指？', image:'📚',
+        choices:[{icon:'📊',text:'每日营养素摄入量'},{icon:'📈',text:'膳食营养素参考摄入量'},{icon:'📉',text:'营养素最高摄入量'},{icon:'📋',text:'营养素缺乏量'}],
+        answer:1, exp:'DRIs = Dietary Reference Intakes，膳食营养素参考摄入量。' },
+      { type:'scenario', prompt:'🎯 选对方法：某幼儿园需对 200 名儿童开展长期膳食调查，最适合？',
+        scenario:'调查规模：200 名 3-6 岁儿童\n调查时长：连续 1 个月',
+        choices:[{key:'A',text:'称重法'},{key:'B',text:'记账法'},{key:'C',text:'24 小时回顾法'},{key:'D',text:'平衡试验法'}],
+        answer:1, exp:'记账法操作简便，适合大样本、较长时段调查。' },
+      { type:'image-choice', prompt:'⚖️ 能量来源：推荐的三大营养素供能比是？', image:'🥗',
+        choices:[{icon:'①',text:'蛋白质 15% / 脂肪 25% / 碳水 60%'},{icon:'②',text:'蛋白质 25% / 脂肪 15% / 碳水 60%'},{icon:'③',text:'蛋白质 15% / 脂肪 60% / 碳水 25%'},{icon:'④',text:'蛋白质 60% / 脂肪 25% / 碳水 15%'}],
+        answer:0, exp:'蛋白质 10-15%、脂肪 20-30%、碳水 55-65%。' },
+      { type:'image-choice', prompt:'🥇 蛋白质量：评价蛋白质质量的常用指标不包括？', image:'🥚',
+        choices:[{icon:'📊',text:'蛋白质含量'},{icon:'🔬',text:'氨基酸评分 AAS'},{icon:'🔎',text:'蛋白质消化率'},{icon:'🛒',text:'以上都包括'}],
+        answer:3, exp:'评价蛋白质质量综合考虑含量、AAS、生物价、消化率等。' }
+    ]},
+    'nutri-4': { title: '第 4 关 · 营养价值食谱的制定', questions: [
+      { type:'drag-bin', prompt:'🍱 私人营养师：把下列食物拖到适合的人群', hint:'💡 不同人群营养需求不同',
+        items:[{id:'milk',name:'牛奶',icon:'🥛'},{id:'iron',name:'猪肝',icon:'🥩'},{id:'fish',name:'深海鱼',icon:'🐟'},{id:'cal',name:'豆腐',icon:'🍢'}],
+        bins:[{id:'preg',name:'孕妇',icon:'🤰'},{id:'child',name:'幼儿',icon:'👶'},{id:'elder',name:'老年人',icon:'👵'},{id:'all',name:'通用',icon:'🌟'}],
+        answer:{'milk':'child','iron':'preg','fish':'all','cal':'elder'},
+        exp:'幼儿多喝牛奶补钙；孕妇需补铁；深海鱼富含 DHA 各人群均有益；豆腐钙丰富适合老人。' },
+      { type:'image-choice', prompt:'📋 食谱编制：制定食谱的首要步骤是？', image:'📝',
+        choices:[{icon:'①',text:'确定服务对象和营养素目标'},{icon:'②',text:'选购食材'},{icon:'③',text:'计算价格'},{icon:'④',text:'设计菜名'}],
+        answer:0, exp:'首先要明确对象的性别、年龄、劳动强度，再计算营养素目标。' },
+      { type:'scenario', prompt:'📜 食谱评价：以下食谱能否作为合格的"一日食谱"？',
+        scenario:'食谱：\n🍳 早餐：牛奶 + 鸡蛋 + 全麦面包\n🍚 午餐：米饭 + 青菜 + 红烧肉\n🥗 晚餐：米饭 + 豆腐 + 蔬菜汤',
+        choices:[{key:'A',text:'不合格：缺水果和奶豆'},{key:'B',text:'不合格：动物性食物太多'},{key:'C',text:'基本合格'},{key:'D',text:'不合格：缺主食'}],
+        answer:2, exp:'主食+蛋白+蔬果均有，搭配合理，符合平衡膳食。' },
+      { type:'image-choice', prompt:'📊 食谱评价：以下哪个不是食谱评价指标？', image:'📈',
+        choices:[{icon:'⚡',text:'总能量'},{icon:'🥩',text:'三大营养素供能比'},{icon:'🍽️',text:'餐次能量分配'},{icon:'💰',text:'食物的市场价格'}],
+        answer:3, exp:'食谱评价关注营养素充足与平衡，不以价格为指标。' },
+      { type:'image-choice', prompt:'🥇 蛋白搭配：优质蛋白质应占膳食蛋白质总量的？', image:'🍖',
+        choices:[{icon:'¼',text:'1/4 以上'},{icon:'⅓',text:'1/3 以上'},{icon:'½',text:'1/2 以上'},{icon:'⅔',text:'2/3 以上'}],
+        answer:1, exp:'推荐优质蛋白占膳食蛋白总量的 1/3 以上。' }
+    ]}
+  },
+  pregnant: {
+    'preg-1': { title: '第 1 关 · 孕期关键营养素', questions: [
+      { type:'drag-bin', prompt:'🌱 营养素配对：把下列营养素拖到对应的功能', hint:'💡 不同营养素对孕期有不同重要作用',
+        items:[{id:'folic',name:'叶酸',icon:'🌱'},{id:'dha',name:'DHA',icon:'🐟'},{id:'iron',name:'铁',icon:'🩸'},{id:'cal',name:'钙',icon:'🦴'}],
+        bins:[{id:'nt',name:'预防神经管畸形',icon:'🧠'},{id:'brain',name:'促进大脑发育',icon:'👶'},{id:'blood',name:'预防贫血',icon:'💉'},{id:'bone',name:'促进骨骼发育',icon:'🦴'}],
+        answer:{'folic':'nt','dha':'brain','iron':'blood','cal':'bone'},
+        exp:'叶酸预防神经管畸形；DHA 促进胎儿大脑发育；铁预防缺铁性贫血；钙促进胎儿骨骼发育。' },
+      { type:'image-choice', prompt:'🌿 叶酸补充：叶酸的最佳补充时机是？', image:'🌿',
+        choices:[{icon:'💑',text:'孕前 3 个月开始'},{icon:'🤰',text:'确认怀孕后开始'},{icon:'👶',text:'孕晚期开始'},{icon:'🎂',text:'出生后开始'}],
+        answer:0, exp:'叶酸应从孕前 3 个月开始补充。' },
+      { type:'match', prompt:'🔗 营养来源：把营养素和优质食物来源配对',
+        left:[{id:'A',icon:'🌱',text:'叶酸'},{id:'B',icon:'🐟',text:'DHA'},{id:'C',icon:'🩸',text:'铁'},{id:'D',icon:'🦴',text:'钙'}],
+        right:[{id:'1',icon:'🥬',text:'菠菜/动物肝脏'},{id:'2',icon:'🐠',text:'深海鱼'},{id:'3',icon:'🍖',text:'瘦肉/动物血'},{id:'4',icon:'🥛',text:'牛奶/奶制品'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'叶酸主要在菠菜、动物肝；DHA 在深海鱼；铁在瘦肉、动物血；钙在牛奶及奶制品。' },
+      { type:'image-choice', prompt:'🐟 DHA 摄入：富含 DHA 的食物是？', image:'👶',
+        choices:[{icon:'🐟',text:'三文鱼/深海鱼'},{icon:'🍞',text:'白面包'},{icon:'🍚',text:'米饭'},{icon:'🥬',text:'白菜'}],
+        answer:0, exp:'深海鱼富含 DHA，孕妇每周吃 2-3 次。' },
+      { type:'scenario', prompt:'🤰 孕早期营养：小李刚确认怀孕，最需要补充什么？',
+        scenario:'小李 28 岁，刚用早孕试纸测出怀孕，第一次产检还没做。',
+        choices:[{key:'A',text:'立刻大补燕窝人参'},{key:'B',text:'继续补充叶酸 + 均衡饮食'},{key:'C',text:'开始吃蛋白粉'},{key:'D',text:'喝孕妇奶粉就够了'}],
+        answer:1, exp:'孕早期最重要是继续补充叶酸，保持均衡饮食。' },
+      { type:'drag-bin', prompt:'🌿 叶酸食材：把富含叶酸的食物拖入右侧', hint:'💡 绿叶蔬菜和动物肝脏是叶酸的好来源',
+        items:[{id:'spinach',name:'菠菜',icon:'🥬'},{id:'liver',name:'猪肝',icon:'🥩'},{id:'cola',name:'可乐',icon:'🥤'},{id:'rice',name:'米饭',icon:'🍚'}],
+        bins:[{id:'rich',name:'叶酸丰富',icon:'✅'},{id:'poor',name:'叶酸少',icon:'➖'}],
+        answer:{'spinach':'rich','liver':'rich','cola':'poor','rice':'poor'},
+        exp:'菠菜、猪肝叶酸含量高；可乐、米饭叶酸含量很低。' },
+      { type:'image-choice', prompt:'🩸 孕期铁：孕妇为什么需要更多铁？', image:'🤰',
+        choices:[{icon:'①',text:'胎儿生长和母体血容量增加'},{icon:'②',text:'让皮肤变红润'},{icon:'③',text:'预防感冒'},{icon:'④',text:'增加食欲'}],
+        answer:0, exp:'孕期母体血容量增加约 50%，加上胎儿发育需要，孕妇对铁的需求大幅增加。' }
+    ]},
+    'preg-2': { title: '第 2 关 · 孕期膳食安排', questions: [
+      { type:'drag-bin', prompt:'🤰 孕期阶段营养：把营养重点拖到对应孕期', hint:'💡 不同阶段营养需求不同',
+        items:[{id:'folic',name:'叶酸',icon:'🌱'},{id:'iron',name:'铁',icon:'🩸'},{id:'cal',name:'钙',icon:'🦴'},{id:'energy',name:'增加能量',icon:'⚡'}],
+        bins:[{id:'early',name:'孕早期',icon:'🌸'},{id:'mid',name:'孕中期',icon:'🌿'},{id:'late',name:'孕晚期',icon:'🌳'}],
+        answer:{'folic':'early','iron':'mid','cal':'late','energy':'late'},
+        exp:'孕早期重点补叶酸；孕中期重点补铁；孕晚期重点补钙、增加能量摄入。' },
+      { type:'image-choice', prompt:'⚖️ 体重增长：孕前 BMI 正常的孕妇，整个孕期推荐增重多少？', image:'🤰',
+        choices:[{icon:'5kg',text:'约 5 kg'},{icon:'8kg',text:'约 8 kg'},{icon:'13kg',text:'约 11.5-16 kg'},{icon:'20kg',text:'约 20 kg'}],
+        answer:2, exp:'孕前 BMI 正常者，整个孕期推荐增重 11.5-16 kg。' },
+      { type:'image-choice', prompt:'🩸 孕中期铁：孕中期铁推荐摄入量是多少？', image:'🥩',
+        choices:[{icon:'10',text:'10 mg/天'},{icon:'20',text:'20 mg/天'},{icon:'29',text:'29 mg/天'},{icon:'40',text:'40 mg/天'}],
+        answer:2, exp:'孕中期铁推荐摄入量为 29 mg/天。' },
+      { type:'scenario', prompt:'🤮 孕吐应对：小王孕 8 周，孕吐严重，吃什么好？',
+        scenario:'小王孕 8 周，每天呕吐 3-4 次，闻到油烟味就恶心。',
+        choices:[{key:'A',text:'饿着不吃等孕吐过去'},{key:'B',text:'少食多餐 + 苏打饼干 + 姜'},{key:'C',text:'吃辛辣刺激开胃'},{key:'D',text:'大量喝咖啡提神'}],
+        answer:1, exp:'孕吐应少食多餐，避免油腻，尝试苏打饼干、姜片或维生素 B6。' },
+      { type:'image-choice', prompt:'🌈 食物多样：孕妇每天食物种类应不少于？', image:'🍱',
+        choices:[{icon:'8',text:'8 种'},{icon:'12',text:'12 种'},{icon:'20',text:'20 种'},{icon:'30',text:'30 种'}],
+        answer:1, exp:'每天食物种类不少于 12 种，每周不少于 25 种。' },
+      { type:'image-choice', prompt:'🥛 奶制品：孕妇每天推荐饮用奶制品多少？', image:'🥛',
+        choices:[{icon:'100',text:'100-200 ml'},{icon:'300',text:'300-500 ml'},{icon:'700',text:'700-1000 ml'},{icon:'1500',text:'1500 ml 以上'}],
+        answer:1, exp:'孕妇每天推荐饮用奶制品 300-500 ml。' },
+      { type:'drag-bin', prompt:'🥗 孕期推荐食物：把孕期推荐多吃的食物拖入右侧', hint:'💡 优质蛋白 + 富铁 + 富叶酸',
+        items:[{id:'fish',name:'深海鱼',icon:'🐟'},{id:'egg',name:'鸡蛋',icon:'🥚'},{id:'liver',name:'动物肝',icon:'🥩'},{id:'coffee',name:'咖啡',icon:'☕'}],
+        bins:[{id:'good',name:'推荐多吃',icon:'✅'},{id:'limit',name:'限制食用',icon:'⚠️'}],
+        answer:{'fish':'good','egg':'good','liver':'good','coffee':'limit'},
+        exp:'深海鱼、鸡蛋、动物肝都是孕期推荐；咖啡因建议每天不超过 200 mg。' }
+    ]},
+    'preg-3': { title: '第 3 关 · 孕期食物安全', questions: [
+      { type:'image-choice', prompt:'🚫 孕期禁忌：以下哪种是孕期绝对禁忌的？', image:'⚠️',
+        choices:[{icon:'🍎',text:'新鲜苹果'},{icon:'🍺',text:'饮酒'},{icon:'🥛',text:'巴氏消毒牛奶'},{icon:'🍚',text:'熟米饭'}],
+        answer:1, exp:'孕期绝对禁忌烟酒。' },
+      { type:'drag-bin', prompt:'🚫 风险食物：把孕期应避免的食物拖入右侧', hint:'💡 生冷、高汞、未消毒有风险',
+        items:[{id:'sushi',name:'生鱼片',icon:'🍣'},{id:'softEgg',name:'溏心蛋',icon:'🥚'},{id:'sword',name:'鲨鱼/剑鱼',icon:'🦈'},{id:'apple',name:'苹果',icon:'🍎'}],
+        bins:[{id:'avoid',name:'应避免',icon:'❌'},{id:'safe',name:'安全',icon:'✅'}],
+        answer:{'sushi':'avoid','softEgg':'avoid','sword':'avoid','apple':'safe'},
+        exp:'生鱼片、溏心蛋可能含致病菌；鲨鱼、剑鱼等大型鱼汞含量高；新鲜苹果安全。' },
+      { type:'image-choice', prompt:'☕ 咖啡因：孕妇每天咖啡因摄入不超过？', image:'☕',
+        choices:[{icon:'0',text:'0 mg'},{icon:'200',text:'200 mg'},{icon:'400',text:'400 mg'},{icon:'600',text:'600 mg'}],
+        answer:1, exp:'孕妇每天咖啡因不超过 200 mg（约 1 杯咖啡）。' },
+      { type:'scenario', prompt:'🍣 朋友请客：朋友推荐孕期的小李吃新鲜刺身，正确选择是？',
+        scenario:'小李孕 20 周，朋友过生日请吃日料，菜单上有三文鱼刺身。',
+        choices:[{key:'A',text:'欣然接受，刺身营养高'},{key:'B',text:'婉拒，选择熟食'},{key:'C',text:'蘸大量芥末杀菌后吃'},{key:'D',text:'只吃一片没事'}],
+        answer:1, exp:'孕期应避免生鱼片等生冷食物。' },
+      { type:'image-choice', prompt:'🦈 高汞鱼：以下哪种鱼汞含量高，孕妇应避免？', image:'🐟',
+        choices:[{icon:'🐟',text:'三文鱼'},{icon:'🐠',text:'鲭鱼'},{icon:'🦈',text:'鲨鱼'},{icon:'🐡',text:'带鱼'}],
+        answer:2, exp:'鲨鱼、剑鱼、金枪鱼大块等大型肉食鱼汞含量高。' },
+      { type:'match', prompt:'🔗 风险连连看：把食物和风险类型配对',
+        left:[{id:'A',icon:'🍣',text:'生鱼片'},{id:'B',icon:'🧀',text:'未消毒奶酪'},{id:'C',icon:'☕',text:'大量咖啡'},{id:'D',icon:'🦈',text:'鲨鱼肉'}],
+        right:[{id:'1',icon:'🦠',text:'李斯特菌'},{id:'2',icon:'🧠',text:'汞中毒风险'},{id:'3',icon:'😴',text:'影响胎儿睡眠'},{id:'4',icon:'🤢',text:'胃部不适'}],
+        answer:{'A':'1','B':'1','C':'3','D':'2'},
+        exp:'生鱼片和未消毒奶酪可能含李斯特菌；大量咖啡影响胎儿睡眠；鲨鱼汞含量高。' },
+      { type:'image-choice', prompt:'💊 孕期用药：关于孕期用药的正确说法是？', image:'💊',
+        choices:[{icon:'🚫',text:'所有药物都不能吃'},{icon:'👨‍⚕️',text:'必须遵医嘱'},{icon:'💊',text:'中成药完全安全'},{icon:'🤰',text:'孕晚期可随意用药'}],
+        answer:1, exp:'孕期用药必须严格遵医嘱。' }
+    ]},
+    'preg-4': { title: '第 4 关 · 孕期问题应对', questions: [
+      { type:'drag-bin', prompt:'💪 问题对策：把症状和营养建议配对', hint:'💡 不同孕期症状需要不同营养支持',
+        items:[{id:'fiber',name:'膳食纤维+水',icon:'🥬'},{id:'vb6',name:'VB6 + 少食多餐',icon:'🥖'},{id:'iron',name:'铁 + 维 C',icon:'🩸'},{id:'lowgi',name:'低 GI 碳水',icon:'🍚'}],
+        bins:[{id:'constip',name:'便秘',icon:'🚽'},{id:'vomit',name:'孕吐',icon:'🤮'},{id:'anemia',name:'贫血',icon:'😵'},{id:'gd',name:'妊娠糖尿病',icon:'🩺'}],
+        answer:{'fiber':'constip','vb6':'vomit','iron':'anemia','lowgi':'gd'},
+        exp:'便秘多吃膳食纤维+水；孕吐少食多餐+VB6；贫血补铁+维C；妊糖选低GI主食。' },
+      { type:'image-choice', prompt:'🤮 孕吐严重：孕吐严重时不宜吃？', image:'🤮',
+        choices:[{icon:'🍪',text:'苏打饼干'},{icon:'🥛',text:'少量酸奶'},{icon:'🍟',text:'油炸薯条'},{icon:'🍌',text:'香蕉'}],
+        answer:2, exp:'孕吐时避免油腻、辛辣、刺激性食物。' },
+      { type:'image-choice', prompt:'🚽 便秘缓解：孕妇便秘应多摄入？', image:'🥬',
+        choices:[{icon:'🥩',text:'高蛋白食物'},{icon:'🥬',text:'膳食纤维 + 饮水'},{icon:'🍫',text:'巧克力'},{icon:'☕',text:'浓咖啡'}],
+        answer:1, exp:'多吃全谷物、蔬菜水果等富含膳食纤维的食物。' },
+      { type:'scenario', prompt:'🩺 妊娠糖尿病：小张孕 26 周查出妊娠糖尿病，饮食应如何调整？',
+        scenario:'小张孕 26 周，OGTT 试验异常，被诊断为妊娠糖尿病。',
+        choices:[{key:'A',text:'完全不吃主食'},{key:'B',text:'选择低 GI 主食 + 少量多餐 + 控糖'},{key:'C',text:'随便吃，吃药就行'},{key:'D',text:'只吃水果蔬菜'}],
+        answer:1, exp:'选择低 GI 主食（如全麦、糙米），少量多餐，控制总能量。' },
+      { type:'image-choice', prompt:'🩸 预防贫血：促进铁吸收的最佳搭档是？', image:'🥩',
+        choices:[{icon:'☕',text:'咖啡/茶'},{icon:'🍊',text:'维生素 C（如橙子）'},{icon:'🥛',text:'牛奶'},{icon:'🍞',text:'白面包'}],
+        answer:1, exp:'维生素 C 能将三价铁还原为二价铁，促进铁吸收。' },
+      { type:'image-choice', prompt:'💧 孕期水肿：关于水肿的正确说法是？', image:'🦶',
+        choices:[{icon:'🚫',text:'必须完全不吃盐'},{icon:'⚖️',text:'低盐饮食 + 抬高下肢 + 充足蛋白'},{icon:'💊',text:'自行吃利尿药'},{icon:'🥤',text:'少喝水'}],
+        answer:1, exp:'孕期水肿应低盐饮食（不是无盐），抬高下肢休息。' },
+      { type:'drag-bin', prompt:'🍰 妊糖饮食：把妊糖应避免的食物拖入右侧', hint:'💡 高 GI、高糖、高脂',
+        items:[{id:'cake',name:'蛋糕',icon:'🎂'},{id:'rice',name:'白米饭',icon:'🍚'},{id:'cola',name:'可乐',icon:'🥤'},{id:'oats',name:'燕麦',icon:'🌾'}],
+        bins:[{id:'avoid',name:'应限制',icon:'❌'},{id:'ok',name:'可适量',icon:'✅'}],
+        answer:{'cake':'avoid','rice':'avoid','cola':'avoid','oats':'ok'},
+        exp:'蛋糕、可乐高糖；白米饭 GI 高；燕麦属于低 GI。' }
+    ]}
+  },
+  newbie: {
+    'newborn-1': { title: '新生儿喂养', questions: [
+      { type:'drag-bin', prompt:'🍼 喂养方式对比：把下列特点拖到对应喂养方式', hint:'💡 母乳是新生儿最佳食物',
+        items:[{id:'antibody',name:'富含抗体',icon:'🛡️'},{id:'convenient',name:'方便免冲调',icon:'✨'},{id:'temp',name:'温度适宜',icon:'🌡️'},{id:'colostrum',name:'初乳含免疫球蛋白',icon:'💎'}],
+        bins:[{id:'breast',name:'母乳喂养',icon:'🤱'},{id:'formula',name:'配方奶',icon:'🍼'}],
+        answer:{'antibody':'breast','convenient':'formula','temp':'breast','colostrum':'breast'},
+        exp:'母乳富含抗体、温度适宜、方便；配方奶需冲调但营养接近母乳。' },
+      { type:'image-choice', prompt:'🍼 新生儿最佳：新生儿（0-6月）最佳的食物是？', image:'👶',
+        choices:[{icon:'🤱',text:'母乳（首选）'},{icon:'🍼',text:'配方奶'},{icon:'🥛',text:'鲜牛奶'},{icon:'🍚',text:'米糊'}],
+        answer:0, exp:'0-6月新生儿最佳食物是母乳，6月龄内应纯母乳喂养。' },
+      { type:'match', prompt:'🔗 母乳成分：把母乳成分和功能配对',
+        left:[{id:'A',icon:'🛡️',text:'免疫球蛋白'},{id:'B',icon:'🧠',text:'DHA'},{id:'C',icon:'🍬',text:'乳糖'},{id:'D',icon:'🦴',text:'钙磷比例'}],
+        right:[{id:'1',icon:'🛡️',text:'增强免疫力'},{id:'2',icon:'🧠',text:'促进大脑发育'},{id:'3',icon:'⚡',text:'主要能量来源'},{id:'4',icon:'🦴',text:'利于钙吸收'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'免疫球蛋白增强免疫；DHA 促进脑发育；乳糖是主要能量；钙磷比例适宜利于钙吸收。' },
+      { type:'image-choice', prompt:'⏰ 哺乳频率：新生儿按需哺乳，每天大约多少次？', image:'🍼',
+        choices:[{icon:'3',text:'3-4 次'},{icon:'6',text:'6-7 次'},{icon:'10',text:'8-12 次'},{icon:'20',text:'20 次以上'}],
+        answer:2, exp:'新生儿按需哺乳，每天 8-12 次。' },
+      { type:'scenario', prompt:'💧 喂水问题：纯母乳喂养的 2 月宝宝需要额外喂水吗？',
+        scenario:'奶奶认为宝宝口渴，想在两顿奶之间喂点白开水。',
+        choices:[{key:'A',text:'需要，每天喂 50ml'},{key:'B',text:'不需要，母乳含足够水分'},{key:'C',text:'夏天需要喂'},{key:'D',text:'发烧时需要喂'}],
+        answer:1, exp:'6 月龄内纯母乳喂养宝宝不需要额外喂水，母乳含 88% 水分能满足需求。' },
+      { type:'drag-bin', prompt:'🌟 母乳优势：把下列母乳喂养的好处拖入右侧', hint:'💡 母乳被称为"宝宝的第一支疫苗"',
+        items:[{id:'immune',name:'增强免疫力',icon:'🛡️'},{id:'bond',name:'增进母子感情',icon:'❤️'},{id:'cost',name:'省钱方便',icon:'💰'},{id:'allergy',name:'减少过敏',icon:'🤧'}],
+        bins:[{id:'good',name:'母乳好处',icon:'✅'},{id:'other',name:'其他',icon:'➖'}],
+        answer:{'immune':'good','bond':'good','cost':'good','allergy':'good'},
+        exp:'母乳好处多：增强免疫、增进母子感情、经济方便、减少过敏。' },
+      { type:'image-choice', prompt:'☀️ 维生素D：母乳宝宝需要额外补充什么？', image:'🌞',
+        choices:[{icon:'☀️',text:'维生素 D（出生后数日）'},{icon:'🍊',text:'维生素 C'},{icon:'🧂',text:'盐'},{icon:'💧',text:'水'}],
+        answer:0, exp:'母乳中维生素 D 含量低，婴儿出生后数日就应开始补充维生素 D 400 IU/天。' }
+    ]},
+    'infant-1': { title: '辅食添加与转奶', questions: [
+      { type:'drag-bin', prompt:'🥄 辅食顺序：把食物拖到正确的添加月龄', hint:'💡 辅食添加遵循由少到多、由稀到稠',
+        items:[{id:'cereal',name:'婴儿米粉',icon:'🌾'},{id:'veg',name:'蔬菜泥',icon:'🥕'},{id:'fruit',name:'水果泥',icon:'🍎'},{id:'meat',name:'肉泥',icon:'🥩'}],
+        bins:[{id:'first',name:'最先添加(6月)',icon:'🥇'},{id:'mid',name:'7-8月',icon:'🥈'},{id:'late',name:'8-9月',icon:'🥉'}],
+        answer:{'cereal':'first','veg':'mid','fruit':'mid','meat':'late'},
+        exp:'6月龄首选强化铁的婴儿米粉；7-8月加蔬菜水果泥；8-9月加肉泥、肝泥。' },
+      { type:'image-choice', prompt:'🍼 辅食时机：宝宝开始添加辅食的最佳月龄是？', image:'👶',
+        choices:[{icon:'3',text:'3 月龄'},{icon:'4',text:'4 月龄'},{icon:'6',text:'6 月龄左右'},{icon:'12',text:'1 岁后'}],
+        answer:2, exp:'6 月龄左右是添加辅食的最佳时机，过早易过敏，过晚易缺铁。' },
+      { type:'match', prompt:'🔗 月龄配对：把月龄和对应喂养方式配对',
+        left:[{id:'A',icon:'🤱',text:'0-6 月'},{id:'B',icon:'🥄',text:'6-12 月'},{id:'C',icon:'🍼',text:'1-2 岁'},{id:'D',icon:'🍽',text:'2 岁后'}],
+        right:[{id:'1',icon:'🤱',text:'纯母乳'},{id:'2',icon:'🥄',text:'母乳 + 辅食'},{id:'3',icon:'🍼',text:'母乳/奶 + 家庭食物'},{id:'4',icon:'🍽',text:'接近成人饮食'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'0-6月纯母乳；6-12月加辅食；1-2岁过渡到家庭食物；2岁后接近成人饮食。' },
+      { type:'image-choice', prompt:'🥛 转奶注意：以下哪种转奶方式正确？', image:'🍼',
+        choices:[{icon:'①',text:'一次全部换成新奶粉'},{icon:'②',text:'新旧奶粉混合、逐渐替换'},{icon:'③',text:'两种奶粉交替喂'},{icon:'④',text:'饿了再换'}],
+        answer:1, exp:'转奶应新旧奶粉混合，逐渐增加新奶粉比例，整个过程约 1-2 周。' },
+      { type:'scenario', prompt:'🍴 7月宝宝不爱吃辅食：小宝 7 月，添加辅食 1 周后拒绝吃，怎么办？',
+        scenario:'小宝 7 月龄，妈妈工作忙，开始添加辅食，但宝宝吐舌、扭头拒绝。',
+        choices:[{key:'A',text:'强迫喂食让他习惯'},{key:'B',text:'暂停几天换花样再尝试'},{key:'C',text:'放弃辅食，继续纯母乳'},{key:'D',text:'加糖让他接受'}],
+        answer:1, exp:'宝宝接受新食物需多次尝试（10-15 次），不要强迫，可暂停几天换花样。' },
+      { type:'drag-bin', prompt:'🚫 1岁前不宜：把 1 岁前不宜吃的食物拖入右侧', hint:'💡 1 岁前宝宝消化系统尚未发育完全',
+        items:[{id:'salt',name:'盐',icon:'🧂'},{id:'honey',name:'蜂蜜',icon:'🍯'},{id:'milk',name:'鲜牛奶',icon:'🥛'},{id:'cereal',name:'婴儿米粉',icon:'🌾'}],
+        bins:[{id:'avoid',name:'1岁前避免',icon:'❌'},{id:'ok',name:'可以吃',icon:'✅'}],
+        answer:{'salt':'avoid','honey':'avoid','milk':'avoid','cereal':'ok'},
+        exp:'1 岁前不宜盐、蜂蜜（肉毒杆菌风险）、鲜牛奶（蛋白难消化）；婴儿米粉是好的辅食。' },
+      { type:'image-choice', prompt:'🤱 母乳延续：世界卫生组织建议母乳喂养到至少多少岁？', image:'👶',
+        choices:[{icon:'6',text:'6 月龄'},{icon:'1',text:'1 岁'},{icon:'2',text:'2 岁或以上'},{icon:'3',text:'3 岁'}],
+        answer:2, exp:'WHO 建议纯母乳喂养至 6 月龄，继续母乳喂养至 2 岁或以上。' }
+    ]},
+    'preschool-1': { title: '幼儿膳食安排', questions: [
+      { type:'drag-bin', prompt:'🍽 三餐两点：把食物安排到正确的餐次', hint:'💡 学龄前儿童宜三餐两点制',
+        items:[{id:'rice',name:'米饭',icon:'🍚'},{id:'milk',name:'牛奶',icon:'🥛'},{id:'apple',name:'苹果',icon:'🍎'},{id:'noodle',name:'面条',icon:'🍜'}],
+        bins:[{id:'bf',name:'早餐',icon:'🌅'},{id:'am',name:'上午加餐',icon:'🌞'},{id:'lunch',name:'午餐',icon:'☀️'},{id:'pm',name:'下午加餐',icon:'🌆'}],
+        answer:{'rice':'lunch','milk':'bf','apple':'am','noodle':'pm'},
+        exp:'早餐：牛奶等；上午：水果加餐；午餐：米饭等主食；下午：面条等加餐。' },
+      { type:'image-choice', prompt:'🥛 奶制品：1-3 岁儿童每天推荐饮用奶制品多少？', image:'🧒',
+        choices:[{icon:'100',text:'100-200 ml'},{icon:'300',text:'300-500 ml'},{icon:'700',text:'700-1000 ml'},{icon:'1500',text:'1500 ml 以上'}],
+        answer:1, exp:'1-3 岁儿童每天推荐饮用奶制品 300-500 ml。' },
+      { type:'match', prompt:'🔗 营养素来源：把营养素和优质食物配对',
+        left:[{id:'A',icon:'🦴',text:'钙'},{id:'B',icon:'🩸',text:'铁'},{id:'C',icon:'🥕',text:'维生素 A'},{id:'D',icon:'🍊',text:'维生素 C'}],
+        right:[{id:'1',icon:'🥛',text:'牛奶/奶酪'},{id:'2',icon:'🥩',text:'瘦肉/肝'},{id:'3',icon:'🥕',text:'胡萝卜/肝'},{id:'4',icon:'🍊',text:'柑橘/草莓'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'钙在牛奶；铁在瘦肉、动物肝；维生素 A 在胡萝卜、动物肝；维 C 在柑橘类。' },
+      { type:'image-choice', prompt:'🍴 挑食纠正：以下哪种方式有助于纠正挑食？', image:'🧒',
+        choices:[{icon:'🚫',text:'强迫必须吃完'},{icon:'🎨',text:'变换烹饪方式、做造型'},{icon:'🍔',text:'只做孩子爱吃的'},{icon:'📺',text:'边看电视边吃'}],
+        answer:1, exp:'变换烹饪方式、用模具做可爱造型、让孩子参与做饭、多次尝试。' },
+      { type:'scenario', prompt:'🧒 2岁宝宝挑食：小宝 2 岁，只爱吃肉不吃蔬菜，怎么办？',
+        scenario:'小宝 2 岁，每天只吃白米饭+肉，对所有蔬菜都摇头。',
+        choices:[{key:'A',text:'算了，肉够了'},{key:'B',text:'把蔬菜藏进肉丸、饺子、蛋羹中'},{key:'C',text:'饿他一天逼他吃'},{key:'D',text:'只喝果汁代替'}],
+        answer:1, exp:'可将蔬菜切碎藏进肉丸、饺子、蛋羹、蔬果汁中。' },
+      { type:'drag-bin', prompt:'🍪 零食选择：把零食拖到健康 / 不健康分类', hint:'💡 健康零食应在两餐之间',
+        items:[{id:'apple',name:'苹果',icon:'🍎'},{id:'yogurt',name:'酸奶',icon:'🥛'},{id:'candy',name:'糖果',icon:'🍬'},{id:'nuts',name:'坚果',icon:'🥜'}],
+        bins:[{id:'good',name:'健康零食',icon:'✅'},{id:'bad',name:'限制零食',icon:'⚠️'}],
+        answer:{'apple':'good','yogurt':'good','candy':'bad','nuts':'good'},
+        exp:'水果、酸奶、原味坚果是健康零食；糖果、含糖饮料、薯片等需限制。' },
+      { type:'image-choice', prompt:'🌈 食物多样：1-3 岁儿童每天食物种类应不少于？', image:'🍱',
+        choices:[{icon:'8',text:'8 种'},{icon:'12',text:'12 种'},{icon:'20',text:'20 种'},{icon:'30',text:'30 种'}],
+        answer:1, exp:'1-3 岁儿童每天食物种类不少于 12 种，每周不少于 25 种。' }
+    ]},
+    'child-1': { title: '儿童营养搭配', questions: [
+      { type:'drag-bin', prompt:'🍱 一日三餐：把食物拖到正确的餐次', hint:'💡 学龄儿童三餐能量分配约 3:4:3',
+        items:[{id:'congee',name:'粥+鸡蛋',icon:'🍚'},{id:'rice',name:'米饭+肉+菜',icon:'🍚'},{id:'noodle',name:'面条+青菜',icon:'🍜'},{id:'milk',name:'牛奶',icon:'🥛'}],
+        bins:[{id:'bf',name:'早餐',icon:'🌅'},{id:'lunch',name:'午餐',icon:'☀️'},{id:'din',name:'晚餐',icon:'🌆'}],
+        answer:{'congee':'bf','rice':'lunch','noodle':'din','milk':'bf'},
+        exp:'早餐：粥+蛋+奶；午餐：米饭+肉+菜（最丰富）；晚餐：面条+青菜（清淡易消化）。' },
+      { type:'image-choice', prompt:'🦴 钙摄入：3-6 岁儿童每天钙推荐摄入量是？', image:'🧒',
+        choices:[{icon:'400',text:'400 mg'},{icon:'600',text:'600 mg'},{icon:'800',text:'800 mg'},{icon:'1000',text:'1000 mg'}],
+        answer:1, exp:'3-6 岁儿童每天钙推荐约 600-800 mg，应每天饮用 300-500 ml 奶制品。' },
+      { type:'match', prompt:'🔗 营养素来源：把营养素和对应食物配对',
+        left:[{id:'A',icon:'👁',text:'维生素 A'},{id:'B',icon:'🧠',text:'DHA'},{id:'C',icon:'💪',text:'优质蛋白'},{id:'D',icon:'🦴',text:'钙'}],
+        right:[{id:'1',icon:'🥕',text:'胡萝卜/动物肝'},{id:'2',icon:'🐟',text:'深海鱼'},{id:'3',icon:'🥚',text:'鸡蛋/瘦肉'},{id:'4',icon:'🥛',text:'牛奶/豆制品'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'维生素 A 在胡萝卜、动物肝；DHA 在深海鱼；优质蛋白在蛋、瘦肉；钙在奶、豆制品。' },
+      { type:'image-choice', prompt:'🥤 含糖饮料：以下哪种是含糖饮料，应限制？', image:'🥤',
+        choices:[{icon:'💧',text:'白开水'},{icon:'🥛',text:'纯牛奶'},{icon:'🥤',text:'可乐/果汁饮料'},{icon:'🍵',text:'淡茶水（5 岁以上）'}],
+        answer:2, exp:'可乐、果汁饮料、奶茶等含糖饮料应限制；推荐白开水、纯牛奶。' },
+      { type:'scenario', prompt:'👁 视力保护：4 岁的小明爱看平板，怎么调整饮食？',
+        scenario:'小明 4 岁，每天看平板 2 小时，最近揉眼睛频繁。',
+        choices:[{key:'A',text:'继续看，吃胡萝卜就行'},{key:'B',text:'减少屏幕时间 + 多吃护眼食物'},{key:'C',text:'吃保健品'},{key:'D',text:'戴墨镜防蓝光'}],
+        answer:1, exp:'保护视力需减少屏幕时间 + 多吃含维生素 A（胡萝卜、动物肝）、DHA（深海鱼）、蓝莓等食物。' },
+      { type:'drag-bin', prompt:'👁 护眼食物：把护眼食物拖入右侧', hint:'💡 维生素 A、DHA、花青素对视力有益',
+        items:[{id:'carrot',name:'胡萝卜',icon:'🥕'},{id:'fish',name:'深海鱼',icon:'🐟'},{id:'blueberry',name:'蓝莓',icon:'🫐'},{id:'cola',name:'可乐',icon:'🥤'}],
+        bins:[{id:'good',name:'护眼食物',icon:'✅'},{id:'bad',name:'对眼不好',icon:'❌'}],
+        answer:{'carrot':'good','fish':'good','blueberry':'good','cola':'bad'},
+        exp:'胡萝卜（VA）、深海鱼（DHA）、蓝莓（花青素）护眼；可乐等高糖饮料对眼不好。' },
+      { type:'image-choice', prompt:'🍳 早餐重要性：以下哪项说明儿童早餐很重要？', image:'🍳',
+        choices:[{icon:'①',text:'吃饱就行，无所谓'},{icon:'②',text:'影响上午学习、注意力、生长发育'},{icon:'③',text:'晚上多吃就行'},{icon:'④',text:'可以不吃'}],
+        answer:1, exp:'儿童早餐质量直接影响上午的学习能力、注意力、情绪和生长发育。' }
+    ]},
+    'newborn-2': { title: '新生儿护理要点', questions: [
+      { type:'image-choice', prompt:'☀️ 维生素D：新生儿出生后几天开始补维生素D？', image:'🌞',
+        choices:[{icon:'🚼',text:'出生后数日'},{icon:'1月',text:'满月后'},{icon:'3月',text:'3 月龄'},{icon:'6月',text:'6 月龄'}],
+        answer:0, exp:'新生儿出生后数日就应开始补充维生素 D 400 IU/天，预防佝偻病。' },
+      { type:'image-choice', prompt:'💧 喂水：纯母乳喂养的新生儿需要喂水吗？', image:'👶',
+        choices:[{icon:'💧',text:'需要 50ml'},{icon:'🚫',text:'不需要，母乳含足够水分'},{icon:'☀️',text:'夏天需要喂'},{icon:'🤒',text:'发烧时喂'}],
+        answer:1, exp:'6 月龄内纯母乳喂养的新生儿不需要额外喂水，母乳含 88% 水分。' },
+      { type:'scenario', prompt:'🟡 黄疸宝宝：生理性黄疸宝宝的喂养应注意？',
+        scenario:'宝宝出生 5 天，皮肤有点黄，医生说是生理性黄疸。',
+        choices:[{key:'A',text:'停止母乳改配方奶'},{key:'B',text:'增加喂养次数，多吃多排'},{key:'C',text:'完全禁食'},{key:'D',text:'大量喂葡萄糖水'}],
+        answer:1, exp:'生理性黄疸应增加母乳喂养次数，多吃多排促进胆红素排出。' },
+      { type:'image-choice', prompt:'🤮 吐奶处理：新生儿吐奶后正确做法？', image:'🤱',
+        choices:[{icon:'😱',text:'立刻竖抱拍背'},{icon:'🛏️',text:'侧卧位、清理口鼻'},{icon:'🍶',text:'马上再喂一次'},{icon:'💊',text:'立即吃药'}],
+        answer:1, exp:'吐奶应让宝宝侧卧，清理口鼻避免呛咳；喂奶后竖抱拍嗝可预防。' },
+      { type:'drag-bin', prompt:'📊 体重监测：把对应月龄的体重情况拖入', hint:'💡 新生儿生理性体重下降不超过 7-10%',
+        items:[{id:'drop',name:'下降 7-10%',icon:'⬇️'},{id:'recover',name:'1-2 周恢复',icon:'↩️'},{id:'gain',name:'每月增 600-1000g',icon:'⬆️'},{id:'double',name:'4-6 月翻倍',icon:'✖️'}],
+        bins:[{id:'firstWeek',name:'出生 1 周内',icon:'🚼'},{id:'firstMonth',name:'出生 1 月内',icon:'👶'},{id:'halfYear',name:'出生 6 月内',icon:'🍼'}],
+        answer:{'drop':'firstWeek','recover':'firstMonth','gain':'firstMonth','double':'halfYear'},
+        exp:'出生 1 周内生理性体重下降 7-10%，1-2 周恢复；前 6 月每月增 600-1000g；4-6 月体重翻倍。' }
+    ]},
+    'newborn-3': { title: '常见问题应对', questions: [
+      { type:'scenario', prompt:'🤱 母乳不足：产后 1 周感觉母乳不够，怎么办？',
+        scenario:'小李产后 1 周，宝宝每次吃奶 1 小时仍哭闹，怀疑奶水不足。',
+        choices:[{key:'A',text:'马上加配方奶'},{key:'B',text:'增加哺乳频率，让宝宝多吸吮'},{key:'C',text:'吃大量补品'},{key:'D',text:'停止哺乳'}],
+        answer:1, exp:'母乳不足最重要的是增加哺乳频率（每天 8-12 次），多吸吮可刺激泌乳。' },
+      { type:'image-choice', prompt:'🍼 配方奶：以下哪种情况应考虑补充配方奶？', image:'🍼',
+        choices:[{icon:'😊',text:'母乳充足时'},{icon:'📉',text:'宝宝体重持续不增'},{icon:'👶',text:'宝宝吃饱了还哭'},{icon:'🛌',text:'宝宝睡太久'}],
+        answer:1, exp:'宝宝体重持续不增或下降，母乳可能不足，应在医生指导下补充配方奶。' },
+      { type:'match', prompt:'🔗 哺乳问题：把问题和对策配对',
+        left:[{id:'A',icon:'😣',text:'乳头疼痛'},{id:'B',icon:'😵',text:'宝宝乳头混淆'},{id:'C',icon:'💤',text:'宝宝嗜睡不吃'},{id:'D',icon:'🤏',text:'乳汁淤积'}],
+        right:[{id:'1',icon:'👄',text:'纠正衔乳姿势'},{id:'2',icon:'🚫🍼',text:'暂停奶瓶用勺喂'},{id:'3',icon:'⏰',text:'唤醒喂奶'},{id:'4',icon:'🔥',text:'冷敷+按摩+排空'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'乳头疼痛纠正衔乳；乳头混淆暂停奶瓶；嗜睡宝宝需唤醒；乳汁淤积需冷敷按摩排空。' },
+      { type:'drag-bin', prompt:'🌿 催乳食物：把有助于催乳的食物拖入右侧', hint:'💡 充足睡眠+多吸吮+营养是催乳三要素',
+        items:[{id:'pigfoot',name:'猪蹄',icon:'🐷'},{id:'papaya',name:'木瓜',icon:'🥭'},{id:'cola',name:'可乐',icon:'🥤'},{id:'water',name:'多喝汤水',icon:'🥣'}],
+        bins:[{id:'good',name:'有助于催乳',icon:'✅'},{id:'bad',name:'不宜',icon:'❌'}],
+        answer:{'pigfoot':'good','papaya':'good','cola':'bad','water':'good'},
+        exp:'猪蹄、木瓜、汤水有助于催乳；可乐等含糖饮料不宜。' },
+      { type:'scenario', prompt:'😣 乳头破裂：妈妈乳头破裂出血，怎么办？',
+        scenario:'小张产后 10 天，喂奶时乳头破裂出血，疼痛难忍。',
+        choices:[{key:'A',text:'忍痛继续喂'},{key:'B',text:'调整衔乳姿势 + 涂抹羊脂膏'},{key:'C',text:'立刻断奶'},{key:'D',text:'用酒精消毒'}],
+        answer:1, exp:'乳头破裂需调整衔乳姿势（让宝宝含住乳晕），可涂羊脂膏，严重时短暂停喂用吸奶器。' }
+    ]},
+    'newborn-4': { title: '发育指标监测', questions: [
+      { type:'image-choice', prompt:'📊 体重增长：新生儿第一个月体重应增加多少？', image:'👶',
+        choices:[{icon:'100g',text:'100-200 g'},{icon:'500g',text:'500-700 g'},{icon:'1000g',text:'800-1000 g'},{icon:'2000g',text:'1500-2000 g'}],
+        answer:2, exp:'新生儿第一个月体重通常增加 800-1000g，前 3 月每月增 600-1000g。' },
+      { type:'image-choice', prompt:'💩 大便观察：母乳喂养新生儿大便次数通常是？', image:'👶',
+        choices:[{icon:'①',text:'每天 1 次'},{icon:'②',text:'每天 2-3 次'},{icon:'③',text:'每天 3-5 次甚至更多'},{icon:'④',text:'每周 1 次'}],
+        answer:2, exp:'母乳喂养新生儿大便 3-5 次甚至更多，黄色糊状；只要精神好、体重增就正常。' },
+      { type:'drag-bin', prompt:'😴 睡眠规律：把对应月龄的睡眠时间拖入', hint:'💡 新生儿睡眠时间长但无规律',
+        items:[{id:'20h',name:'16-20 小时',icon:'😴'},{id:'15h',name:'14-15 小时',icon:'🛌'},{id:'night',name:'夜醒 2-3 次',icon:'🌙'},{id:'day',name:'昼夜不分',icon:'☀️🌙'}],
+        bins:[{id:'nb',name:'新生儿',icon:'🚼'},{id:'one',name:'1-3 月',icon:'👶'}],
+        answer:{'20h':'nb','night':'nb','day':'nb','15h':'one'},
+        exp:'新生儿每天睡 16-20 小时，昼夜不分，需夜醒喂奶 2-3 次；1-3 月睡眠 14-15 小时。' },
+      { type:'match', prompt:'🔗 早期刺激：把月龄和能力配对',
+        left:[{id:'A',icon:'👁',text:'视觉'},{id:'B',icon:'👂',text:'听觉'},{id:'C',icon:'🤝',text:'触觉'},{id:'D',icon:'😊',text:'社交'}],
+        right:[{id:'1',icon:'👀',text:'20cm 看清人脸'},{id:'2',icon:'🔔',text:'对声音反应'},{id:'3',icon:'👶',text:'抚触按摩'},{id:'4',icon:'😊',text:'模仿表情'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'新生儿能看 20cm 人脸；对声音有反应；抚触有利触觉发育；可模仿父母表情。' },
+      { type:'image-choice', prompt:'⚠️ 异常信号：以下哪种情况需要立即就医？', image:'🚨',
+        choices:[{icon:'😊',text:'宝宝吃完奶睡着了'},{icon:'🌡️',text:'体温 38.5℃ 以上'},{icon:'💩',text:'一天没大便'},{icon:'👶',text:'一天睡 18 小时'}],
+        answer:1, exp:'新生儿发烧（≥38℃）是高危信号，需立即就医；其他情况可观察或咨询医生。' }
+    ]},
+    'infant-2': { title: '辅食进阶与转奶', questions: [
+      { type:'drag-bin', prompt:'🥄 辅食进阶：把食物拖到对应月龄', hint:'💡 7-12 月辅食由稀到稠、由细到粗',
+        items:[{id:'porridge',name:'烂粥/面片',icon:'🍚'},{id:'softRice',name:'软米饭',icon:'🍚'},{id:'finger',name:'手指食物',icon:'🍌'},{id:'familyFood',name:'家庭食物',icon:'🍲'}],
+        bins:[{id:'m7',name:'7-9 月',icon:'🥄'},{id:'m10',name:'10-12 月',icon:'🍚'}],
+        answer:{'porridge':'m7','softRice':'m10','finger':'m10','familyFood':'m10'},
+        exp:'7-9 月：烂粥、面片；10-12 月：软米饭、手指食物，逐步过渡到家庭食物。' },
+      { type:'scenario', prompt:'🔄 转奶时机：宝宝 6 月龄想从 1 段换 2 段奶粉，正确做法？',
+        scenario:'宝宝 6 月龄，目前喝 1 段奶粉，想换 2 段。',
+        choices:[{key:'A',text:'立即换成 2 段'},{key:'B',text:'新旧混合、逐渐替换 1-2 周'},{key:'C',text:'饿两顿再喂新奶粉'},{key:'D',text:'两种奶粉冲一起喝'}],
+        answer:1, exp:'转奶应新旧奶粉混合，逐渐增加新奶粉比例，整个过程 1-2 周。' },
+      { type:'image-choice', prompt:'🚫 1 岁前禁食：以下哪种食物 1 岁前不宜吃？', image:'🍯',
+        choices:[{icon:'🥕',text:'胡萝卜泥'},{icon:'🍯',text:'蜂蜜'},{icon:'🍚',text:'强化铁米粉'},{icon:'🥚',text:'蛋黄'}],
+        answer:1, exp:'蜂蜜可能含肉毒杆菌芽孢，1 岁前宝宝肠道屏障未发育完善，不宜食用。' },
+      { type:'match', prompt:'🔗 食物过敏：把食物和过敏风险配对',
+        left:[{id:'A',icon:'🥛',text:'牛奶'},{id:'B',icon:'🥚',text:'鸡蛋'},{id:'C',icon:'🦐',text:'海鲜'},{id:'D',icon:'🌾',text:'小麦'}],
+        right:[{id:'1',icon:'⚠️',text:'常见过敏原'},{id:'2',icon:'✅',text:'低敏'},{id:'3',icon:'👀',text:'观察 3 天'},{id:'4',icon:'🚑',text:'过敏就医'}],
+        answer:{'A':'1','B':'1','C':'1','D':'1'},
+        exp:'牛奶、鸡蛋、海鲜、小麦是常见过敏原，每添加一种新食物应观察 3 天。' },
+      { type:'image-choice', prompt:'🍚 食物多样化：1 岁前宝宝食物种类应达到？', image:'🌈',
+        choices:[{icon:'5',text:'5 种'},{icon:'10',text:'10 种'},{icon:'15',text:'15 种以上'},{icon:'30',text:'30 种以上'}],
+        answer:2, exp:'1 岁前宝宝应尝试 15 种以上不同食物，有助于降低过敏风险、培养多样化饮食习惯。' }
+    ]},
+    'infant-3': { title: '营养与发育', questions: [
+      { type:'image-choice', prompt:'🥛 每日奶量：6-12 月宝宝每天奶量推荐是多少？', image:'🍼',
+        choices:[{icon:'200',text:'200-400 ml'},{icon:'600',text:'600-800 ml'},{icon:'1000',text:'1000 ml'},{icon:'1500',text:'1500 ml'}],
+        answer:1, exp:'6-12 月宝宝每天奶量推荐 600-800 ml（含母乳/配方奶）。' },
+      { type:'drag-bin', prompt:'🦴 营养素补充：把营养素拖到对应食物', hint:'💡 6 月后宝宝容易缺铁',
+        items:[{id:'iron',name:'铁',icon:'🩸'},{id:'cal',name:'钙',icon:'🦴'},{id:'zinc',name:'锌',icon:'⚙️'},{id:'dha',name:'DHA',icon:'🧠'}],
+        bins:[{id:'liver',name:'强化铁米粉+肝泥',icon:'🥩'},{id:'milk',name:'母乳/奶制品',icon:'🥛'},{id:'meat2',name:'红肉/海产品',icon:'🍖'},{id:'fish',name:'深海鱼',icon:'🐟'}],
+        answer:{'iron':'liver','cal':'milk','zinc':'meat2','dha':'fish'},
+        exp:'铁：强化铁米粉、肝泥；钙：母乳/奶；锌：红肉、海产品；DHA：深海鱼。' },
+      { type:'image-choice', prompt:'🦷 出牙辅食：宝宝 7 月龄开始出牙，应增加？', image:'🦷',
+        choices:[{icon:'🥛',text:'只喝奶'},{icon:'🍌',text:'磨牙饼干/条状水果'},{icon:'🍰',text:'蛋糕'},{icon:'🍬',text:'糖果'}],
+        answer:1, exp:'出牙期可给磨牙饼干、条状水果（如香蕉）按摩牙床，促进牙齿萌出和咀嚼能力。' },
+      { type:'scenario', prompt:'🍴 咀嚼训练：10 月宝宝还不会嚼，怎么办？',
+        scenario:'宝宝 10 月龄，吃辅食直接吞，不会嚼。',
+        choices:[{key:'A',text:'一直喂米糊'},{key:'B',text:'给软烂面条、小颗粒食物训练'},{key:'C',text:'强迫吃硬饭'},{key:'D',text:'只喝奶不辅食'}],
+        answer:1, exp:'咀嚼训练从 7 月开始，由稀到稠、由细到粗；10 月可给软烂面条、小颗粒食物。' },
+      { type:'image-choice', prompt:'📈 体重变慢：6 月后宝宝体重增长变慢，可能原因？', image:'📉',
+        choices:[{icon:'①',text:'正常，6 月后增速放缓'},{icon:'②',text:'一定是疾病'},{icon:'③',text:'辅食添加失败'},{icon:'④',text:'必须停止母乳'}],
+        answer:0, exp:'6 月后宝宝体重增速放缓是正常的（前 6 月增重快，之后变慢）；只要曲线正常无需担心。' }
+    ]},
+    'infant-4': { title: '饮食习惯培养', questions: [
+      { type:'image-choice', prompt:'🍴 进食兴趣：培养宝宝进食兴趣的方法是？', image:'👶',
+        choices:[{icon:'📺',text:'边看电视边吃'},{icon:'🎨',text:'变换食物颜色形状、让宝宝参与'},{icon:'🍔',text:'只做爱吃的'},{icon:'⏰',text:'强迫定时定量'}],
+        answer:1, exp:'变换食物颜色形状、用模具做可爱造型、让宝宝参与做饭，能激发进食兴趣。' },
+      { type:'drag-bin', prompt:'🍼 戒奶瓶：什么时候开始戒奶瓶？', hint:'💡 长期用奶瓶易致龋齿和颌骨发育问题',
+        items:[{id:'start',name:'开始戒奶瓶',icon:'🍼'},{id:'cup',name:'改用学饮杯',icon:'🥤'},{id:'stop',name:'完全戒除',icon:'🚫🍼'}],
+        bins:[{id:'six',name:'6 月龄',icon:'🍼'},{id:'one',name:'12 月龄',icon:'🥤'},{id:'two',name:'18-24 月龄',icon:'🚫🍼'}],
+        answer:{'start':'six','cup':'one','stop':'two'},
+        exp:'6 月开始学饮杯；12 月用学饮杯替代奶瓶；18-24 月完全戒除奶瓶。' },
+      { type:'scenario', prompt:'🍫 糖与盐：宝宝 1 岁前能吃糖和盐吗？',
+        scenario:'奶奶想给 8 月龄的宝宝加糖和盐，让饭菜"有味道"。',
+        choices:[{key:'A',text:'可以，加点更好吃'},{key:'B',text:'不宜，1 岁前不加糖盐'},{key:'C',text:'只加盐不加糖'},{key:'D',text:'只加糖不加盐'}],
+        answer:1, exp:'1 岁前宝宝肾脏发育未完善，过早加盐增加肾脏负担；糖易致龋齿和偏食。' },
+      { type:'match', prompt:'🔗 饮食习惯：把习惯和年龄配对',
+        left:[{id:'A',icon:'🪑',text:'坐餐椅进食'},{id:'B',icon:'🥄',text:'自己用勺'},{id:'C',icon:'🚫📺',text:'戒电视手机'},{id:'D',icon:'🍽',text:'与家人同桌'}],
+        right:[{id:'1',icon:'6月',text:'6 月起'},{id:'2',icon:'9月',text:'9-12 月'},{id:'3',icon:'1岁',text:'1 岁后'},{id:'4',icon:'2岁',text:'2 岁后'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'6 月起坐餐椅；9-12 月尝试自己用勺；1 岁后戒电视手机；2 岁后与家人同桌进餐。' },
+      { type:'image-choice', prompt:'⚠️ 食物过敏：宝宝添加新辅食后出现皮疹怎么办？', image:'🤧',
+        choices:[{icon:'①',text:'继续喂，观察'},{icon:'②',text:'立即停止该食物，就医'},{icon:'③',text:'换其他食物继续喂'},{icon:'④',text:'加大剂量再喂'}],
+        answer:1, exp:'出现皮疹、呕吐、腹泻等疑似过敏症状，应立即停止该食物并就医。' }
+    ]},
+    'preschool-2': { title: '营养素需求', questions: [
+      { type:'image-choice', prompt:'🦴 钙摄入：1-3 岁儿童每天钙推荐摄入量？', image:'🧒',
+        choices:[{icon:'400',text:'400 mg'},{icon:'600',text:'600 mg'},{icon:'1000',text:'1000 mg'},{icon:'1500',text:'1500 mg'}],
+        answer:1, exp:'1-3 岁儿童每天钙推荐摄入量 600 mg，相当于 400-500 ml 牛奶。' },
+      { type:'drag-bin', prompt:'🩸 补铁食物：把富铁食物拖入右侧', hint:'💡 幼儿缺铁性贫血较常见',
+        items:[{id:'liver',name:'猪肝',icon:'🥩'},{id:'redmeat',name:'牛肉',icon:'🍖'},{id:'spinach',name:'菠菜',icon:'🥬'},{id:'cola2',name:'可乐',icon:'🥤'}],
+        bins:[{id:'rich',name:'富铁食物',icon:'✅'},{id:'poor',name:'铁少',icon:'➖'}],
+        answer:{'liver':'rich','redmeat':'rich','spinach':'rich','cola2':'poor'},
+        exp:'猪肝、牛肉、菠菜（搭配维 C）富铁；可乐铁少且影响钙吸收。' },
+      { type:'image-choice', prompt:'🥕 维生素A：维生素A对幼儿最重要的作用是？', image:'🥕',
+        choices:[{icon:'👁',text:'保护视力、上皮组织'},{icon:'🩸',text:'补血'},{icon:'🦴',text:'补钙'},{icon:'💪',text:'增肌'}],
+        answer:0, exp:'维生素 A 保护视力（预防夜盲症）、维护上皮组织（皮肤、呼吸道黏膜）完整性。' },
+      { type:'scenario', prompt:'🧂 控盐：1-3 岁宝宝每天盐摄入量应少于多少？',
+        scenario:'家庭做菜偏咸，宝宝也跟着吃，需要调整吗？',
+        choices:[{key:'A',text:'1 g 以下'},{key:'B',text:'2 g 以下'},{key:'C',text:'5 g 以下'},{key:'D',text:'和大人一样'}],
+        answer:1, exp:'1-3 岁宝宝每天盐摄入量应少于 2 g，约为成人 1/3，应单独少盐烹饪。' },
+      { type:'match', prompt:'🔗 营养素-食物：把营养素和富含的食物配对',
+        left:[{id:'A',icon:'🦴',text:'钙'},{id:'B',icon:'🩸',text:'铁'},{id:'C',icon:'🥕',text:'维生素 A'},{id:'D',icon:'🍊',text:'维生素 C'}],
+        right:[{id:'1',icon:'🥛',text:'牛奶/酸奶'},{id:'2',icon:'🥩',text:'瘦肉/肝'},{id:'3',icon:'🥕',text:'胡萝卜/动物肝'},{id:'4',icon:'🍊',text:'柑橘/草莓'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'钙在牛奶；铁在瘦肉、肝；维生素 A 在胡萝卜、动物肝；维 C 在柑橘类。' }
+    ]},
+    'preschool-3': { title: '饮食习惯养成', questions: [
+      { type:'scenario', prompt:'🍴 挑食纠正：2 岁宝宝只吃肉不吃菜，怎么办？',
+        scenario:'小宝 2 岁，每天只吃白米饭+肉，对所有蔬菜都摇头。',
+        choices:[{key:'A',text:'算了，肉够了'},{key:'B',text:'把蔬菜藏进肉丸、饺子、蛋羹'},{key:'C',text:'饿他一天逼他吃'},{key:'D',text:'只喝果汁代替'}],
+        answer:1, exp:'可将蔬菜切碎藏进肉丸、饺子、蛋羹、蔬果汁中。' },
+      { type:'image-choice', prompt:'🍽 进餐氛围：以下哪种氛围最有利于宝宝吃饭？', image:'🧒',
+        choices:[{icon:'📺',text:'边看电视边吃'},{icon:'👨‍👩‍👧',text:'与家人一起专注进餐'},{icon:'🎮',text:'边玩玩具边吃'},{icon:'🏃',text:'追着喂饭'}],
+        answer:1, exp:'全家一起专注进餐、不开电视手机、不玩玩具，能培养良好饮食习惯。' },
+      { type:'drag-bin', prompt:'🥄 餐具选择：不同年龄选什么餐具？', hint:'💡 适合的餐具能提高宝宝自主进食兴趣',
+        items:[{id:'soft',name:'硅胶软勺',icon:'🥄'},{id:'learn',name:'学习勺',icon:'🥄'},{id:'fork',name:'儿童叉勺',icon:'🍴'},{id:'chop',name:'训练筷',icon:'🥢'}],
+        bins:[{id:'six',name:'6-12 月',icon:'🥄'},{id:'one',name:'1-2 岁',icon:'🍴'},{id:'two',name:'2-3 岁',icon:'🍽'}],
+        answer:{'soft':'six','learn':'one','fork':'two','chop':'two'},
+        exp:'6-12 月硅胶软勺；1-2 岁学习勺；2-3 岁可尝试儿童叉勺和训练筷。' },
+      { type:'scenario', prompt:'🛋 边吃边玩：2 岁宝宝吃饭要玩玩具，怎么办？',
+        scenario:'2 岁宝宝吃饭必须玩小汽车，否则就不吃。',
+        choices:[{key:'A',text:'由着他，吃完再说'},{key:'B',text:'温和坚持：吃饭时不带玩具，吃完再玩'},{key:'C',text:'打一顿让他吃'},{key:'D',text:'不吃了，下顿再说'}],
+        answer:1, exp:'温和坚持原则：吃饭时收走玩具，专注进餐；吃完后再玩。' },
+      { type:'image-choice', prompt:'🍬 含糖饮料：以下哪种是含糖饮料？', image:'🥤',
+        choices:[{icon:'💧',text:'白开水'},{icon:'🥛',text:'纯牛奶'},{icon:'🍹',text:'果汁饮料'},{icon:'🍵',text:'淡茶水'}],
+        answer:2, exp:'果汁饮料、可乐、奶茶等是含糖饮料；推荐白开水、纯牛奶。' }
+    ]},
+    'preschool-4': { title: '零食与安全', questions: [
+      { type:'drag-bin', prompt:'🍪 零食选择：把零食分到健康/不健康', hint:'💡 健康零食应在两餐之间',
+        items:[{id:'apple',name:'苹果',icon:'🍎'},{id:'yogurt',name:'酸奶',icon:'🥛'},{id:'chips',name:'薯片',icon:'🍟'},{id:'nuts',name:'原味坚果',icon:'🥜'}],
+        bins:[{id:'good',name:'健康零食',icon:'✅'},{id:'bad',name:'限制零食',icon:'⚠️'}],
+        answer:{'apple':'good','yogurt':'good','chips':'bad','nuts':'good'},
+        exp:'水果、酸奶、原味坚果是健康零食；薯片、糖果、含糖饮料等需限制。' },
+      { type:'image-choice', prompt:'🥤 含糖饮料危害：长期喝含糖饮料易导致？', image:'🥤',
+        choices:[{icon:'🦷',text:'龋齿、肥胖'},{icon:'💪',text:'长高'},{icon:'🧠',text:'聪明'},{icon:'💤',text:'睡眠好'}],
+        answer:0, exp:'含糖饮料易致龋齿、肥胖、偏食、钙流失，应限制。' },
+      { type:'match', prompt:'🔗 食品安全：把食物和风险配对',
+        left:[{id:'A',icon:'🥜',text:'整颗花生'},{id:'B',icon:'🍬',text:'果冻'},{id:'C',icon:'🌰',text:'整颗坚果'},{id:'D',icon:'🍖',text:'未熟肉'}],
+        right:[{id:'1',icon:'😱',text:'3 岁内窒息风险'},{id:'2',icon:'🦠',text:'沙门氏菌'},{id:'3',icon:'🚫',text:'应磨碎或避免'},{id:'4',icon:'✅',text:'可以少量吃'}],
+        answer:{'A':'1','B':'1','C':'1','D':'2'},
+        exp:'3 岁内整颗花生、果冻、坚果有窒息风险，应避免；未熟肉可能含沙门氏菌。' },
+      { type:'scenario', prompt:'💊 营养补充剂：宝宝需要补钙铁锌吗？',
+        scenario:'妈妈担心宝宝缺钙铁锌，想买多种补充剂。',
+        choices:[{key:'A',text:'越多越好，全补'},{key:'B',text:'先评估饮食，不足再补'},{key:'C',text:'听广告宣传'},{key:'D',text:'完全不需要'}],
+        answer:1, exp:'先评估宝宝饮食和生长发育情况，不足时在医生指导下补充。' },
+      { type:'image-choice', prompt:'🦷 保护牙齿：以下哪种行为有助保护乳牙？', image:'🦷',
+        choices:[{icon:'🍬',text:'多吃糖果'},{icon:'🪥',text:'每天刷牙、限制甜食'},{icon:'🥛',text:'睡前喝奶不漱口'},{icon:'🍭',text:'含糖奶嘴安抚'}],
+        answer:1, exp:'每天 2 次刷牙、限制甜食、睡前漱口，能有效保护乳牙。' }
+    ]},
+    'child-2': { title: '营养素强化', questions: [
+      { type:'image-choice', prompt:'🦴 钙摄入：3-6 岁儿童每天钙推荐摄入量？', image:'👦',
+        choices:[{icon:'400',text:'400 mg'},{icon:'600',text:'600-800 mg'},{icon:'1000',text:'1000 mg'},{icon:'1500',text:'1500 mg'}],
+        answer:1, exp:'3-6 岁儿童每天钙推荐摄入量 600-800 mg，应每天 300-500 ml 奶制品。' },
+      { type:'drag-bin', prompt:'👁 护眼营养：把护眼营养素拖到对应食物', hint:'💡 视力保护需要多种营养素',
+        items:[{id:'va',name:'维生素 A',icon:'👁'},{id:'dha',name:'DHA',icon:'🧠'},{id:'vc',name:'维生素 C',icon:'🍊'},{id:'lutein',name:'叶黄素',icon:'🌿'}],
+        bins:[{id:'carrot',name:'胡萝卜',icon:'🥕'},{id:'fish',name:'深海鱼',icon:'🐟'},{id:'orange',name:'柑橘类',icon:'🍊'},{id:'veg',name:'菠菜/西兰花',icon:'🥦'}],
+        answer:{'va':'carrot','dha':'fish','vc':'orange','lutein':'veg'},
+        exp:'VA 在胡萝卜；DHA 在深海鱼；维 C 在柑橘类；叶黄素在深绿色蔬菜。' },
+      { type:'image-choice', prompt:'🧠 DHA 与脑发育：DHA 对儿童最重要的作用？', image:'🧠',
+        choices:[{icon:'🦴',text:'强健骨骼'},{icon:'🧠',text:'促进大脑和视力发育'},{icon:'💪',text:'增强肌肉'},{icon:'🦷',text:'保护牙齿'}],
+        answer:1, exp:'DHA 是脑和视网膜重要组成成分，对儿童大脑发育和视力保护至关重要。' },
+      { type:'scenario', prompt:'🩸 缺铁性贫血：4 岁宝宝脸色苍白、食欲差，可能？',
+        scenario:'4 岁宝宝最近脸色苍白、食欲差、爱吃冰块。',
+        choices:[{key:'A',text:'上火'},{key:'B',text:'可能缺铁性贫血，需就医检查'},{key:'C',text:'正常现象'},{key:'D',text:'吃糖就好'}],
+        answer:1, exp:'脸色苍白、食欲差、异食癖（吃冰块）可能是缺铁性贫血，应就医检查。' },
+      { type:'match', prompt:'🔗 营养素-食物：把营养素和富含的食物配对',
+        left:[{id:'A',icon:'🦴',text:'钙'},{id:'B',icon:'🩸',text:'铁'},{id:'C',icon:'👁',text:'维生素 A'},{id:'D',icon:'🧠',text:'DHA'}],
+        right:[{id:'1',icon:'🥛',text:'牛奶'},{id:'2',icon:'🥩',text:'瘦肉/肝'},{id:'3',icon:'🥕',text:'胡萝卜'},{id:'4',icon:'🐟',text:'深海鱼'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'钙在牛奶；铁在瘦肉、肝；维生素 A 在胡萝卜；DHA 在深海鱼。' }
+    ]},
+    'child-3': { title: '饮食习惯', questions: [
+      { type:'image-choice', prompt:'🍽 细嚼慢咽：每口食物应咀嚼多少次？', image:'🍚',
+        choices:[{icon:'5',text:'5-10 次'},{icon:'15',text:'15-20 次'},{icon:'30',text:'20-30 次'},{icon:'50',text:'40-50 次'}],
+        answer:1, exp:'建议每口食物咀嚼 15-20 次，有助于消化、营养吸收和控制食量。' },
+      { type:'drag-bin', prompt:'🍴 良好习惯：哪些是良好饮食习惯？', hint:'💡 良好习惯需要长期培养',
+        items:[{id:'bf',name:'每天吃早餐',icon:'🌅'},{id:'water',name:'多喝白开水',icon:'💧'},{id:'slow',name:'细嚼慢咽',icon:'🍚'},{id:'noBf',name:'经常不吃早餐',icon:'🚫'}],
+        bins:[{id:'good',name:'好习惯',icon:'✅'},{id:'bad',name:'坏习惯',icon:'❌'}],
+        answer:{'bf':'good','water':'good','slow':'good','noBf':'bad'},
+        exp:'每天吃早餐、多喝水、细嚼慢咽是好习惯；不吃早餐、暴饮暴食是坏习惯。' },
+      { type:'image-choice', prompt:'🍬 控糖：儿童每天添加糖摄入不超过多少？', image:'🍬',
+        choices:[{icon:'0',text:'0 g（最好不吃）'},{icon:'25',text:'25 g（约 6 茶匙）'},{icon:'50',text:'50 g'},{icon:'100',text:'100 g'}],
+        answer:1, exp:'WHO 建议每天添加糖摄入不超过 25 g（约 6 茶匙），最好控制在 10% 总能量以内。' },
+      { type:'scenario', prompt:'🥤 培养饮水习惯：4 岁宝宝只喝果汁不喝水，怎么办？',
+        scenario:'4 岁宝宝只喝果汁和甜味饮料，不喝白开水。',
+        choices:[{key:'A',text:'由着他，不喝就算了'},{key:'B',text:'限制果汁、定时提供白开水'},{key:'C',text:'加糖让他接受'},{key:'D',text:'饿他逼他喝水'}],
+        answer:1, exp:'限制果汁摄入、定时提供白开水、用可爱的水杯、增加饮水趣味。' },
+      { type:'match', prompt:'🔗 早餐搭配：把食物和营养功能配对',
+        left:[{id:'A',icon:'🍞',text:'全麦面包'},{id:'B',icon:'🥚',text:'鸡蛋'},{id:'C',icon:'🥛',text:'牛奶'},{id:'D',icon:'🍌',text:'香蕉'}],
+        right:[{id:'1',icon:'🌾',text:'碳水（主食）'},{id:'2',icon:'💪',text:'优质蛋白'},{id:'3',icon:'🦴',text:'钙+蛋白'},{id:'4',icon:'🍎',text:'维生素+纤维'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'全麦面包提供碳水；鸡蛋提供优质蛋白；牛奶提供钙和蛋白；香蕉提供维生素和纤维。' }
+    ]},
+    'child-4': { title: '特殊关注', questions: [
+      { type:'drag-bin', prompt:'👁 视力保护：把护眼做法拖入右侧', hint:'💡 视力保护需要饮食+生活方式',
+        items:[{id:'carrot2',name:'多吃胡萝卜',icon:'🥕'},{id:'lessScreen',name:'减少屏幕时间',icon:'📵'},{id:'sunshine',name:'每天户外 2 小时',icon:'☀️'},{id:'moreScreen',name:'长时间看平板',icon:'📱'}],
+        bins:[{id:'good',name:'护眼做法',icon:'✅'},{id:'bad',name:'伤眼做法',icon:'❌'}],
+        answer:{'carrot2':'good','lessScreen':'good','sunshine':'good','moreScreen':'bad'},
+        exp:'护眼：多吃胡萝卜、减少屏幕时间、每天户外 2 小时；伤眼：长时间看平板/手机。' },
+      { type:'image-choice', prompt:'📈 身高促进：以下哪种习惯有助长高？', image:'📏',
+        choices:[{icon:'🍔',text:'高糖高脂饮食'},{icon:'🥛',text:'充足睡眠+运动+钙'},{icon:'🍟',text:'天天快餐'},{icon:'🛌',text:'不运动只睡觉'}],
+        answer:1, exp:'促进身高：充足睡眠（生长激素夜间分泌）、纵向运动（跳绳/篮球）、充足钙和蛋白。' },
+      { type:'scenario', prompt:'🛡 免疫力提升：4 岁宝宝经常感冒，怎么饮食调整？',
+        scenario:'4 岁宝宝入冬后反复感冒，想通过饮食提高免疫力。',
+        choices:[{key:'A',text:'吃保健品'},{key:'B',text:'均衡饮食+维C+锌+益生菌'},{key:'C',text:'只吃肉'},{key:'D',text:'饿着增强'}],
+        answer:1, exp:'提升免疫力：均衡饮食（蛋白+蔬果）、维 C、锌、益生菌；不偏食挑食、规律作息。' },
+      { type:'image-choice', prompt:'🦷 换牙期：5 岁宝宝开始换牙，应注意？', image:'🦷',
+        choices:[{icon:'🍬',text:'多吃糖换新牙'},{icon:'🪥',text:'保持口腔卫生+补钙'},{icon:'🍫',text:'用牙咬硬物'},{icon:'🚫',text:'不必管'}],
+        answer:1, exp:'换牙期保持口腔卫生（刷牙漱口）、补钙促进恒牙发育、不用牙咬硬物避免牙齿畸形。' },
+      { type:'match', prompt:'🔗 营养与功能：把营养素和功能配对',
+        left:[{id:'A',icon:'🛡',text:'维 C'},{id:'B',icon:'⚙️',text:'锌'},{id:'C',icon:'🦠',text:'益生菌'},{id:'D',icon:'🦴',text:'钙+VD'}],
+        right:[{id:'1',icon:'🛡',text:'增强免疫'},{id:'2',icon:'👅',text:'改善食欲'},{id:'3',icon:'🦠',text:'调节肠道'},{id:'4',icon:'🦴',text:'促进骨骼'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'维 C 增强免疫；锌改善食欲；益生菌调节肠道；钙+VD 促进骨骼。' }
+    ]}
+  },
+  general: {
+    /* ========== 儿童（3-12 岁） ========== */
+    'gen-child-1': { title: '均衡膳食基础', questions: [
+      { type:'image-choice', prompt:'⚡ 能量需求：8 岁男童（体重 25 kg）每天能量需求约为？', image:'🧒',
+        choices:[{icon:'1000',text:'1000 kcal'},{icon:'1700',text:'1700 kcal'},{icon:'2400',text:'2400 kcal'},{icon:'3000',text:'3000 kcal'}],
+        answer:1, exp:'学龄儿童（6-10 岁）每日能量需求约 1700-2000 kcal（男童略高于女童），随年龄、活动量变化。' },
+      { type:'drag-bin', prompt:'🍳 营养早餐：把食物分到"应包含"和"不宜多"两类', hint:'💡 营养早餐应包含 4 类食物',
+        items:[{id:'milk',name:'牛奶',icon:'🥛'},{id:'egg',name:'鸡蛋',icon:'🥚'},{id:'bread',name:'全麦面包',icon:'🍞'},{id:'cola',name:'可乐',icon:'🥤'}],
+        bins:[{id:'good',name:'应包含',icon:'✅'},{id:'bad',name:'不宜多',icon:'⚠️'}],
+        answer:{'milk':'good','egg':'good','bread':'good','cola':'bad'},
+        exp:'营养早餐应包含奶/蛋（蛋白）+主食（碳水）+果蔬（维 C+纤维）+坚果（健康脂肪），缺一不可。' },
+      { type:'image-choice', prompt:'🦴 钙需求数值：6-10 岁儿童每天钙推荐摄入量？', image:'🦴',
+        choices:[{icon:'400',text:'400 mg'},{icon:'800',text:'800 mg'},{icon:'1200',text:'1200 mg'},{icon:'1500',text:'1500 mg'}],
+        answer:1, exp:'6-10 岁儿童每天钙推荐 800 mg，11-13 岁达 1000 mg；相当于 500-600 ml 牛奶 + 日常膳食。' },
+      { type:'drag-bin', prompt:'⚠️ 饮食误区：把下列说法分到"误区"和"正确"', hint:'💡 家长常见的营养误区',
+        items:[{id:'bone',name:'多喝骨头汤补钙',icon:'🍲'},{id:'noBf',name:'不吃早餐能减肥',icon:'🚫'},{id:'fruit',name:'水果代替蔬菜',icon:'🍎'},{id:'water',name:'每天喝 400 ml 牛奶',icon:'🥛'}],
+        bins:[{id:'wrong',name:'误区',icon:'❌'},{id:'right',name:'正确',icon:'✅'}],
+        answer:{'bone':'wrong','noBf':'wrong','fruit':'wrong','water':'right'},
+        exp:'骨头汤钙含量极低且含大量脂肪；不吃早餐影响学习和发育；水果不能代替蔬菜（蔬菜纤维和矿物质更丰富）。' },
+      { type:'image-choice', prompt:'🌾 强化食品：铁强化米粉最适合哪个年龄段？', image:'🌾',
+        choices:[{icon:'①',text:'0-6 月新生儿'},{icon:'②',text:'6 月龄开始辅食的婴儿'},{icon:'③',text:'3-6 岁儿童'},{icon:'④',text:'12 岁以上青少年'}],
+        answer:1, exp:'6 月龄后婴儿铁需求增加（母体储备耗尽），铁强化米粉是首选辅食，预防缺铁性贫血。' }
+    ]},
+    'gen-child-2': { title: '营养素需求', questions: [
+      { type:'image-choice', prompt:'🦴 钙摄入：儿童每天钙推荐摄入量约多少？', image:'🧒',
+        choices:[{icon:'400',text:'400 mg'},{icon:'800',text:'800-1000 mg'},{icon:'1500',text:'1500 mg'},{icon:'2000',text:'2000 mg'}],
+        answer:1, exp:'4-10 岁儿童每天钙推荐约 800-1000 mg，应每天饮用 300-500 ml 奶。' },
+      { type:'drag-bin', prompt:'🩸 富铁食物：把富铁食物拖入右侧', hint:'💡 儿童缺铁性贫血较常见',
+        items:[{id:'liver',name:'猪肝',icon:'🥩'},{id:'redmeat',name:'牛肉',icon:'🍖'},{id:'egg',name:'鸡蛋黄',icon:'🥚'},{id:'cola',name:'可乐',icon:'🥤'}],
+        bins:[{id:'rich',name:'富铁食物',icon:'✅'},{id:'poor',name:'铁少',icon:'➖'}],
+        answer:{'liver':'rich','redmeat':'rich','egg':'rich','cola':'poor'},
+        exp:'猪肝、牛肉、蛋黄富铁；可乐铁少且影响钙吸收。' },
+      { type:'match', prompt:'🔗 营养素-功能：把营养素和主要功能配对',
+        left:[{id:'A',icon:'🦴',text:'钙'},{id:'B',icon:'🩸',text:'铁'},{id:'C',icon:'👁',text:'维生素 A'},{id:'D',icon:'🧠',text:'DHA'}],
+        right:[{id:'1',icon:'🦴',text:'骨骼发育'},{id:'2',icon:'💪',text:'预防贫血'},{id:'3',icon:'👁',text:'保护视力'},{id:'4',icon:'🧠',text:'大脑发育'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'钙促骨骼发育；铁预防贫血；VA 保护视力；DHA 促进大脑发育。' },
+      { type:'image-choice', prompt:'🐟 DHA 来源：富含 DHA 的食物是？', image:'👁',
+        choices:[{icon:'🐟',text:'深海鱼'},{icon:'🍞',text:'白面包'},{icon:'🥛',text:'牛奶'},{icon:'🍚',text:'米饭'}],
+        answer:0, exp:'深海鱼（三文鱼、鲭鱼）富含 DHA，建议每周 2-3 次。' },
+      { type:'scenario', prompt:'🩸 缺铁性贫血：8 岁儿童脸色苍白、易疲劳，可能？',
+        scenario:'小明 8 岁，最近脸色苍白，上课注意力不集中，体育课易疲劳。',
+        choices:[{key:'A',text:'上火'},{key:'B',text:'可能缺铁性贫血，需就医检查'},{key:'C',text:'正常现象'},{key:'D',text:'吃糖就好'}],
+        answer:1, exp:'脸色苍白、易疲劳、注意力不集中可能是缺铁性贫血，应就医检查并补充富铁食物。' }
+    ]},
+    'gen-child-3': { title: '饮食习惯养成', questions: [
+      { type:'drag-bin', prompt:'🍴 良好习惯：哪些是良好饮食习惯？', hint:'💡 良好习惯需要长期培养',
+        items:[{id:'bf',name:'每天吃早餐',icon:'🌅'},{id:'water',name:'多喝白开水',icon:'💧'},{id:'slow',name:'细嚼慢咽',icon:'🍚'},{id:'noBf',name:'经常不吃早餐',icon:'🚫'}],
+        bins:[{id:'good',name:'好习惯',icon:'✅'},{id:'bad',name:'坏习惯',icon:'❌'}],
+        answer:{'bf':'good','water':'good','slow':'good','noBf':'bad'},
+        exp:'每天吃早餐、多喝水、细嚼慢咽是好习惯；不吃早餐是坏习惯。' },
+      { type:'image-choice', prompt:'🍽 细嚼慢咽：每口食物应咀嚼多少次？', image:'🍚',
+        choices:[{icon:'5',text:'5-10 次'},{icon:'15',text:'15-20 次'},{icon:'30',text:'20-30 次'},{icon:'50',text:'40-50 次'}],
+        answer:1, exp:'建议每口食物咀嚼 15-20 次，有助于消化、营养吸收和控制食量。' },
+      { type:'match', prompt:'🔗 习惯-年龄：把习惯和适合年龄配对',
+        left:[{id:'A',icon:'🍴',text:'自己用筷子'},{id:'B',icon:'🚫📺',text:'戒电视手机'},{id:'C',icon:'🛒',text:'参与买菜做饭'},{id:'D',icon:'🥗',text:'认识营养标签'}],
+        right:[{id:'1',icon:'3-4岁',text:'3-4 岁起'},{id:'2',icon:'5岁',text:'5 岁起'},{id:'3',icon:'6岁',text:'6 岁起'},{id:'4',icon:'10岁',text:'10 岁起'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'3-4 岁开始用筷子；5 岁戒电视手机；6 岁参与做饭；10 岁认识营养标签。' },
+      { type:'image-choice', prompt:'🥤 含糖饮料：以下哪种是含糖饮料？', image:'🥤',
+        choices:[{icon:'💧',text:'白开水'},{icon:'🥛',text:'纯牛奶'},{icon:'🍹',text:'果汁饮料'},{icon:'🍵',text:'淡茶水'}],
+        answer:2, exp:'果汁饮料、可乐、奶茶等是含糖饮料；推荐白开水、纯牛奶。' },
+      { type:'scenario', prompt:'😴 熬夜调整：8 岁儿童晚上熬夜到 11 点，第二天起不来，怎么办？',
+        scenario:'小华 8 岁，最近每天作业到 11 点，第二天起不来早餐也不吃。',
+        choices:[{key:'A',text:'让他睡，早餐可以不吃'},{key:'B',text:'调整作业时间+保证 9-10 小时睡眠+营养早餐'},{key:'C',text:'晚上喝浓咖啡提神'},{key:'D',text:'晚上加餐补回来'}],
+        answer:1, exp:'6-12 岁儿童需 9-12 小时睡眠；应调整作业时间保证睡眠，营养早餐提升上午学习状态。' }
+    ]},
+    'gen-child-4': { title: '零食与视力', questions: [
+      { type:'drag-bin', prompt:'🕐 加餐时间：把零食分到合适的加餐时间', hint:'💡 健康零食应在两餐之间',
+        items:[{id:'apple',name:'苹果',icon:'🍎'},{id:'yogurt',name:'酸奶',icon:'🥛'},{id:'cola',name:'可乐',icon:'🥤'},{id:'nuts',name:'原味坚果',icon:'🥜'}],
+        bins:[{id:'good',name:'10点/15点加餐',icon:'✅'},{id:'bad',name:'应限制',icon:'⚠️'}],
+        answer:{'apple':'good','yogurt':'good','cola':'bad','nuts':'good'},
+        exp:'水果、酸奶、原味坚果是健康加餐（10 点/15 点）；可乐等含糖饮料应限制（每周不超过 1 次）。' },
+      { type:'image-choice', prompt:'👁 护眼食物：以下哪种食物有助保护视力？', image:'👁',
+        choices:[{icon:'🥕',text:'胡萝卜'},{icon:'🍟',text:'炸薯条'},{icon:'🍰',text:'奶油蛋糕'},{icon:'🥤',text:'可乐'}],
+        answer:0, exp:'胡萝卜富含 β-胡萝卜素（VA 前体），有助保护视力。' },
+      { type:'scenario', prompt:'🍬 高糖零食危害：8 岁儿童每天喝 2 瓶含糖饮料+3 包薯片，长期危害？',
+        scenario:'小明 8 岁，每天喝 2 瓶可乐 + 3 包薯片，已持续半年。',
+        choices:[{key:'A',text:'龋齿、肥胖、钙流失、注意力下降'},{key:'B',text:'视力更好'},{key:'C',text:'长高加速'},{key:'D',text:'皮肤更好'}],
+        answer:0, exp:'高糖高盐零食长期食用易致龋齿、肥胖、钙流失（磷酸影响钙吸收）、注意力下降、血脂异常等。' },
+      { type:'image-choice', prompt:'🍬 含糖饮料危害：长期喝含糖饮料易导致？', image:'🍬',
+        choices:[{icon:'🦷',text:'龋齿、肥胖'},{icon:'💪',text:'长高'},{icon:'🧠',text:'聪明'},{icon:'💤',text:'睡眠好'}],
+        answer:0, exp:'含糖饮料易致龋齿、肥胖、偏食、钙流失，应限制。' },
+      { type:'scenario', prompt:'👁 视力保护：8 岁儿童每天看平板 3 小时，怎么调整？',
+        scenario:'小强 8 岁，每天看平板 3 小时，最近看东西眯眼。',
+        choices:[{key:'A',text:'继续看，吃胡萝卜就行'},{key:'B',text:'减少屏幕时间 + 多吃护眼食物 + 户外活动'},{key:'C',text:'吃保健品'},{key:'D',text:'戴墨镜防蓝光'}],
+        answer:1, exp:'减少屏幕时间、增加户外活动 2 小时/天，多吃护眼食物（胡萝卜、深海鱼、蓝莓）。' }
+    ]},
+
+    /* ========== 青少年（13-18 岁） ========== */
+    'gen-teen-1': { title: '生长发育关键期', questions: [
+      { type:'image-choice', prompt:'📏 身高增长：青少年身高快速增长期是？', image:'📏',
+        choices:[{icon:'①',text:'青春期（女孩 10-12、男孩 12-14）'},{icon:'②',text:'婴幼儿期'},{icon:'③',text:'成年后'},{icon:'④',text:'更年期'}],
+        answer:0, exp:'青春期是身高快速增长期，女孩 10-12 岁、男孩 12-14 岁，应保证充足营养。' },
+      { type:'drag-bin', prompt:'🦴 骨骼生长：把营养素拖到对应功能', hint:'💡 骨骼生长需要多种营养素',
+        items:[{id:'cal',name:'钙',icon:'🦴'},{id:'vd',name:'维生素 D',icon:'☀️'},{id:'pro',name:'蛋白质',icon:'💪'},{id:'vc',name:'维生素 C',icon:'🍊'}],
+        bins:[{id:'bone',name:'骨骼原料',icon:'🦴'},{id:'absorb',name:'促进吸收',icon:'✨'},{id:'colla',name:'胶原蛋白',icon:'🧬'}],
+        answer:{'cal':'bone','vd':'absorb','pro':'bone','vc':'colla'},
+        exp:'钙+蛋白质是骨骼原料；VD 促进钙吸收；VC 合成胶原蛋白利于骨骼。' },
+      { type:'image-choice', prompt:'🧬 第二性征发育：青春期男孩女孩分别需要更多？', image:'🧬',
+        choices:[{icon:'①',text:'男孩铁、女孩铁'},{icon:'②',text:'男孩锌、女孩铁'},{icon:'③',text:'男孩铁、女孩锌'},{icon:'④',text:'都需更多蛋白'}],
+        answer:1, exp:'男孩青春期肌肉增长需更多锌；女孩月经失血需更多铁。' },
+      { type:'match', prompt:'🔗 营养素-功能：把营养素和青春期功能配对',
+        left:[{id:'A',icon:'💪',text:'蛋白质'},{id:'B',icon:'🦴',text:'钙'},{id:'C',icon:'🩸',text:'铁（女）'},{id:'D',icon:'⚙️',text:'锌（男）'}],
+        right:[{id:'1',icon:'💪',text:'肌肉·器官'},{id:'2',icon:'📏',text:'骨骼生长'},{id:'3',icon:'🩸',text:'月经失血'},{id:'4',icon:'🧬',text:'性发育'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'蛋白促肌肉；钙促骨骼；铁补月经失血；锌促性发育。' },
+      { type:'scenario', prompt:'📏 身高促进：14 岁男孩想长高，怎么调整？',
+        scenario:'小刚 14 岁，身高偏矮，想通过饮食促进身高增长。',
+        choices:[{key:'A',text:'吃蛋白粉就行'},{key:'B',text:'充足睡眠+纵向运动+钙+蛋白'},{key:'C',text:'天天快餐'},{key:'D',text:'饿着减肥'}],
+        answer:1, exp:'促进身高：充足睡眠（生长激素夜间分泌）、纵向运动（跳绳/篮球）、钙+蛋白。' }
+    ]},
+    'gen-teen-2': { title: '考试营养', questions: [
+      { type:'drag-bin', prompt:'🧠 健脑食物：把健脑食物拖入右侧', hint:'💡 大脑需要葡萄糖、优质蛋白、Omega-3',
+        items:[{id:'fish',name:'深海鱼',icon:'🐟'},{id:'egg',name:'鸡蛋',icon:'🥚'},{id:'nuts',name:'核桃',icon:'🥜'},{id:'cola2',name:'可乐',icon:'🥤'}],
+        bins:[{id:'good',name:'健脑食物',icon:'✅'},{id:'bad',name:'不利',icon:'❌'}],
+        answer:{'fish':'good','egg':'good','nuts':'good','cola2':'bad'},
+        exp:'深海鱼（DHA）、鸡蛋（胆碱）、核桃（Omega-3）健脑；可乐等高糖饮料不利。' },
+      { type:'image-choice', prompt:'🩸 补血食物：以下哪种是补血佳品？', image:'🩸',
+        choices:[{icon:'🥩',text:'瘦肉/动物肝'},{icon:'🍞',text:'白面包'},{icon:'🥤',text:'奶茶'},{icon:'🍰',text:'蛋糕'}],
+        answer:0, exp:'瘦肉、动物肝富含血红素铁，是补血佳品；搭配维 C 促进吸收。' },
+      { type:'match', prompt:'🔗 营养素-大脑：把营养素和大脑功能配对',
+        left:[{id:'A',icon:'🧠',text:'DHA'},{id:'B',icon:'🍬',text:'葡萄糖'},{id:'C',icon:'💪',text:'蛋白质'},{id:'4',icon:'🍊',text:'维生素 C'}],
+        right:[{id:'1',icon:'🧠',text:'脑细胞膜'},{id:'2',icon:'⚡',text:'能量来源'},{id:'3',icon:'🧬',text:'神经递质'},{id:'4',icon:'🛡',text:'抗氧化保护'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'DHA 是脑细胞膜成分；葡萄糖是大脑能量来源；蛋白合成神经递质；VC 抗氧化保护脑细胞。' },
+      { type:'image-choice', prompt:'😴 缓解疲劳：考试季易疲劳，应补充？', image:'😴',
+        choices:[{icon:'🍰',text:'甜食提神'},{icon:'🥗',text:'均衡饮食+充足睡眠'},{icon:'☕',text:'大量咖啡'},{icon:'💊',text:'保健品'}],
+        answer:1, exp:'考试季应均衡饮食（蛋白+蔬果+全谷物）+充足睡眠，不依赖咖啡因和保健品。' },
+      { type:'scenario', prompt:'☕ 考前熬夜：考试前熬夜复习，怎么调整饮食？',
+        scenario:'小李考试前连续 3 天熬夜到凌晨 2 点，感觉疲惫、记忆力下降。',
+        choices:[{key:'A',text:'喝浓咖啡撑住'},{key:'B',text:'吃夜宵+清淡早餐+补充 B 族'},{key:'C',text:'饿着节省时间'},{key:'D',text:'吃大量甜食'}],
+        answer:1, exp:'熬夜时应补充 B 族维生素（粗粮、瘦肉、蛋），吃清淡夜宵（如牛奶+全麦面包），不依赖咖啡。' }
+    ]},
+    'gen-teen-3': { title: '体重与形象', questions: [
+      { type:'image-choice', prompt:'⚖️ 健康 BMI：成年人健康 BMI 范围是？', image:'⚖️',
+        choices:[{icon:'①',text:'16-18.5'},{icon:'②',text:'18.5-23.9'},{icon:'③',text:'24-28'},{icon:'④',text:'28 以上'}],
+        answer:1, exp:'中国成人健康 BMI 范围 18.5-23.9，24-27.9 为超重，≥28 为肥胖。' },
+      { type:'drag-bin', prompt:'🥗 减重误区：哪些是减重误区？', hint:'💡 科学减重不是不吃饭',
+        items:[{id:'noEat',text:'完全不吃主食',icon:'🚫🍚'},{id:'dietPill',text:'吃减肥药',icon:'💊'},{id:'balance',text:'均衡饮食+运动',icon:'🥗'},{id:'waterOnly',text:'只喝果汁'}],
+        bins:[{id:'wrong',name:'减重误区',icon:'❌'},{id:'right',name:'科学方法',icon:'✅'}],
+        answer:{'noEat':'wrong','dietPill':'wrong','balance':'right','waterOnly':'wrong'},
+        exp:'科学减重：均衡饮食+适度运动，每周减重 0.5-1 kg 为宜；不吃主食/减肥药/单一饮食都是误区。' },
+      { type:'image-choice', prompt:'🍽 减重餐盘：减重餐盘最佳比例是？', image:'🍽',
+        choices:[{icon:'①',text:'1/2 蔬菜 + 1/4 蛋白 + 1/4 主食'},{icon:'②',text:'1/2 主食 + 1/2 蛋白'},{icon:'③',text:'全肉'},{icon:'④',text:'全水果'}],
+        answer:0, exp:'健康餐盘比例：1/2 蔬菜 + 1/4 优质蛋白 + 1/4 全谷物主食。' },
+      { type:'scenario', prompt:'⚖️ 极端减重：16 岁女孩想用节食快速减肥，怎么劝？',
+        scenario:'16 岁的小芳想一个月减 10 斤，准备每天只吃水果。',
+        choices:[{key:'A',text:'支持她，瘦下来好看'},{key:'B',text:'劝阻：可能致营养不良、闭经，建议科学减重'},{key:'C',text:'不管'},{key:'D',text:'陪她一起节食'}],
+        answer:1, exp:'青少年极端节食易致营养不良、闭经、发育迟缓；应科学减重（控制能量+运动），每月减 2-4 kg 为宜。' },
+      { type:'match', prompt:'🔗 减重方法：把方法归类',
+        left:[{id:'A',icon:'🥗',text:'控制总能量'},{id:'B',icon:'🏃',text:'每天运动 30 分'},{id:'C',icon:'🚫🍚',text:'不吃主食'},{id:'D',icon:'💊',text:'吃减肥药'}],
+        right:[{id:'1',icon:'✅',text:'推荐'},{id:'2',icon:'✅',text:'推荐'},{id:'3',icon:'❌',text:'不推荐'},{id:'4',icon:'❌',text:'不推荐'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'控制总能量+每天运动 30 分钟是科学方法；不吃主食和减肥药不可取。' }
+    ]},
+    'gen-teen-4': { title: '心理与饮食', questions: [
+      { type:'scenario', prompt:'😔 情绪化进食：考试失利后想暴食，怎么办？',
+        scenario:'小张考试失利，心情低落，特别想吃炸鸡、薯片、奶茶。',
+        choices:[{key:'A',text:'使劲吃，发泄情绪'},{key:'B',text:'先深呼吸+散步+找朋友倾诉，再选择健康食物'},{key:'C',text:'完全不吃饿着'},{key:'D',text:'默默忍受'}],
+        answer:1, exp:'情绪化进食应先调节情绪（运动、倾诉、听音乐），再选择健康食物（水果、坚果、酸奶）。' },
+      { type:'image-choice', prompt:'🧠 情绪调节食物：以下哪种食物有助改善情绪？', image:'🧠',
+        choices:[{icon:'🍫',text:'巧克力（少量）'},{icon:'🍟',text:'炸薯条'},{icon:'🥤',text:'可乐'},{icon:'🍬',text:'糖果'}],
+        answer:0, exp:'少量巧克力（含可可多酚）可改善情绪；高糖高脂食物短期满足但易致情绪波动。' },
+      { type:'drag-bin', prompt:'😴 睡眠与饮食：哪些有助睡眠？', hint:'💡 晚餐时间和食物影响睡眠',
+        items:[{id:'milk2',name:'温牛奶',icon:'🥛'},{id:'banana',name:'香蕉',icon:'🍌'},{id:'coffee',name:'浓咖啡',icon:'☕'},{id:'spicy',name:'辛辣夜宵'}],
+        bins:[{id:'good',name:'助眠食物',icon:'✅'},{id:'bad',name:'影响睡眠',icon:'❌'}],
+        answer:{'milk2':'good','banana':'good','coffee':'bad','spicy':'bad'},
+        exp:'温牛奶（色氨酸）、香蕉（镁）助眠；咖啡因和辛辣食物影响睡眠。' },
+      { type:'image-choice', prompt:'🍽 暴食症警示：以下哪种情况可能是暴食症信号？', image:'⚠️',
+        choices:[{icon:'①',text:'偶尔吃多'},{icon:'②',text:'反复暴食后催吐/导泻'},{icon:'③',text:'节日聚餐'},{icon:'④',text:'考试后大吃一顿'}],
+        answer:1, exp:'反复暴食后催吐、导泻、过度运动是神经性贪食症信号，应及时寻求专业帮助。' },
+      { type:'match', prompt:'🔗 心理调节：把问题和应对方法配对',
+        left:[{id:'A',icon:'😔',text:'焦虑'},{id:'B',icon:'😞',text:'抑郁'},{id:'C',icon:'😠',text:'愤怒'},{id:'D',icon:'😴',text:'失眠'}],
+        right:[{id:'1',icon:'🏃',text:'运动+倾诉'},{id:'2',icon:'👨‍⚕️',text:'专业咨询'},{id:'3',icon:'🧘',text:'深呼吸+冥想'},{id:'4',icon:'🥛',text:'温牛奶+按摩'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'焦虑宜运动+倾诉；抑郁宜专业咨询；愤怒宜深呼吸+冥想；失眠宜温牛奶+按摩。' }
+    ]},
+
+    /* ========== 成年人（18-65 岁） ========== */
+    'gen-adult-1': { title: '健康膳食基础', questions: [
+      { type:'image-choice', prompt:'⚡ 能量需求：成年男性轻体力劳动者每天能量推荐摄入？', image:'👨‍💼',
+        choices:[{icon:'1600',text:'1600 kcal'},{icon:'2000',text:'2000 kcal'},{icon:'2250',text:'2250-2400 kcal'},{icon:'3000',text:'3000 kcal'}],
+        answer:2, exp:'成年男性轻体力劳动者每日能量 2250-2400 kcal；中体力 2400-2700；重体力 2700-3000；女性略低约 200 kcal。' },
+      { type:'image-choice', prompt:'🥑 脂肪摄入：饱和脂肪酸应占总能量的比例？', image:'🥑',
+        choices:[{icon:'①',text:'< 10%（推荐）'},{icon:'②',text:'10-20%'},{icon:'③',text:'20-30%'},{icon:'④',text:'>30%'}],
+        answer:0, exp:'饱和脂肪酸应<总能量 10%（中国 DRIs），过多增加心血管病风险；用橄榄油/深海鱼替代动物油。' },
+      { type:'scenario', prompt:'📖 DRIs 解读：小李作为营养师需要为客户计算每日蛋白质摄入量，应参考？',
+        scenario:'小李为某公司 30 名员工做营养评估，需要参考 DRIs 计算蛋白质。',
+        choices:[{key:'A',text:'参考 EAR（平均需要量）'},{key:'B',text:'参考 RNI（推荐摄入量）'},{key:'C',text:'参考 UL（可耐受最高量）'},{key:'D',text:'参考 AI（适宜摄入量）'}],
+        answer:1, exp:'RNI = 推荐摄入量，可满足 97-98% 人群需要；EAR 是平均需要量（仅 50% 人满足）；UL 是上限；AI 是无 RNI 时用。' },
+      { type:'drag-bin', prompt:'🌊 地中海饮食：把食物分到"地中海"和"西式"', hint:'💡 地中海饮食是 WHO 推荐健康模式',
+        items:[{id:'olive',name:'橄榄油',icon:'🫒'},{id:'fish2',name:'深海鱼',icon:'🐟'},{id:'fried',name:'炸薯条',icon:'🍟'},{id:'veg2',name:'番茄西兰花',icon:'🥦'}],
+        bins:[{id:'medi',name:'地中海饮食',icon:'🌊'},{id:'west',name:'西式饮食',icon:'🍔'}],
+        answer:{'olive':'medi','fish2':'medi','veg2':'medi','fried':'west'},
+        exp:'地中海饮食：橄榄油、深海鱼、蔬果、全谷物、坚果；西式饮食：炸薯条、红肉、精制糖；前者心血管获益更多。' },
+      { type:'image-choice', prompt:'💧 饮水量：成年男性/女性每天饮水推荐量？', image:'💧',
+        choices:[{icon:'①',text:'男 1700 ml / 女 1500 ml'},{icon:'②',text:'男 2000 ml / 女 2000 ml'},{icon:'③',text:'男 1000 ml / 女 800 ml'},{icon:'④',text:'只要不渴就行'}],
+        answer:0, exp:'中国 DRIs 推荐成年男性 1700 ml、女性 1500 ml（主动饮水），炎热/运动时增加；不要等渴了再喝。' }
+    ]},
+    'gen-adult-2': { title: '办公室健康', questions: [
+      { type:'image-choice', prompt:'💻 久坐危害：长时间久坐最主要的健康风险是？', image:'💻',
+        choices:[{icon:'①',text:'视力下降'},{icon:'②',text:'颈椎病、腰椎病、代谢慢'},{icon:'③',text:'皮肤干燥'},{icon:'④',text:'听力下降'}],
+        answer:1, exp:'长时间久坐易致颈椎病、腰椎病、血流减缓、代谢综合征；建议每 1 小时起身活动 5-10 分钟。' },
+      { type:'drag-bin', prompt:'🥡 外卖选择：以下哪种外卖相对健康？', hint:'💡 外卖尽量少油、少盐、多蔬菜',
+        items:[{id:'salad',name:'轻食沙拉',icon:'🥗'},{id:'fried',name:'炸鸡套餐',icon:'🍗'},{id:'noodle',name:'清汤面+青菜',icon:'🍜'},{id:'rice',name:'盖浇饭（多肉）'}],
+        bins:[{id:'good',name:'相对健康',icon:'✅'},{id:'bad',name:'需控制',icon:'⚠️'}],
+        answer:{'salad':'good','noodle':'good','fried':'bad','rice':'bad'},
+        exp:'轻食沙拉、清汤面+青菜相对健康；炸鸡、盖浇饭（多肉）油脂盐分过高需控制。' },
+      { type:'scenario', prompt:'🍺 应酬酒水：商务应酬如何减少酒精伤害？',
+        scenario:'李总今晚有重要商务应酬，需要喝酒。',
+        choices:[{key:'A',text:'空腹喝，更易醉'},{key:'B',text:'先吃主食垫底、不混饮、控制总量'},{key:'C',text:'酒+碳酸饮料'},{key:'D',text:'喝越多越显诚意'}],
+        answer:1, exp:'应酬前先吃主食垫底、不空腹；不混饮（白酒+啤酒）；控制总量；多喝水促进代谢。' },
+      { type:'image-choice', prompt:'☕ 上班族咖啡：每天咖啡因摄入不超过？', image:'☕',
+        choices:[{icon:'①',text:'200 mg（约 1 杯）'},{icon:'②',text:'400 mg（约 2-3 杯）'},{icon:'③',text:'600 mg'},{icon:'④',text:'不限'}],
+        answer:1, exp:'健康成年人每天咖啡因摄入不超过 400 mg（约 2-3 杯咖啡），孕妇不超过 200 mg。' },
+      { type:'match', prompt:'🔗 办公室微习惯：把习惯和作用配对',
+        left:[{id:'A',icon:'🚶',text:'每 1 小时起身'},{id:'B',icon:'💧',text:'多喝水'},{id:'C',icon:'👀',text:'远眺 20 英尺'},{id:'D',icon:'🧘',text:'午休冥想'}],
+        right:[{id:'1',icon:'🦴',text:'缓解颈腰椎'},{id:'2',icon:'💧',text:'缓解疲劳'},{id:'3',icon:'👁',text:'缓解眼疲劳'},{id:'4',icon:'🧠',text:'下午精力'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'每小时起身活动缓解颈腰椎；多喝水缓解疲劳；远眺缓解眼疲劳；午休冥想提升下午精力。' }
+    ]},
+    'gen-adult-3': { title: '压力与营养', questions: [
+      { type:'drag-bin', prompt:'😌 抗压食物：把抗压食物拖入右侧', hint:'💡 B 族维生素、镁、色氨酸有助抗压',
+        items:[{id:'oats',name:'燕麦',icon:'🌾'},{id:'banana',name:'香蕉',icon:'🍌'},{id:'salmon',name:'三文鱼',icon:'🐟'},{id:'coffee2',name:'浓咖啡',icon:'☕'}],
+        bins:[{id:'good',name:'抗压食物',icon:'✅'},{id:'bad',name:'加压食物',icon:'❌'}],
+        answer:{'oats':'good','banana':'good','salmon':'good','coffee2':'bad'},
+        exp:'燕麦（B 族维）、香蕉（镁、色氨酸）、三文鱼（Omega-3）抗压；过量咖啡加压。' },
+      { type:'image-choice', prompt:'😴 助眠饮食：以下哪种食物有助睡眠？', image:'😴',
+        choices:[{icon:'🥛',text:'温牛奶'},{icon:'☕',text:'浓咖啡'},{icon:'🍫',text:'巧克力'},{icon:'🥩',text:'炸鸡'}],
+        answer:0, exp:'温牛奶含色氨酸，有助合成褪黑素促眠；咖啡因、巧克力、炸鸡影响睡眠。' },
+      { type:'scenario', prompt:'😰 加班熬夜：连续加班一周，怎么调整饮食？',
+        scenario:'小王连续加班一周，每晚 12 点后睡，感觉疲惫、口腔溃疡。',
+        choices:[{key:'A',text:'靠咖啡撑'},{key:'B',text:'补充 B 族维 + 维 C + 保证睡眠'},{key:'C',text:'只吃泡面'},{key:'D',text:'吃大量补品'}],
+        answer:1, exp:'熬夜应补充 B 族维生素（粗粮、瘦肉、蛋）和维 C（蔬果），保证 7 小时睡眠，不依赖咖啡。' },
+      { type:'match', prompt:'🔗 营养素-抗压：把营养素和作用配对',
+        left:[{id:'A',icon:'🌾',text:'B 族维生素'},{id:'B',icon:'🍌',text:'镁'},{id:'C',icon:'🐟',text:'Omega-3'},{id:'D',icon:'☕',text:'过量咖啡因'}],
+        right:[{id:'1',icon:'⚡',text:'能量代谢'},{id:'2',icon:'😌',text:'放松神经'},{id:'3',icon:'🧠',text:'抗炎抗压'},{id:'4',icon:'😰',text:'加剧焦虑'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'B 族维促能量代谢；镁放松神经；Omega-3 抗炎抗压；过量咖啡因加剧焦虑。' },
+      { type:'image-choice', prompt:'🍫 情绪化进食：压力大想吃甜食怎么办？', image:'🍫',
+        choices:[{icon:'①',text:'狂吃甜食发泄'},{key:'B',text:'少量黑巧克力+运动+倾诉'},{icon:'③',text:'完全不吃忍着'},{icon:'④',text:'暴饮暴食'}],
+        answer:1, exp:'少量黑巧克力（≥70%）可改善情绪；运动和倾诉是更好的减压方式；狂吃甜食易致情绪波动。' }
+    ]},
+    'gen-adult-4': { title: '慢病早期预防', questions: [
+      { type:'image-choice', prompt:'🩸 高血压预防：成年人每天盐摄入不超过？', image:'🩸',
+        choices:[{icon:'①',text:'3 g'},{icon:'②',text:'6 g'},{icon:'③',text:'10 g'},{icon:'④',text:'15 g'}],
+        answer:1, exp:'成年人每天盐摄入不超过 6 g，约 1 啤酒瓶盖的量，预防高血压。' },
+      { type:'drag-bin', prompt:'🛡 慢病预防：把做法分到推荐/不推荐', hint:'💡 慢病早期预防从饮食+运动+体重开始',
+        items:[{id:'vegetable',name:'多吃蔬菜水果',icon:'🥬'},{id:'walk',name:'每天走 6000 步',icon:'🚶'},{id:'fried2',name:'常吃油炸食品',icon:'🍟'},{id:'smoke',name:'经常吸烟'}],
+        bins:[{id:'good',name:'推荐',icon:'✅'},{id:'bad',name:'不推荐',icon:'❌'}],
+        answer:{'vegetable':'good','walk':'good','fried2':'bad','smoke':'bad'},
+        exp:'多吃蔬菜、每天运动 6000 步推荐；常吃油炸、吸烟不推荐（增加三高、癌症风险）。' },
+      { type:'scenario', prompt:'⚖️ 体重管理：BMI 26 怎么办？',
+        scenario:'小李 35 岁，身高 170 cm，体重 75 kg，BMI 26 属于超重。',
+        choices:[{key:'A',text:'不管不胖'},{key:'B',text:'控制总能量+每天运动 30 分+定期监测'},{key:'C',text:'吃减肥药'},{key:'D',text:'饿着'}],
+        answer:1, exp:'BMI 26 属超重，应控制总能量（每天减 300-500 kcal）+每天运动 30 分+定期监测体重。' },
+      { type:'image-choice', prompt:'🍬 控糖预防：成年人每天添加糖摄入不超过？', image:'🍬',
+        choices:[{icon:'①',text:'25 g（约 6 茶匙）'},{icon:'②',text:'50 g'},{icon:'③',text:'100 g'},{icon:'④',text:'不限'}],
+        answer:0, exp:'WHO 建议每天添加糖摄入不超过 25 g（约 6 茶匙），最好控制在总能量 10% 以内。' },
+      { type:'match', prompt:'🔗 慢病-饮食：把慢病和饮食建议配对',
+        left:[{id:'A',icon:'💔',text:'高血压'},{id:'B',icon:'🩸',text:'高血脂'},{id:'C',icon:'🍬',text:'糖尿病'},{id:'D',icon:'⚖️',text:'肥胖'}],
+        right:[{id:'1',icon:'🧂',text:'低钠 DASH'},{id:'2',icon:'🥑',text:'低脂高纤维'},{id:'3',icon:'🍚',text:'低 GI 控糖'},{id:'4',icon:'⚖️',text:'控制总能量'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'高血压：低钠 DASH 饮食；高血脂：低脂高纤维；糖尿病：低 GI 控糖；肥胖：控制总能量。' }
+    ]}
+  }
+};
+
+/* =============================================
+   全局状态
+   ============================================= */
+let state = {
+  currentView: 'view-role-select',
+  currentRole: null,
+  currentSubRole: null,
+  currentLevelIdx: 0,
+  currentQuestions: [],
+  currentQIdx: 0,
+  answers: [],
+  submitted: [],
+  correctFlags: [],
+  finishedLevels: [],
+  finishedSubRoles: [],
+  finishedGeneralSubRoles: []
+};
+
+/* =============================================
+   视图切换
+   ============================================= */
+function showView(viewId) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(viewId).classList.add('active');
+  state.currentView = viewId;
+  document.getElementById('backBtn').style.display =
+    (viewId === 'view-role-select') ? 'none' : 'inline-block';
+  if (viewId === 'view-nutri-quiz') updateFab();
+  else { document.getElementById('fabPrev').classList.remove('show'); document.getElementById('fabNext').classList.remove('show'); }
+}
+
+function goBack() {
+  if (state.currentView === 'view-nutri-quiz') {
+    if (confirm('返回将丢失本关答题进度，确定返回关卡地图？')) showView('view-nutri-map');
+  } else if (state.currentView === 'view-nutri-map') {
+    if (state.currentRole === 'newbie') showView('view-subrole-select');
+    else if (state.currentRole === 'general') showView('view-general-roles');
+    else if (state.currentRole === 'pregnant') showView('view-special-roles');
+    else showView('view-role-select');
+  } else if (state.currentView === 'view-subrole-select') {
+    showView('view-special-roles');
+  } else if (state.currentView === 'view-general-roles') {
+    showView('view-role-select');
+  } else if (state.currentView === 'view-special-roles') {
+    showView('view-role-select');
+  } else if (state.currentView === 'view-nutri-badge') {
+    if (state.currentRole === 'newbie') showView('view-subrole-select');
+    else if (state.currentRole === 'general') showView('view-general-roles');
+    else if (state.currentRole === 'pregnant') showView('view-special-roles');
+    else showView('view-role-select');
+  }
+}
+
+function goBackToRole() {
+  state.currentLevelIdx = 0; state.finishedLevels = [];
+  state.currentSubRole = null;
+  state.currentRole = null;
+  showView('view-role-select');
+}
+
+function enterRole(roleId) {
+  if (roleId === 'general') {
+    renderGeneralRoles();
+    showView('view-general-roles');
+  } else if (roleId === 'special') {
+    renderSpecialRoles();
+    showView('view-special-roles');
+  } else if (roleId === 'pregnant') {
+    state.currentRole = 'pregnant';
+    state.finishedLevels = [];
+    renderLevelMap();
+    showView('view-nutri-map');
+  } else if (roleId === 'infant') {
+    // 婴幼儿 = 新手爸妈的 4 子角色
+    state.currentRole = 'newbie';
+    renderSubRoleSelect();
+    showView('view-subrole-select');
+  } else if (roleId === 'nutritionist') {
+    state.currentRole = 'nutritionist';
+    state.finishedLevels = [];
+    renderLevelMap();
+    showView('view-nutri-map');
+  } else if (ROLES[roleId]) {
+    state.currentRole = roleId;
+    state.finishedLevels = [];
+    renderLevelMap();
+    showView('view-nutri-map');
+  } else {
+    alert('该路线开发中，敬请期待～');
+  }
+}
+
+/* =============================================
+   一般人群子分类
+   ============================================= */
+function renderGeneralRoles() {
+  const grid = document.getElementById('generalRolesGrid');
+  let html = '';
+  Object.keys(GENERAL_ROLES).forEach(key => {
+    const sr = GENERAL_ROLES[key];
+    const finished = state.finishedGeneralSubRoles && state.finishedGeneralSubRoles.includes(key);
+    const finishedBadge = finished ? '<span style="color:#4CAF50;font-size:12px;">✅ 已通关</span>' : '';
+    html += `<div class="subrole-card ${sr.cssClass}" onclick="enterGeneralRole('${key}')">
+              <div class="subrole-icon">${sr.icon}</div>
+              <div class="subrole-name">${sr.name}</div>
+              <div class="subrole-age">${sr.age} ${finishedBadge}</div>
+              <div class="subrole-desc">${sr.desc}</div>
+              <button class="subrole-btn">${finished ? '重新挑战' : '开始闯关'} →</button>
+            </div>`;
+  });
+  grid.innerHTML = html;
+}
+
+function enterGeneralRole(roleId) {
+  state.currentRole = 'general';
+  state.currentSubRole = roleId;
+  state.finishedLevels = [];
+  renderLevelMap();
+  showView('view-nutri-map');
+}
+
+/* =============================================
+   特殊人群子分类
+   ============================================= */
+function renderSpecialRoles() {
+  const grid = document.getElementById('specialRolesGrid');
+  const roles = [
+    { id: 'pregnant', icon: '🤰', name: '孕妇', age: '备孕·孕期·产后', desc: '叶酸·DHA·铁·钙·体重管理·食物安全', cssClass: 'sr-newborn', onclick: "enterRole('pregnant')" },
+    { id: 'infant', icon: '👶', name: '婴幼儿', age: '0-6 岁', desc: '母乳·辅食·挑食·喂养难题全解（4 个阶段）', cssClass: 'sr-infant', onclick: "enterRole('infant')" },
+    { id: 'elder', icon: '👵', name: '老年人', age: '65 岁以上', desc: '老年膳食·骨质疏松·慢病预防', cssClass: 'sr-preschool', onclick: "alert('该人群路线开发中，敬请期待～')" },
+    { id: 'disease', icon: '💊', name: '疾病人群', age: '三高·慢病', desc: '高血压·高血脂·糖尿病·痛风等饮食方案', cssClass: 'sr-child', onclick: "alert('该人群路线开发中，敬请期待～')" },
+    { id: 'athlete', icon: '🏃', name: '运动员', age: '运动人群', desc: '运动营养·能量补充·赛前赛后饮食', cssClass: 'sr-newborn', onclick: "alert('该人群路线开发中，敬请期待～')" }
+  ];
+  let html = '';
+  roles.forEach(r => {
+    const ready = (r.id === 'pregnant' || r.id === 'infant');
+    const btnText = ready ? '开始闯关' : '敬请期待';
+    html += `<div class="subrole-card ${r.cssClass}" onclick="${r.onclick}">
+              <div class="subrole-icon">${r.icon}</div>
+              <div class="subrole-name">${r.name}</div>
+              <div class="subrole-age">${r.age} ${ready ? '<span style="color:#4CAF50;font-size:12px;">✅ 已开放</span>' : ''}</div>
+              <div class="subrole-desc">${r.desc}</div>
+              <button class="subrole-btn">${btnText} →</button>
+            </div>`;
+  });
+  grid.innerHTML = html;
+}
+
+/* =============================================
+   子角色选择（新手爸妈）
+   ============================================= */
+function renderSubRoleSelect() {
+  const grid = document.getElementById('subRoleGrid');
+  let html = '';
+  Object.keys(SUB_ROLES).forEach(key => {
+    const sr = SUB_ROLES[key];
+    const finished = state.finishedSubRoles.includes(key);
+    const finishedBadge = finished ? '<span style="color:#4CAF50;font-size:12px;">✅ 已通关</span>' : '';
+    html += `<div class="subrole-card ${sr.cssClass}" onclick="enterSubRole('${key}')">
+              <div class="subrole-icon">${sr.icon}</div>
+              <div class="subrole-name">${sr.name}</div>
+              <div class="subrole-age">${sr.age} ${finishedBadge}</div>
+              <div class="subrole-desc">${sr.desc}</div>
+              <button class="subrole-btn">${finished ? '重新挑战' : '开始闯关'} →</button>
+            </div>`;
+  });
+  grid.innerHTML = html;
+}
+
+function enterSubRole(subRoleId) {
+  state.currentSubRole = subRoleId;
+  state.finishedLevels = [];
+  renderLevelMap();
+  showView('view-nutri-map');
+}
+
+/* =============================================
+   关卡地图
+   ============================================= */
+function renderLevelMap() {
+  let levels, badgeName, badgeSummary, badgeTopics, roleTag, mapTitle;
+  if (state.currentRole === 'newbie' && state.currentSubRole) {
+    const sr = SUB_ROLES[state.currentSubRole];
+    levels = sr.levels;
+    badgeName = sr.badgeName;
+    badgeSummary = sr.badgeSummary;
+    badgeTopics = sr.badgeTopics;
+    roleTag = `👶 新手爸妈·${sr.name}`;
+    mapTitle = `🌟 ${sr.name}闯关地图`;
+  } else if (state.currentRole === 'general' && state.currentSubRole) {
+    const sr = GENERAL_ROLES[state.currentSubRole];
+    levels = sr.levels;
+    badgeName = sr.badgeName;
+    badgeSummary = sr.badgeSummary;
+    badgeTopics = sr.badgeTopics;
+    roleTag = `🥗 一般人群·${sr.name}`;
+    mapTitle = `🌟 ${sr.name}闯关地图`;
+  } else {
+    const role = ROLES[state.currentRole];
+    levels = role.levels;
+    badgeName = role.badgeName;
+    badgeSummary = role.badgeSummary;
+    badgeTopics = role.badgeTopics;
+    roleTag = role.tag;
+    mapTitle = role.mapTitle;
+  }
+
+  document.getElementById('mapRoleTag').textContent = roleTag;
+  document.getElementById('mapTitle').textContent = mapTitle;
+  document.getElementById('mapSub').innerHTML = `完成 <b>${levels.length}</b> 关专业关卡，颁发 <b style="color:#ffd54f;">「${badgeName}」</b> 称号`;
+
+  const map = document.getElementById('nutriLevelMap');
+  // 标记关卡状态：第 1 关 ready，其他关需要前一关通关
+  levels.forEach((lv, i) => {
+    if (i === 0) lv.status = 'ready';
+    else if (state.finishedLevels.includes(i - 1)) lv.status = 'ready';
+    else lv.status = 'locked';
+  });
+
+  let html = '';
+  levels.forEach((lv, i) => {
+    const finished = state.finishedLevels.includes(i);
+    const cls = lv.status === 'locked' ? 'locked' : '';
+    const status = finished ? '✅ 已通关' : (lv.status === 'locked' ? '🔒 未解锁' : '▶ 挑战');
+    const onclick = lv.status === 'locked' ? '' : `startLevel(${i})`;
+    html += `
+      <div class="level-tile ${cls}" ${onclick ? `onclick="${onclick}"` : ''}>
+        <div class="level-num">${i + 1}</div>
+        <div class="level-icon">${lv.icon}</div>
+        <div class="level-name">${lv.name}</div>
+        <div class="level-desc">${lv.desc}</div>
+        <div class="level-status">${status}</div>
+      </div>`;
+  });
+
+  const allFinished = state.finishedLevels.length === levels.length;
+  html += `
+    <div class="level-tile badge-tile ${allFinished ? 'unlocked' : ''}" ${allFinished ? 'onclick="showBadge()"' : ''}>
+      <div class="level-num">🏆</div>
+      <div class="badge-icon">${allFinished ? '🎖️' : '🔒'}</div>
+      <div class="badge-name">${badgeName}</div>
+      <div class="level-desc">完成全部 ${levels.length} 关后获得</div>
+      <div class="level-status">${allFinished ? '✅ 已颁发' : '🔒 待解锁'}</div>
+    </div>`;
+
+  map.innerHTML = html;
+}
+
+/* =============================================
+   开始关卡
+   ============================================= */
+function startLevel(idx) {
+  state.currentLevelIdx = idx;
+  state.currentQIdx = 0;
+  let level;
+  if (state.currentRole === 'newbie' && state.currentSubRole) {
+    level = SUB_ROLES[state.currentSubRole].levels[idx];
+  } else if (state.currentRole === 'general' && state.currentSubRole) {
+    level = GENERAL_ROLES[state.currentSubRole].levels[idx];
+  } else {
+    level = ROLES[state.currentRole].levels[idx];
+  }
+  const bank = QUESTION_BANK[state.currentRole][level.id].questions;
+
+  const shuffled = [...bank].sort(() => Math.random() - 0.5);
+  state.currentQuestions = shuffled.slice(0, Math.min(5, shuffled.length));
+
+  state.answers = state.currentQuestions.map(() => null);
+  state.submitted = state.currentQuestions.map(() => false);
+  state.correctFlags = state.currentQuestions.map(() => false);
+
+  document.getElementById('quizTitle').textContent = QUESTION_BANK[state.currentRole][level.id].title;
+  showView('view-nutri-quiz');
+  renderQuestion();
+}
+
+function updateFab() {
+  const fabPrev = document.getElementById('fabPrev');
+  const fabNext = document.getElementById('fabNext');
+  fabPrev.classList.add('show');
+  fabNext.classList.add('show');
+  if (state.currentQIdx === 0) { fabPrev.classList.add('disabled'); fabPrev.disabled = true; }
+  else { fabPrev.classList.remove('disabled'); fabPrev.disabled = false; }
+  const nextText = state.currentQIdx === state.currentQuestions.length - 1 ? '完成本关' : '下一题';
+  fabNext.innerHTML = `${nextText} <span class="fab-arrow">▶</span>`;
+}
+
+function renderQuestion() {
+  const q = state.currentQuestions[state.currentQIdx];
+  const progHtml = state.currentQuestions.map((_, i) => {
+    let cls = 'dot';
+    if (i < state.currentQIdx) cls += ' done';
+    else if (i === state.currentQIdx) cls += ' current';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+  document.getElementById('quizProgress').innerHTML = progHtml;
+
+  const card = document.getElementById('questionCard');
+  const typeLabel = { 'drag-bin':'🎯 拖拽分类', 'image-choice':'🖼 图文选择', 'match':'🔗 配对', 'scenario':'🧐 情景判断' }[q.type];
+  const typeClass = { 'drag-bin':'qt-drag', 'image-choice':'qt-choice', 'match':'qt-match', 'scenario':'qt-scenario' }[q.type];
+
+  let html = `<span class="question-type ${typeClass}">${typeLabel}</span><div class="question-text">${q.prompt}</div>`;
+  if (q.hint) html += `<div class="question-hint">${q.hint}</div>`;
+  if (q.type === 'drag-bin') html += renderDragBin(q);
+  else if (q.type === 'image-choice') html += renderImageChoice(q);
+  else if (q.type === 'match') html += renderMatch(q);
+  else if (q.type === 'scenario') html += renderScenario(q);
+  html += `<div class="feedback" id="feedback"></div>`;
+  card.innerHTML = html;
+
+  restoreUserAnswer(q);
+  updateFab();
+}
+
+function renderDragBin(q) {
+  let html = '<div class="bin-pool-row">';
+  html += `<div class="bin-pool" id="binPool"><span class="pool-label">物品池：</span>`;
+  q.items.forEach(it => {
+    html += `<div class="drag-item" draggable="true" data-id="${it.id}" ondragstart="dragStart(event)" ondragend="dragEnd(event)"><span class="di-icon">${it.icon}</span>${it.name}</div>`;
+  });
+  html += `</div><div class="bin-grid">`;
+  q.bins.forEach(b => {
+    html += `<div class="bin-cell" data-id="${b.id}" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropItem(event)"><div class="bin-head"><span class="bh-icon">${b.icon}</span>${b.name}</div><div class="bin-body" id="binBody-${b.id}"></div></div>`;
+  });
+  html += `</div></div>`;
+  return html;
+}
+
+let dragData = null;
+function dragStart(e) {
+  if (state.submitted[state.currentQIdx]) { e.preventDefault(); return; }
+  dragData = e.target.dataset.id;
+  e.target.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+}
+function dragEnd(e) {
+  e.target.classList.remove('dragging');
+  dragData = null;
+  document.querySelectorAll('.bin-cell').forEach(c => c.classList.remove('drag-over'));
+}
+function dragOver(e) { if (state.submitted[state.currentQIdx]) return; e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function dragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
+function dropItem(e) {
+  e.preventDefault();
+  if (state.submitted[state.currentQIdx]) return;
+  const binId = e.currentTarget.dataset.id;
+  const itemId = dragData;
+  if (!itemId) return;
+  const q = state.currentQuestions[state.currentQIdx];
+  const item = q.items.find(it => it.id === itemId);
+
+  const oldBinId = getItemBin(q, itemId);
+  const oldBinBody = oldBinId ? document.getElementById(`binBody-${oldBinId}`) : null;
+  if (oldBinBody) { const oldItem = oldBinBody.querySelector(`[data-id="${itemId}"]`); if (oldItem) oldBinBody.removeChild(oldItem); }
+  const pool = document.getElementById('binPool');
+  const poolItem = pool.querySelector(`[data-id="${itemId}"]`);
+  if (poolItem) pool.removeChild(poolItem);
+
+  const targetBody = document.getElementById(`binBody-${binId}`);
+  const div = document.createElement('div');
+  div.className = 'drag-item'; div.draggable = true; div.dataset.id = itemId;
+  div.ondragstart = dragStart; div.ondragend = dragEnd;
+  div.innerHTML = `<span class="di-icon">${item.icon}</span>${item.name}`;
+  targetBody.appendChild(div);
+
+  if (!state.answers[state.currentQIdx]) state.answers[state.currentQIdx] = {};
+  state.answers[state.currentQIdx][itemId] = binId;
+
+  autoSubmit();
+  dragEnd({ target: div });
+}
+function getItemBin(q, itemId) { const ans = state.answers[state.currentQIdx] || {}; return ans[itemId] || null; }
+
+function renderImageChoice(q) {
+  let html = '';
+  if (q.image) html += `<div class="ic-question-image">${q.image}</div>`;
+  html += '<div class="ic-grid">';
+  q.choices.forEach((c, i) => {
+    html += `<div class="ic-card" onclick="selectImageChoice(${i})"><div class="ic-icon">${c.icon}</div><div class="ic-text">${c.text}</div></div>`;
+  });
+  html += '</div>';
+  return html;
+}
+function selectImageChoice(idx) {
+  if (state.submitted[state.currentQIdx]) return;
+  state.answers[state.currentQIdx] = idx;
+  document.querySelectorAll('.ic-card').forEach((el, i) => { el.classList.toggle('selected', i === idx); });
+  setTimeout(() => autoSubmit(), 200);
+}
+
+function renderMatch(q) {
+  let html = '<div class="match-board">';
+  html += `<div class="match-col"><div class="match-col-title">← 左边</div>`;
+  q.left.forEach(l => { html += `<div class="match-card" data-side="left" data-id="${l.id}" onclick="selectMatch('left', '${l.id}')"><span class="mc-icon">${l.icon}</span>${l.text}</div>`; });
+  html += `</div><div class="match-col"><div class="match-col-title">右边 →</div>`;
+  q.right.forEach(r => { html += `<div class="match-card" data-side="right" data-id="${r.id}" onclick="selectMatch('right', '${r.id}')"><span class="mc-icon">${r.icon}</span>${r.text}</div>`; });
+  html += '</div></div>';
+  return html;
+}
+let matchSelection = { side: null, id: null };
+function selectMatch(side, id) {
+  if (state.submitted[state.currentQIdx]) return;
+  const ans = state.answers[state.currentQIdx] || (state.answers[state.currentQIdx] = {});
+  if (ans[side + ':' + id]) return;
+  if (matchSelection.side === null) {
+    matchSelection = { side, id };
+    document.querySelectorAll(`.match-card[data-side="${side}"][data-id="${id}"]`).forEach(el => el.classList.add('selected'));
+  } else if (matchSelection.side === side) {
+    document.querySelectorAll(`.match-card[data-side="${side}"].selected`).forEach(el => el.classList.remove('selected'));
+    matchSelection = { side, id };
+    document.querySelectorAll(`.match-card[data-side="${side}"][data-id="${id}"]`).forEach(el => el.classList.add('selected'));
+  } else {
+    const leftId = side === 'left' ? id : matchSelection.id;
+    const rightId = side === 'right' ? id : matchSelection.id;
+    ans['left:' + leftId] = rightId;
+    document.querySelectorAll(`.match-card[data-side="left"][data-id="${leftId}"]`).forEach(el => { el.classList.remove('selected'); el.classList.add('matched'); });
+    document.querySelectorAll(`.match-card[data-side="right"][data-id="${rightId}"]`).forEach(el => { el.classList.remove('selected'); el.classList.add('matched'); });
+    matchSelection = { side: null, id: null };
+    const q = state.currentQuestions[state.currentQIdx];
+    const pairedCount = Object.keys(ans).filter(k => k.startsWith('left:')).length;
+    if (pairedCount === q.left.length) setTimeout(() => autoSubmit(), 300);
+  }
+}
+
+function renderScenario(q) {
+  let html = `<div class="scenario-box"><span class="sc-tag">📋 情景</span>${q.scenario}</div>`;
+  html += '<div class="sc-choices">';
+  q.choices.forEach((c, i) => {
+    html += `<div class="sc-choice" onclick="selectScenario(${i})"><div class="sc-key">${c.key}</div><div>${c.text}</div></div>`;
+  });
+  html += '</div>';
+  return html;
+}
+function selectScenario(idx) {
+  if (state.submitted[state.currentQIdx]) return;
+  state.answers[state.currentQIdx] = idx;
+  document.querySelectorAll('.sc-choice').forEach((el, i) => { el.classList.toggle('selected', i === idx); });
+  setTimeout(() => autoSubmit(), 200);
+}
+
+function autoSubmit() {
+  if (state.submitted[state.currentQIdx]) return;
+  const q = state.currentQuestions[state.currentQIdx];
+  if (q.type === 'drag-bin') { const ans = state.answers[state.currentQIdx] || {}; if (Object.keys(ans).length < q.items.length) return; }
+  else if (q.type === 'match') { const ans = state.answers[state.currentQIdx] || {}; const pairedCount = Object.keys(ans).filter(k => k.startsWith('left:')).length; if (pairedCount < q.left.length) return; }
+  else if (q.type === 'image-choice' || q.type === 'scenario') { if (state.answers[state.currentQIdx] === null) return; }
+  submitAnswer();
+}
+
+function submitAnswer() {
+  state.submitted[state.currentQIdx] = true;
+  const q = state.currentQuestions[state.currentQIdx];
+  const userAns = state.answers[state.currentQIdx];
+  const correct = checkAnswer(q, userAns);
+  state.correctFlags[state.currentQIdx] = correct;
+
+  if (q.type === 'drag-bin') {
+    q.bins.forEach(b => {
+      const cell = document.querySelector(`.bin-cell[data-id="${b.id}"]`);
+      let binItemsCorrect = true;
+      q.items.forEach(it => { if (q.answer[it.id] === b.id && userAns[it.id] !== b.id) binItemsCorrect = false; });
+      cell.classList.add(binItemsCorrect ? 'correct' : 'wrong'); cell.classList.remove('drag-over');
+    });
+  } else if (q.type === 'image-choice') {
+    document.querySelectorAll('.ic-card').forEach((el, i) => { el.classList.remove('selected'); if (i === q.answer) el.classList.add('correct'); else if (i === userAns) el.classList.add('wrong'); });
+  } else if (q.type === 'match') {
+    Object.keys(userAns).forEach(k => {
+      if (!k.startsWith('left:')) return;
+      const leftId = k.replace('left:', '');
+      const rightId = userAns[k];
+      const leftEl = document.querySelector(`.match-card[data-side="left"][data-id="${leftId}"]`);
+      const rightEl = document.querySelector(`.match-card[data-side="right"][data-id="${rightId}"]`);
+      const isCorrectPair = q.answer[leftId] === rightId;
+      leftEl.classList.remove('matched'); rightEl.classList.remove('matched');
+      leftEl.classList.add(isCorrectPair ? 'correct' : 'wrong'); rightEl.classList.add(isCorrectPair ? 'correct' : 'wrong');
+    });
+  } else if (q.type === 'scenario') {
+    document.querySelectorAll('.sc-choice').forEach((el, i) => { el.classList.remove('selected'); if (i === q.answer) el.classList.add('correct'); else if (i === userAns) el.classList.add('wrong'); });
+  }
+  showFeedback(correct, q, userAns);
+}
+
+function checkAnswer(q, userAns) {
+  if (q.type === 'drag-bin') { for (const id in q.answer) if (!userAns || userAns[id] !== q.answer[id]) return false; return true; }
+  else if (q.type === 'image-choice' || q.type === 'scenario') return userAns === q.answer;
+  else if (q.type === 'match') { for (const leftId in q.answer) if (!userAns || userAns['left:' + leftId] !== q.answer[leftId]) return false; return true; }
+  return false;
+}
+
+function showFeedback(correct, q, userAns) {
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback show ' + (correct ? 'correct' : 'wrong');
+  const fbTitle = correct ? '✅ 答对啦！' : '❌ 再接再厉！';
+  let fbBody = '';
+  if (q.type === 'drag-bin') {
+    fbBody = `<b>正确答案：</b><br>`;
+    q.bins.forEach(b => { const items = q.items.filter(it => q.answer[it.id] === b.id); fbBody += `${b.icon} ${b.name}：${items.map(it => it.icon + it.name).join('、')}<br>`; });
+  } else if (q.type === 'image-choice' || q.type === 'scenario') {
+    const correctOpt = q.choices[q.answer];
+    fbBody = `<b>正确答案：${correctOpt.icon} ${correctOpt.text}</b>`;
+  } else if (q.type === 'match') {
+    fbBody = `<b>正确配对：</b><br>`;
+    q.left.forEach(l => { const rightId = q.answer[l.id]; const r = q.right.find(rr => rr.id === rightId); fbBody += `${l.icon}${l.text} ↔ ${r.icon}${r.text}<br>`; });
+  }
+  fbBody += `<br><b>📌 解析：</b>${q.exp}`;
+  fb.innerHTML = `<div class="fb-title">${fbTitle}</div>${fbBody}`;
+}
+
+function restoreUserAnswer(q) {
+  if (!state.submitted[state.currentQIdx]) return;
+  const userAns = state.answers[state.currentQIdx];
+  if (!userAns) return;
+  setTimeout(() => submitAnswer(), 50);
+}
+
+function prevQuestion() {
+  if (state.currentQIdx === 0) return;
+  state.currentQIdx--; matchSelection = { side: null, id: null }; renderQuestion();
+}
+function nextQuestion() {
+  if (!state.submitted[state.currentQIdx]) { alert('请先完成本题作答～'); return; }
+  if (state.currentQIdx < state.currentQuestions.length - 1) { state.currentQIdx++; matchSelection = { side: null, id: null }; renderQuestion(); }
+  else finishLevel();
+}
+
+function finishLevel() {
+  if (!state.finishedLevels.includes(state.currentLevelIdx)) state.finishedLevels.push(state.currentLevelIdx);
+  // 新手爸妈：记录完成的子角色
+  if (state.currentRole === 'newbie' && state.currentSubRole) {
+    if (!state.finishedSubRoles.includes(state.currentSubRole)) state.finishedSubRoles.push(state.currentSubRole);
+  }
+  // 一般人群：记录完成的子角色
+  if (state.currentRole === 'general' && state.currentSubRole) {
+    if (!state.finishedGeneralSubRoles.includes(state.currentSubRole)) state.finishedGeneralSubRoles.push(state.currentSubRole);
+  }
+  // 计算该角色/子角色的总关卡数
+  let totalLevels;
+  if (state.currentRole === 'newbie' && state.currentSubRole) {
+    totalLevels = SUB_ROLES[state.currentSubRole].levels.length;
+  } else if (state.currentRole === 'general' && state.currentSubRole) {
+    totalLevels = GENERAL_ROLES[state.currentSubRole].levels.length;
+  } else {
+    totalLevels = ROLES[state.currentRole].levels.length;
+  }
+  const allDone = state.finishedLevels.length >= totalLevels;
+  if (allDone) showBadge();
+  else {
+    const correctCount = state.correctFlags.filter(Boolean).length;
+    alert(`🎉 本关完成！\n本关答对 ${correctCount} / ${state.currentQuestions.length} 题\n\n继续挑战下一关～`);
+    renderLevelMap();
+    showView('view-nutri-map');
+  }
+}
+
+function showBadge() {
+  let badgeName, badgeSummary, badgeTopics;
+  if (state.currentRole === 'newbie' && state.currentSubRole) {
+    const sr = SUB_ROLES[state.currentSubRole];
+    badgeName = sr.badgeName; badgeSummary = sr.badgeSummary; badgeTopics = sr.badgeTopics;
+  } else if (state.currentRole === 'general' && state.currentSubRole) {
+    const sr = GENERAL_ROLES[state.currentSubRole];
+    badgeName = sr.badgeName; badgeSummary = sr.badgeSummary; badgeTopics = sr.badgeTopics;
+  } else {
+    const role = ROLES[state.currentRole];
+    badgeName = role.badgeName; badgeSummary = role.badgeSummary; badgeTopics = role.badgeTopics;
+  }
+  const correctCount = state.correctFlags.filter(Boolean).length;
+  document.getElementById('badgeName').textContent = badgeName;
+  document.getElementById('badgeSummary').innerHTML = badgeSummary + '<br>' +
+    `<span style="font-size:13px;color:#888;">通关内容：${badgeTopics || '—'}</span><br>` +
+    `<span id="badgeStats">本次答对：<b>${correctCount}</b> / ${state.currentQuestions.length} 题</span>`;
+  showView('view-nutri-badge');
+}
+
+function restartRole() {
+  state.currentLevelIdx = 0; state.finishedLevels = [];
+  if (state.currentRole === 'newbie') {
+    // 新手爸妈：返回子角色选择（保留已通关标记）
+    renderSubRoleSelect();
+    showView('view-subrole-select');
+  } else if (state.currentRole === 'general') {
+    // 一般人群：返回子分类选择
+    renderGeneralRoles();
+    showView('view-general-roles');
+  } else {
+    renderLevelMap();
+    showView('view-nutri-map');
+  }
+}
+</script>
+</body>
+</html>
