@@ -382,6 +382,23 @@ html, body {
 }
 .drag-item:hover { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,.1); }
 .drag-item.dragging { opacity: .4; cursor: grabbing; }
+/* 点击选中状态（移动端友好） */
+.drag-item.selected-tap {
+  background: #fff8e1 !important;
+  border-color: #ffc107 !important;
+  transform: scale(1.08);
+  box-shadow: 0 0 0 3px rgba(255, 193, 7, .35);
+  animation: pulseTap 1s infinite;
+}
+@keyframes pulseTap { 0%,100% { box-shadow: 0 0 0 3px rgba(255,193,7,.35); } 50% { box-shadow: 0 0 0 6px rgba(255,193,7,.15); } }
+/* 移动端提示 */
+.mobile-tip {
+  text-align: center;
+  font-size: 12px; color: #1976D2;
+  background: #E3F2FD;
+  padding: 6px 12px; border-radius: 14px;
+  margin: 0 auto 10px; display: inline-block;
+}
 .drag-item .di-icon { font-size: 18px; }
 .bin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
 .bin-cell {
@@ -829,6 +846,92 @@ const SUB_ROLES = {
       { id: 'child-4', icon: '👁', name: '特殊关注', desc: '视力·身高·免疫·换牙' }
     ],
     cssClass: 'sr-child'
+  },
+  /* ====== 特殊人群新增 5 个角色 ====== */
+  elder: {
+    parentRole: 'newbie',
+    name: '老年人',
+    icon: '👵',
+    age: '65 岁以上',
+    desc: '老年膳食·骨质疏松·慢病预防·餐桌安全',
+    badgeName: '银发守护者 · 老年营养师',
+    badgeSummary: '掌握了老年膳食核心要点，成为银发守护者！',
+    badgeTopics: '通关内容：膳食基础·常见慢病营养·饮食误区·特殊场景',
+    levels: [
+      { id: 'elder-1', icon: '🍵', name: '老年膳食基础', desc: '少食多餐·软烂易消化' },
+      { id: 'elder-2', icon: '🦴', name: '常见慢病营养', desc: '骨质疏松·肌少症·贫血' },
+      { id: 'elder-3', icon: '⚠️', name: '饮食误区破解', desc: '骨头汤·红酒·粗粮' },
+      { id: 'elder-4', icon: '🍲', name: '特殊场景饮食', desc: '吞咽困难·认知障碍' }
+    ],
+    cssClass: 'sr-newborn'
+  },
+  hypertension: {
+    parentRole: 'newbie',
+    name: '高血压患者',
+    icon: '💔',
+    age: '高血压人群',
+    desc: 'DASH 饮食·低钠<6g·控压实操',
+    badgeName: '血压守护者 · DASH 大师',
+    badgeSummary: '掌握了高血压饮食要点，成为血压守护者！',
+    badgeTopics: '通关内容：DASH 基础·低钠实战·食物选择·并发症饮食',
+    levels: [
+      { id: 'hyp-1', icon: '💔', name: 'DASH 饮食基础', desc: '原理·盐<6g·蔬果' },
+      { id: 'hyp-2', icon: '🧂', name: '低钠实战', desc: '隐形盐·控盐技巧' },
+      { id: 'hyp-3', icon: '🥗', name: '食物选择', desc: '推荐/限制/避免' },
+      { id: 'hyp-4', icon: '🔄', name: '合并症饮食', desc: '合并糖尿病/高血脂' }
+    ],
+    cssClass: 'sr-infant'
+  },
+  hyperlipidemia: {
+    parentRole: 'newbie',
+    name: '高血脂患者',
+    icon: '🩸',
+    age: '高血脂人群',
+    desc: '低脂高纤维·控胆固醇·血管清道夫',
+    badgeName: '血脂清道夫 · 血管卫士',
+    badgeSummary: '掌握了高血脂饮食要点，成为血脂清道夫！',
+    badgeTopics: '通关内容：血脂基础·降脂食物·限制食物·烹调方法',
+    levels: [
+      { id: 'lip-1', icon: '🩸', name: '血脂基础', desc: '四项指标·脂肪酸' },
+      { id: 'lip-2', icon: '🌾', name: '降脂食物', desc: '燕麦·鱼·坚果' },
+      { id: 'lip-3', icon: '🚫', name: '限制食物', desc: '肥肉·内脏·油炸' },
+      { id: 'lip-4', icon: '🍳', name: '烹调方法', desc: '蒸煮炖凉拌·控油' }
+    ],
+    cssClass: 'sr-preschool'
+  },
+  diabetes: {
+    parentRole: 'newbie',
+    name: '糖尿病患者',
+    icon: '🍬',
+    age: '糖尿病人群',
+    desc: '低 GI 饮食·碳水计算·血糖管理',
+    badgeName: '血糖平衡师 · GI 控糖大师',
+    badgeSummary: '掌握了糖尿病饮食要点，成为血糖平衡师！',
+    badgeTopics: '通关内容：GI/GL·碳水计算·配餐法·特殊情况',
+    levels: [
+      { id: 'dia-1', icon: '🍬', name: 'GI 与 GL', desc: '升糖指数·血糖负荷' },
+      { id: 'dia-2', icon: '🔢', name: '碳水计算', desc: '计数法·45-60g/餐' },
+      { id: 'dia-3', icon: '🍽', name: '糖尿病配餐', desc: '餐盘法·交换份·加餐' },
+      { id: 'dia-4', icon: '⚠️', name: '特殊情况', desc: '低血糖·外出就餐' }
+    ],
+    cssClass: 'sr-child'
+  },
+  athlete: {
+    parentRole: 'newbie',
+    name: '运动员',
+    icon: '🏃',
+    age: '运动人群',
+    desc: '能量需求·运动前中后·补液补剂',
+    badgeName: '运动营养师 · 能量大师',
+    badgeSummary: '掌握了运动营养核心要点，成为运动营养师！',
+    badgeTopics: '通关内容：能量需求·运动前中后·项目专项·补液补剂',
+    levels: [
+      { id: 'ath-1', icon: '⚡', name: '能量需求', desc: '运动消耗·供能比' },
+      { id: 'ath-2', icon: '⏱', name: '运动前中后', desc: '赛前·赛中·赛后' },
+      { id: 'ath-3', icon: '🏅', name: '项目专项', desc: '耐力·力量·球类' },
+      { id: 'ath-4', icon: '💧', name: '补液与补剂', desc: '水化·电解质·评估' }
+    ],
+    cssClass: 'sr-newborn'
   }
 };
 
@@ -1740,6 +1843,508 @@ const QUESTION_BANK = {
         right:[{id:'1',icon:'🧂',text:'低钠 DASH'},{id:'2',icon:'🥑',text:'低脂高纤维'},{id:'3',icon:'🍚',text:'低 GI 控糖'},{id:'4',icon:'⚖️',text:'控制总能量'}],
         answer:{'A':'1','B':'2','C':'3','D':'4'},
         exp:'高血压：低钠 DASH 饮食；高血脂：低脂高纤维；糖尿病：低 GI 控糖；肥胖：控制总能量。' }
+    ]},
+    /* ========== 老年人 ========== */
+    'elder-1': { title: '老年膳食基础', questions: [
+      { type:'image-choice', prompt:'👴 生理变化：65 岁后人体哪项生理功能明显下降？', image:'👵',
+        choices:[{icon:'①',text:'基础代谢率（降 10-15%）'},{icon:'②',text:'身高持续增长'},{icon:'③',text:'消化功能增强'},{icon:'④',text:'肌肉持续增多'}],
+        answer:0, exp:'老年基础代谢率降 10-15%，消化功能减退，肌肉逐年减少（肌少症），需调整饮食。' },
+      { type:'drag-bin', prompt:'🍵 一日餐次：把食物安排到合适餐次', hint:'💡 老年人宜少食多餐',
+        items:[{id:'bf',name:'粥+鸡蛋',icon:'🍚'},{id:'am',name:'水果牛奶',icon:'🍎'},{id:'lunch',name:'软米饭+鱼+菜',icon:'🐟'},{id:'pm',name:'坚果酸奶',icon:'🥜'}],
+        bins:[{id:'bf',name:'早餐 7:00',icon:'🌅'},{id:'am',name:'上午加餐 10:00',icon:'🌞'},{id:'lunch',name:'午餐 12:00',icon:'☀️'},{id:'pm',name:'下午加餐 15:00',icon:'🌆'}],
+        answer:{'bf':'bf','am':'am','lunch':'lunch','pm':'pm'},
+        exp:'老年人宜少食多餐：3 餐 + 2-3 次加餐，避免一次过饱导致消化不良。' },
+      { type:'match', prompt:'🔗 食物-营养需求：老年人的特殊营养需求',
+        left:[{id:'A',icon:'🥛',text:'奶制品'},{id:'B',icon:'🥚',text:'优质蛋白'},{id:'C',icon:'🥬',text:'深色蔬菜'},{id:'D',icon:'🌾',text:'全谷物'}],
+        right:[{id:'1',icon:'🦴',text:'钙·蛋白（防骨质疏松）'},{id:'2',icon:'💪',text:'防肌少症（1.0-1.2 g/kg）'},{id:'3',icon:'🥕',text:'维生素·纤维'},{id:'4',icon:'🍚',text:'B 族维·纤维'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'奶制品补钙防骨质疏松；优质蛋白（蛋、鱼、瘦肉）防肌少症；深色蔬菜补维+纤维；全谷物补 B 族维。' },
+      { type:'scenario', prompt:'🍲 软烂易消化：80 岁张奶奶消化功能减退，正餐应选？',
+        scenario:'张奶奶 80 岁，牙齿缺失 3 颗，消化功能减退，正餐应选什么？',
+        choices:[{key:'A',text:'硬米饭+炸鸡'},{key:'B',text:'软烂面条+蒸鱼+菜泥'},{key:'C',text:'生菜沙拉'},{key:'D',text:'年糕+炸丸子'}],
+        answer:1, exp:'老年人消化功能减退，宜选软烂易消化的食物：软面条、蒸鱼、菜泥、粥、蒸蛋等。' },
+      { type:'image-choice', prompt:'🥩 蛋白质：老年人每天蛋白质推荐摄入量？', image:'🥩',
+        choices:[{icon:'①',text:'0.8 g/kg（与成人同）'},{icon:'②',text:'1.0-1.2 g/kg'},{icon:'③',text:'2.0 g/kg'},{icon:'④',text:'不限'}],
+        answer:1, exp:'老年人蛋白质合成能力下降，推荐 1.0-1.2 g/kg（高于普通成人 0.8 g/kg），预防肌少症。' },
+      { type:'scenario', prompt:'🛒 实操搭配：给独居老人买一周菜，怎么搭配？',
+        scenario:'帮独居的张奶奶买一周食材，需考虑消化和营养。',
+        choices:[{key:'A',text:'全精白米面+腊肉'},{key:'B',text:'全谷物+鱼+蛋+奶+深色蔬菜+水果'},{key:'C',text:'方便面+咸菜'},{key:'D',text:'只买白粥+咸鸭蛋'}],
+        answer:1, exp:'老年人食材应多样：全谷物提供 B 族维和纤维；鱼蛋奶提供优质蛋白；深色蔬菜提供维+纤维；水果补充维 C。' }
+    ]},
+    'elder-2': { title: '常见慢病营养', questions: [
+      { type:'image-choice', prompt:'🦴 骨质疏松：老年人每天钙推荐摄入量？', image:'🦴',
+        choices:[{icon:'①',text:'600 mg'},{icon:'②',text:'800 mg'},{icon:'③',text:'1000-1200 mg'},{icon:'④',text:'2000 mg'}],
+        answer:2, exp:'65 岁以上老年人每天钙推荐 1000-1200 mg；同时补充维生素 D 800-1000 IU。' },
+      { type:'match', prompt:'🔗 慢病-营养素：把老年慢病和营养素配对',
+        left:[{id:'A',icon:'🦴',text:'骨质疏松'},{id:'B',icon:'💪',text:'肌少症'},{id:'C',icon:'🩸',text:'贫血'},{id:'D',icon:'🚽',text:'便秘'}],
+        right:[{id:'1',icon:'🥛',text:'钙+维生素 D'},{id:'2',icon:'🥚',text:'优质蛋白+亮氨酸'},{id:'3',icon:'🥩',text:'铁+维生素 C'},{id:'4',icon:'🌾',text:'膳食纤维+水'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'骨质疏松补钙+VD；肌少症补优质蛋白（亮氨酸关键）；贫血补铁+维C；便秘补纤维+水。' },
+      { type:'image-choice', prompt:'💪 肌少症：每天蛋白质 1.2 g/kg 中优质蛋白应占？', image:'💪',
+        choices:[{icon:'①',text:'30% 以上'},{icon:'②',text:'50% 以上'},{icon:'③',text:'80% 以上'},{icon:'④',text:'100%'}],
+        answer:1, exp:'老年人优质蛋白应占 50% 以上（如蛋、奶、鱼、瘦肉、豆制品），优先选择含亮氨酸多的动物蛋白。' },
+      { type:'scenario', prompt:'🩸 老年贫血：李爷爷最近脸色苍白乏力，可能？',
+        scenario:'李爷爷 72 岁，最近脸色苍白、易疲劳、食欲差。',
+        choices:[{key:'A',text:'正常老化'},{key:'B',text:'可能老年贫血，需查血常规+补铁'},{key:'C',text:'多睡觉就好'},{key:'D',text:'吃保健品'}],
+        answer:1, exp:'老年人易缺铁性贫血（咀嚼差、食欲降、消化吸收减），应查血常规+补充富铁食物+维C，必要时口服铁剂。' },
+      { type:'drag-bin', prompt:'🌾 富铁食物：把富铁食物拖入老年食谱', hint:'💡 老年人补铁选择',
+        items:[{id:'liver',name:'猪肝',icon:'🥩'},{id:'redmeat',name:'牛肉',icon:'🍖'},{id:'spinach',name:'菠菜',icon:'🥬'},{id:'cola',name:'可乐',icon:'🥤'}],
+        bins:[{id:'rich',name:'富铁（适合老人）',icon:'✅'},{id:'avoid',name:'不推荐',icon:'⚠️'}],
+        answer:{'liver':'rich','redmeat':'rich','spinach':'rich','cola':'avoid'},
+        exp:'猪肝、牛肉、动物血富铁；菠菜搭配维C；可乐影响钙铁吸收，老人应避免。' },
+      { type:'image-choice', prompt:'🌾 膳食纤维：老年人每天膳食纤维推荐？', image:'🌾',
+        choices:[{icon:'①',text:'10-15 g'},{icon:'②',text:'25-30 g'},{icon:'③',text:'50 g'},{icon:'④',text:'100 g'}],
+        answer:1, exp:'老年人每天膳食纤维 25-30 g（不高于 30 g，避免影响钙铁吸收）；配合饮水 1500-1700 ml 预防便秘。' }
+    ]},
+    'elder-3': { title: '饮食误区破解', questions: [
+      { type:'image-choice', prompt:'🍲 骨头汤补钙：是真的吗？', image:'🍲',
+        choices:[{icon:'①',text:'真的，能补钙'},{icon:'B',text:'假的，钙含量低脂肪高'},{icon:'③',text:'加点醋就行'},{icon:'④',text:'越浓越好'}],
+        answer:1, exp:'骨头汤钙含量极低（< 10 mg/100 ml），主要成分是脂肪和嘌呤；正确补钙方式是牛奶、豆制品、深绿色蔬菜。' },
+      { type:'match', prompt:'⚠️ 误区破解：把错误说法和真相配对',
+        left:[{id:'A',icon:'🍷',text:'红酒软化血管'},{id:'B',icon:'🥩',text:'老人不能吃肉'},{id:'C',icon:'🌾',text:'粗粮越多越好'},{id:'D',icon:'💊',text:'保健品延年益寿'}],
+        right:[{id:'1',icon:'❌',text:'少量可能有益但不能代替治疗'},{id:'2',icon:'❌',text:'优质蛋白防肌少症'},{id:'3',icon:'❌',text:'过多影响钙铁吸收'},{id:'4',icon:'❌',text:'不能代替均衡饮食'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'红酒少量可能有益但不能代替治疗；老人需优质蛋白；粗粮过多影响矿物质吸收；保健品不能代替饮食。' },
+      { type:'image-choice', prompt:'🍷 红酒软化血管：老年人能每天喝吗？', image:'🍷',
+        choices:[{icon:'①',text:'可以，每天 1-2 杯有益'},{icon:'②',text:'不推荐，酒精增加多种慢病风险'},{icon:'③',text:'喝越多越好'},{icon:'④',text:'红酒能治病'}],
+        answer:1, exp:'WHO 指出酒精是 1 类致癌物；老年人不建议主动饮酒；如饮酒女性<15 g/d、男性<25 g/d。' },
+      { type:'scenario', prompt:'🥩 老人不能吃肉？',
+        scenario:'李奶奶 75 岁，子女说老人消化差不能吃肉。',
+        choices:[{key:'A',text:'听从，不吃肉'},{key:'B',text:'应吃软烂肉糜+鱼+蛋，防肌少症'},{key:'C',text:'只喝汤'},{key:'D',text:'只吃素'}],
+        answer:1, exp:'老年人需要优质蛋白防肌少症和骨质疏松；可吃肉糜、鱼糜、蒸蛋、豆腐等，避免油炸硬块即可。' },
+      { type:'image-choice', prompt:'🌾 粗粮越多越好：老人每天粗粮应占多少？', image:'🌾',
+        choices:[{icon:'①',text:'全粗粮'},{icon:'②',text:'占主食 1/3 左右'},{icon:'③',text:'占主食 2/3'},{icon:'④',text:'不吃粗粮'}],
+        answer:1, exp:'老年人粗粮占主食 1/3 左右（约 50-100 g）；过多影响钙铁锌吸收；建议粗细搭配，薯类可替代部分。' },
+      { type:'scenario', prompt:'💊 保健品：老人吃保健品能代替饮食吗？',
+        scenario:'王爷爷 78 岁，每天吃 5 种保健品代替正常饮食。',
+        choices:[{key:'A',text:'保健品比吃饭好'},{key:'B',text:'不能代替饮食，过量有害'},{key:'C',text:'多多益善'},{key:'D',text:'听推销员'}],
+        answer:1, exp:'保健品不能代替均衡饮食；某些成分过量有害（如维 A、铁）；应在医生指导下补充。' }
+    ]},
+    'elder-4': { title: '特殊场景饮食', questions: [
+      { type:'image-choice', prompt:'🥣 吞咽困难：适合老年人的食物质地是？', image:'🥣',
+        choices:[{icon:'①',text:'坚硬整块'},{icon:'②',text:'软烂细碎+适当稠度'},{icon:'③',text:'纯流质即可'},{icon:'④',text:'辛辣刺激'}],
+        answer:1, exp:'吞咽困难老年人宜软烂细碎食物（如软烂粥、蒸蛋、肉糜）+适当稠度（防呛咳）；太稀易呛，太稠难咽。' },
+      { type:'match', prompt:'🍽 场景-对策：把场景和饮食对策配对',
+        left:[{id:'A',icon:'🥣',text:'吞咽困难'},{id:'B',icon:'🦷',text:'牙齿缺失'},{id:'C',icon:'🧠',text:'认知障碍'},{id:'D',icon:'⚖️',text:'体重下降'}],
+        right:[{id:'1',icon:'🥄',text:'软烂细碎·稠度适中'},{id:'2',icon:'🥩',text:'肉糜·蒸蛋·软菜'},{id:'3',icon:'⏰',text:'定时喂食·鲜艳颜色'},{id:'4',icon:'➕',text:'加餐·营养强化'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'吞咽困难：软烂细碎；牙齿缺失：肉糜蒸蛋；认知障碍：定时喂食+鲜艳颜色；体重下降：加餐+营养强化。' },
+      { type:'scenario', prompt:'🍲 餐桌安全：老年餐桌应注意什么？',
+        scenario:'养老院 80 岁奶奶最近吃饭易呛咳，应如何调整？',
+        choices:[{key:'A',text:'坐着吃，速度放慢'},{key:'B',text:'躺平吃'},{key:'C',text:'边看电视边吃'},{key:'D',text:'强迫快吃'}],
+        answer:0, exp:'老年人进食应坐位 90°，头稍前倾；速度放慢，少食多餐；避免说话看电视分神；餐后保持坐位 30 分钟防反流。' },
+      { type:'image-choice', prompt:'🧠 认知障碍：阿尔茨海默症老人饮食应注意？', image:'🧠',
+        choices:[{icon:'①',text:'随便吃'},{icon:'②',text:'定时定量+鲜艳餐具+陪伴'},{icon:'③',text:'不吃饭'},{icon:'D',text:'只吃零食'}],
+        answer:1, exp:'认知障碍老人应定时定量进食、鲜艳颜色餐具刺激食欲、家属陪伴、避免走失和误食。' },
+      { type:'drag-bin', prompt:'🥄 流食搭配：给吞咽困难老人搭配流食', hint:'💡 流食需营养密度高',
+        items:[{id:'congee',name:'浓稠米糊',icon:'🍚'},{id:'milk',name:'牛奶',icon:'🥛'},{id:'egg',name:'蒸蛋羹',icon:'🥚'},{id:'water',name:'纯白水'}],
+        bins:[{id:'good',name:'推荐流食',icon:'✅'},{id:'avoid',name:'应避免',icon:'❌'}],
+        answer:{'congee':'good','milk':'good','egg':'good','water':'avoid'},
+        exp:'吞咽困难老人宜浓稠米糊、牛奶、蒸蛋羹等高营养密度流食；纯水易呛咳，应调稠。' },
+      { type:'scenario', prompt:'⚖️ 体重下降：68 岁奶奶 3 个月瘦了 5 kg，怎么办？',
+        scenario:'陈奶奶 68 岁，近 3 个月瘦了 5 kg，食欲差。',
+        choices:[{key:'A',text:'正常老化不管'},{key:'B',text:'排查病因+营养评估+加餐强化'},{key:'C',text:'吃减肥药'},{key:'D',text:'只喝粥'}],
+        answer:1, exp:'老年人非意愿体重下降（3 个月 > 5%）需排查病因（肿瘤、甲亢、糖尿病等）+营养评估+高蛋白高能量加餐。' }
+    ]},
+
+    /* ========== 高血压患者 ========== */
+    'hyp-1': { title: 'DASH 饮食基础', questions: [
+      { type:'image-choice', prompt:'💔 DASH 全称是什么？', image:'💔',
+        choices:[{icon:'①',text:'Dietary Approaches to Stop Hypertension'},{icon:'②',text:'Daily Anti-Salt Habit'},{icon:'③',text:'Diet And Stay Healthy'},{icon:'④',text:'Dietary Avoid Salt Habit'}],
+        answer:0, exp:'DASH = Dietary Approaches to Stop Hypertension（终止高血压膳食方案），美国 NIH 研发的降压饮食模式。' },
+      { type:'image-choice', prompt:'🧂 高血压每日盐摄入应低于？', image:'🧂',
+        choices:[{icon:'①',text:'3 g'},{icon:'②',text:'5 g（理想）'},{icon:'③',text:'10 g'},{icon:'④',text:'15 g'}],
+        answer:1, exp:'高血压患者每日盐<5 g（理想），一般人群<6 g；约 1 啤酒瓶盖。注意隐形盐（酱油、加工食品）。' },
+      { type:'match', prompt:'🔗 DASH 推荐食物：把食物和推荐理由配对',
+        left:[{id:'A',icon:'🥬',text:'深色蔬菜'},{id:'B',icon:'🍌',text:'香蕉'},{id:'C',icon:'🥛',text:'低脂奶'},{id:'D',icon:'🌾',text:'全谷物'}],
+        right:[{id:'1',icon:'🥬',text:'钾+镁+纤维'},{id:'2',icon:'🍌',text:'钾（排钠）'},{id:'3',icon:'🥛',text:'钙（降压）'},{id:'4',icon:'🌾',text:'纤维+低 GI'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'深色蔬菜提供钾镁纤维；香蕉富钾排钠；低脂奶补钙降压；全谷物高纤维低 GI。' },
+      { type:'image-choice', prompt:'🍌 高钾饮食：以下哪种食物钾含量最高？', image:'🍌',
+        choices:[{icon:'🍌',text:'香蕉'},{id:'1',text:'土豆'},{icon:'🍊',text:'橙子'},{icon:'🥒',text:'黄瓜'}],
+        answer:0, exp:'高钾食物：香蕉、土豆、菠菜、番茄、橙子、毛豆等。但肾病患者慎用高钾食物。' },
+      { type:'scenario', prompt:'🍽 DASH 配餐实操：给高血压患者配一日三餐',
+        scenario:'张叔 55 岁，新诊断高血压 145/95 mmHg，需 DASH 饮食。',
+        choices:[{key:'A',text:'白粥+咸菜+红烧肉'},{key:'B',text:'全麦面包+低脂奶+蔬果沙拉+清蒸鱼+糙米饭'},{key:'C',text:'方便面+火腿肠'},{key:'D',text:'炸鸡+可乐'}],
+        answer:1, exp:'DASH 早餐全麦面包+低脂奶；午餐清蒸鱼+糙米+蔬菜；晚餐蔬果+瘦肉，符合高钾高纤维低脂低盐。' },
+      { type:'image-choice', prompt:'📉 DASH 效果：坚持 DASH 饮食 2 周血压平均下降？', image:'📉',
+        choices:[{icon:'①',text:'1-2 mmHg'},{icon:'②',text:'5-8 mmHg'},{icon:'③',text:'11-12 mmHg'},{icon:'④',text:'20 mmHg'}],
+        answer:2, exp:'研究显示坚持 DASH 饮食 2 周收缩压平均下降 11-12 mmHg，效果显著；结合限盐效果更佳。' }
+    ]},
+    'hyp-2': { title: '低钠实战', questions: [
+      { type:'image-choice', prompt:'🍜 隐形盐：以下哪种食物含钠量最高？', image:'🍜',
+        choices:[{icon:'①',text:'方便面（1 包）'},{icon:'②',text:'白米饭'},{icon:'③',text:'生菜'},{icon:'④',text:'苹果'}],
+        answer:0, exp:'方便面 1 包含钠约 1500-1800 mg（一日盐推荐量的 75%）；隐形盐大户！还有酱油、腊肉、薯片等。' },
+      { type:'match', prompt:'🔗 食物-含钠量：把高钠食物拖入',
+        items:[{id:'soy',name:'酱油（1 勺）',icon:'🥢'},{id:'ham',name:'火腿（100 g）',icon:'🍖'},{id:'msg',name:'味精',icon:'🧂'},{id:'apple2',name:'苹果'}],
+        bins:[{id:'high',name:'高钠',icon:'⚠️'},{id:'low',name:'低钠',icon:'✅'}],
+        targets:[],
+        answer:{'soy':'high','ham':'high','msg':'high','apple2':'low'},
+        exp:'酱油 1 勺约含 900 mg 钠；火腿、腊肉、味精、咸菜、薯片都是高钠食物；新鲜蔬果低钠。' },
+      { type:'image-choice', prompt:'🧂 控盐技巧：哪种做法最有效减盐？', image:'🧂',
+        choices:[{icon:'①',text:'出锅前放盐'},{icon:'②',text:'炒菜全程早放盐'},{icon:'③',text:'用大量酱油代替盐'},{icon:'④',text:'加更多味精'}],
+        answer:0, exp:'出锅前放盐可减少 1/3 用盐量；用低钠酱油；用葱姜蒜、花椒、香菇等天然调味；少用加工食品。' },
+      { type:'scenario', prompt:'🍱 外出就餐：高血压患者外出点餐技巧',
+        scenario:'张叔和朋友外出就餐，哪些选择最合理？',
+        choices:[{key:'A',text:'点红烧肉+咸菜+米饭'},{key:'B',text:'点清蒸鱼+凉拌青菜+少盐炒菜+少汤'},{key:'C',text:'麻辣火锅+咸味小吃'},{key:'D',text:'炸鸡+薯条+可乐'}],
+        answer:1, exp:'外出就餐宜选清蒸、白灼、凉拌；少选红烧、腌制品；要求少盐；少喝咸汤；避免加工肉和油炸。' },
+      { type:'drag-bin', prompt:'🥫 高钠 vs 低钠：把食物分到正确类别', hint:'💡 学会看营养标签',
+        items:[{id:'pickle',name:'咸菜',icon:'🥒'},{id:'chips',name:'薯片',icon:'🍟'},{id:'fresh',name:'新鲜蔬菜',icon:'🥬'},{id:'fruit2',name:'新鲜水果',icon:'🍎'}],
+        bins:[{id:'high',name:'高钠（少选）',icon:'⚠️'},{id:'low',name:'低钠（推荐）',icon:'✅'}],
+        answer:{'pickle':'high','chips':'high','fresh':'low','fruit2':'low'},
+        exp:'咸菜、薯片、腊肉、火腿、方便面是高钠大户；新鲜蔬果低钠高钾，是高血压患者首选。' },
+      { type:'image-choice', prompt:'🧂 钠来源：以下哪种调味品含钠最多？', image:'🧂',
+        choices:[{icon:'①',text:'酱油 5 ml'},{icon:'②',text:'盐 1 g'},{icon:'③',text:'味精 1 g'},{icon:'④',text:'糖 1 g'}],
+        answer:0, exp:'酱油 5 ml 含钠约 450 mg ≈ 1 g 盐；味精 1 g 含钠约 130 mg；糖不含钠。日常少用酱油是关键。' }
+    ]},
+    'hyp-3': { title: '高血压食物选择', questions: [
+      { type:'drag-bin', prompt:'🥗 食物分类：把食物分到推荐/限制/避免', hint:'💡 高血压患者食物选择原则',
+        items:[{id:'veg',name:'菠菜',icon:'🥬'},{id:'fish',name:'清蒸鱼',icon:'🐟'},{id:'pickle2',name:'腌黄瓜',icon:'🥒'},{id:'liquor',name:'白酒',icon:'🍶'}],
+        bins:[{id:'good',name:'推荐',icon:'✅'},{id:'limit',name:'限制',icon:'⚠️'},{id:'avoid',name:'避免',icon:'❌'}],
+        answer:{'veg':'good','fish':'good','pickle2':'limit','liquor':'avoid'},
+        exp:'高血压推荐：新鲜蔬果、低脂奶、鱼、全谷物；限制：腌制品、加工肉；避免：酒、浓茶、咖啡因过量。' },
+      { type:'image-choice', prompt:'🐟 高血压推荐蛋白来源：以下哪种最佳？', image:'🐟',
+        choices:[{icon:'①',text:'咸鱼腊肉'},{icon:'②',text:'深海鱼（清蒸）'},{icon:'③',text:'炸鸡'},{icon:'④',text:'肥猪肉'}],
+        answer:1, exp:'深海鱼富含 Omega-3 不饱和脂肪酸，有助降血压降血脂；推荐清蒸、白灼，避免油炸腌制。' },
+      { type:'match', prompt:'🔗 食物-限制程度：把食物和限制程度配对',
+        left:[{id:'A',icon:'🥒',text:'腌黄瓜'},{id:'B',icon:'🥓',text:'培根'},{id:'C',icon:'🍺',text:'啤酒'},{id:'D',icon:'☕',text:'浓咖啡'}],
+        right:[{id:'1',icon:'⚠️',text:'偶尔少量'},{id:'2',icon:'❌',text:'尽量避免'},{id:'3',icon:'❌',text:'尽量避免'},{id:'4',icon:'⚠️',text:'每天<1 杯'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'腌黄瓜偶尔少量；培根（高盐高脂）尽量避免；啤酒尽量避免；浓咖啡每天<1 杯避免心率加快。' },
+      { type:'scenario', prompt:'🍽 高血压套餐搭配实操',
+        scenario:'高血压患者一日三餐应如何搭配？',
+        choices:[{key:'A',text:'粥+咸鸭蛋+泡菜+红烧肉'},{key:'B',text:'全麦馒头+蒸蛋+凉拌芹菜+清蒸鱼+糙米饭+蔬果'},{key:'C',text:'炸酱面+卤味'},{key:'D',text:'汉堡+薯条+可乐'}],
+        answer:1, exp:'DASH 餐：全谷物主食+瘦肉/鱼/蛋+大量蔬果+低脂奶；少油少盐少糖，避免加工食品。' },
+      { type:'image-choice', prompt:'🍺 高血压应避免：以下哪种最应避免？', image:'🍺',
+        choices:[{icon:'①',text:'白酒'},{icon:'②',text:'鲜榨果汁'},{icon:'③',text:'低脂牛奶'},{icon:'④',text:'绿茶'}],
+        answer:0, exp:'酒精升血压、影响降压药效；高血压患者应避免或严格限量（女<15 g/d，男<25 g/d）。' },
+      { type:'scenario', prompt:'🍻 应酬酒局：高血压患者怎么办？',
+        scenario:'李叔应酬，主人劝酒 3 杯白酒。',
+        choices:[{key:'A',text:'推不掉，喝吧'},{key:'B',text:'以茶代酒或少量红酒，并解释健康原因'},{key:'C',text:'偷偷吐掉'},{key:'D',text:'加降压药后多喝'}],
+        answer:1, exp:'高血压患者应主动以茶代酒；如必须饮酒，红酒<150 ml；不应加药后多喝（危险）。' }
+    ]},
+    'hyp-4': { title: '高血压合并症饮食', questions: [
+      { type:'image-choice', prompt:'💔🍬 高血压+糖尿病双重饮食控制重点？', image:'💔',
+        choices:[{icon:'①',text:'只控盐'},{icon:'②',text:'低钠+低 GI 双控'},{icon:'③',text:'只控糖'},{icon:'④',text:'只控油'}],
+        answer:1, exp:'高血压合并糖尿病：低钠（<5 g）+低 GI（粗粮）+优质蛋白+高纤维，需双管齐下。' },
+      { type:'match', prompt:'🔗 合并症-饮食重点：把合并症和饮食配对',
+        left:[{id:'A',icon:'🍬',text:'合并糖尿病'},{id:'B',icon:'🩸',text:'合并高血脂'},{id:'C',icon:'⚖️',text:'合并肥胖'},{id:'D',icon:'🫘',text:'合并肾病'}],
+        right:[{id:'1',icon:'🥦',text:'低 GI + 低钠'},{id:'2',icon:'🥑',text:'低脂 + 控胆固醇'},{id:'3',icon:'🥗',text:'低能量 + 高纤维'},{id:'4',icon:'⚖️',text:'低蛋白 + 限钠'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'糖尿病合并：低 GI+低钠；高血脂合并：低脂+控胆固醇；肥胖合并：低能量+高纤维；肾病合并：低蛋白+限钠（+限钾）。' },
+      { type:'scenario', prompt:'🩺 实操案例：高血压合并糖尿病配餐',
+        scenario:'王阿姨 60 岁，高血压 10 年+糖尿病 5 年，BMI 27，该怎么吃？',
+        choices:[{key:'A',text:'白粥+咸菜+馒头'},{key:'B',text:'全谷物+鱼+深色蔬菜+低脂奶+少油少盐'},{key:'C',text:'炸鸡+可乐+米饭'},{key:'D',text:'只吃水果'}],
+        answer:1, exp:'双重慢病宜低钠低 GI 低脂：全谷物（粗粮）+鱼（深海鱼）+深色蔬菜+低脂奶，少油少盐。' },
+      { type:'image-choice', prompt:'⚖️ 高血压+肥胖：减重多少能改善血压？', image:'⚖️',
+        choices:[{icon:'①',text:'减 2-3 kg'},{icon:'②',text:'减 5-10 kg（约 5-10%）'},{icon:'③',text:'减 20 kg'},{icon:'④',text:'不用减'}],
+        answer:1, exp:'肥胖高血压患者减重 5-10%（约 5-10 kg），收缩压可下降 5-20 mmHg；每月减 2-4 kg 为宜。' },
+      { type:'image-choice', prompt:'🫘 高血压+肾病：饮食调整重点？', image:'🫘',
+        choices:[{icon:'①',text:'高蛋白高钠'},{icon:'②',text:'低蛋白限钠限钾'},{icon:'③',text:'只喝水'},{icon:'④',text:'只吃水果'}],
+        answer:1, exp:'高血压肾病：低蛋白（0.6-0.8 g/kg）+限钠（<5 g）+限钾（高钾血症时）+充足能量；具体需医生指导。' },
+      { type:'scenario', prompt:'📋 合并症综合管理',
+        scenario:'陈大爷 70 岁，高血压+糖尿病+冠心病三重，慢病管理应？',
+        choices:[{key:'A',text:'随便吃'},{key:'B',text:'多重饮食控制+规律运动+规律服药+定期复查'},{key:'C',text:'只吃药'},{key:'D',text:'只运动'}],
+        answer:1, exp:'多重慢病需综合管理：饮食（低钠低 GI 低脂）+运动（中等强度有氧）+规律服药+定期复查指标。' }
+    ]},
+
+    /* ========== 高血脂患者 ========== */
+    'lip-1': { title: '血脂基础', questions: [
+      { type:'image-choice', prompt:'🩸 血脂四项：包括以下哪些指标？', image:'🩸',
+        choices:[{icon:'①',text:'TC、TG、HDL、LDL'},{icon:'②',text:'血糖、血压、血脂、血氧'},{icon:'③',text:'白细胞、红细胞、血小板、血浆'},{icon:'④',text:'钙、铁、锌、硒'}],
+        answer:0, exp:'血脂四项：TC（总胆固醇）、TG（甘油三酯）、HDL-C（高密度脂蛋白，好胆固醇）、LDL-C（低密度脂蛋白，坏胆固醇）。' },
+      { type:'match', prompt:'🔗 血脂-含义：把指标和含义配对',
+        left:[{id:'A',icon:'🔵',text:'HDL-C'},{id:'B',icon:'🔴',text:'LDL-C'},{id:'C',icon:'🟡',text:'TC'},{id:'D',icon:'🟠',text:'TG'}],
+        right:[{id:'1',icon:'✅',text:'好胆固醇（血管清道夫）'},{id:'2',icon:'❌',text:'坏胆固醇（动脉粥样硬化）'},{id:'3',icon:'⚖️',text:'总胆固醇'},{id:'4',icon:'⚠️',text:'甘油三酯（高易心梗）'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'HDL-C 是好胆固醇（把胆固醇运回肝脏）；LDL-C 是坏胆固醇（沉积动脉壁）；TC 总胆固醇；TG 甘油三酯（受饮食影响大）。' },
+      { type:'image-choice', prompt:'🥑 饱和 vs 不饱和脂肪酸：哪种应限制？', image:'🥑',
+        choices:[{icon:'①',text:'饱和脂肪酸（动物油、椰子油）'},{icon:'②',text:'单不饱和（橄榄油）'},{icon:'③',text:'多不饱和（深海鱼、坚果）'},{icon:'④',text:'Omega-3'}],
+        answer:0, exp:'饱和脂肪酸应<总能量 10%（高血脂<7%）；主要来自动物油、椰子油、棕榈油、黄油；过量升高 LDL-C。' },
+      { type:'image-choice', prompt:'🍔 反式脂肪酸危害：以下哪种含量最高？', image:'🍔',
+        choices:[{icon:'①',text:'酥皮糕点'},{icon:'②',text:'水果'},{icon:'③',text:'生菜'},{icon:'④',text:'燕麦'}],
+        answer:0, exp:'反式脂肪酸主要来源：人造黄油、酥皮糕点、奶茶、炸薯条、饼干；升高 LDL、降低 HDL，应避免。' },
+      { type:'scenario', prompt:'📋 血脂报告解读',
+        scenario:'老张血脂报告：TC 5.8、TG 2.5、LDL 4.2、HDL 1.0 mmol/L，分析？',
+        choices:[{key:'A',text:'都正常'},{key:'B',text:'TC↑ TG↑ LDL↑ HDL↓，高血脂需干预'},{key:'C',text:'只用管一项'},{key:'D',text:'完全不用管'}],
+        answer:1, exp:'TC 5.8↑（正常<5.2）、TG 2.5↑（正常<1.7）、LDL 4.2↑（正常<3.4）、HDL 1.0↓（正常>1.0）：四项均异常，需综合干预。' },
+      { type:'image-choice', prompt:'🥚 胆固醇食物：以下哪种胆固醇含量最高？', image:'🥚',
+        choices:[{icon:'①',text:'猪脑'},{icon:'②',text:'豆腐'},{icon:'③',text:'苹果'},{icon:'④',text:'燕麦'}],
+        answer:0, exp:'高胆固醇食物：猪脑（2 571 mg/100 g）、鸡蛋黄、动物内脏、虾、肥肉；每天胆固醇<300 mg，高血脂<200 mg。' }
+    ]},
+    'lip-2': { title: '降脂食物', questions: [
+      { type:'drag-bin', prompt:'🌾 降脂食物分类：把食物分到对应功效', hint:'💡 不同食物有不同降脂成分',
+        items:[{id:'oats',name:'燕麦',icon:'🌾'},{id:'fish3',name:'深海鱼',icon:'🐟'},{id:'nuts',name:'核桃',icon:'🥜'},{id:'apple3',name:'苹果'}],
+        bins:[{id:'fiber',name:'可溶性纤维',icon:'🌾'},{id:'omega',name:'Omega-3',icon:'🐟'},{id:'plant',name:'植物甾醇',icon:'🥜'},{id:'pectin',name:'果胶',icon:'🍎'}],
+        answer:{'oats':'fiber','fish3':'omega','nuts':'plant','apple3':'pectin'},
+        exp:'燕麦 β-葡聚糖降 LDL；深海鱼 Omega-3 降 TG；核桃等坚果植物甾醇降胆固醇；苹果果胶降胆固醇。' },
+      { type:'image-choice', prompt:'🌾 燕麦：每天吃多少能降胆固醇？', image:'🌾',
+        choices:[{icon:'①',text:'10 g'},{icon:'②',text:'60-80 g 干燕麦'},{icon:'③',text:'200 g'},{icon:'④',text:'不限'}],
+        answer:1, exp:'燕麦每天 60-80 g 干重，可溶性纤维 β-葡聚糖 3 g/天 可降低 LDL-C 5-10%；是 FDA 认证的降胆固醇食物。' },
+      { type:'match', prompt:'🔗 食物-降脂成分：把食物和降脂成分配对',
+        left:[{id:'A',icon:'🌾',text:'燕麦'},{id:'B',icon:'🫘',text:'大豆'},{id:'C',icon:'🍵',text:'绿茶'},{id:'D',icon:'🧄',text:'大蒜'}],
+        right:[{id:'1',icon:'🌾',text:'β-葡聚糖'},{id:'2',icon:'🫘',text:'大豆异黄酮'},{id:'3',icon:'🍵',text:'茶多酚'},{id:'4',icon:'🧄',text:'大蒜素'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'燕麦 β-葡聚糖；大豆异黄酮；绿茶茶多酚抗氧化；大蒜素降胆固醇。多吃这些有助降脂。' },
+      { type:'image-choice', prompt:'🐟 Omega-3：每周应吃深海鱼多少次？', image:'🐟',
+        choices:[{icon:'①',text:'1 次'},{icon:'②',text:'2-3 次'},{icon:'③',text:'每天'},{icon:'④',text:'不用吃'}],
+        answer:1, exp:'深海鱼（三文鱼、鲭鱼、沙丁鱼）每周 2-3 次，每次 100-150 g；提供 EPA+DHA 降低 TG、抗炎。' },
+      { type:'scenario', prompt:'🥛 早餐饮品选择（高血脂）',
+        scenario:'李叔早餐喝什么最降脂？',
+        choices:[{key:'A',text:'全脂牛奶+糖'},{key:'B',text:'低脂牛奶+燕麦+苹果'},{key:'C',text:'奶茶'},{key:'D',text:'可乐'}],
+        answer:1, exp:'低脂牛奶降饱和脂肪摄入；燕麦 β-葡聚糖降 LDL；苹果果胶降胆固醇；避免含糖饮料和全脂奶。' },
+      { type:'image-choice', prompt:'🥜 坚果：每天推荐摄入量？', image:'🥜',
+        choices:[{icon:'①',text:'不限'},{icon:'②',text:'10-15 g（约一小把）'},{icon:'③',text:'50 g'},{icon:'④',text:'100 g'}],
+        answer:1, exp:'坚果每天 10-15 g（约一小把，原味）；过多热量高；植物甾醇和不饱和脂肪酸有助降 LDL。' }
+    ]},
+    'lip-3': { title: '限制食物', questions: [
+      { type:'image-choice', prompt:'🥚 高血脂每日胆固醇摄入应低于？', image:'🥚',
+        choices:[{icon:'①',text:'300 mg'},{icon:'②',text:'200 mg'},{icon:'③',text:'500 mg'},{icon:'④',text:'不限'}],
+        answer:1, exp:'高血脂患者每日膳食胆固醇<200 mg（一般人群<300 mg）；少吃内脏、蛋黄、虾头、鱼子酱。' },
+      { type:'drag-bin', prompt:'🚫 食物禁忌：把高血脂禁忌食物分到正确类别',
+        items:[{id:'fatmeat',name:'肥肉',icon:'🥓'},{id:'organ',name:'猪肝',icon:'🥩'},{id:'fried',name:'炸薯条',icon:'🍟'},{id:'candy',name:'糖果'}],
+        bins:[{id:'fat',name:'高脂肪',icon:'🥓'},{id:'choles',name:'高胆固醇',icon:'🩸'},{id:'trans',name:'反式脂肪',icon:'🍟'},{id:'sugar',name:'高糖（升 TG）',icon:'🍬'}],
+        answer:{'fatmeat':'fat','organ':'choles','fried':'trans','candy':'sugar'},
+        exp:'肥肉=高脂肪饱和；猪肝=高胆固醇；炸薯条=反式脂肪；糖果=高糖升 TG（甘油三酯）。四类都需限制。' },
+      { type:'match', prompt:'🔗 食物-限制理由：把食物和限制理由配对',
+        left:[{id:'A',icon:'🥓',text:'肥肉'},{id:'B',icon:'🍟',text:'油炸食品'},{id:'C',icon:'🍨',text:'冰淇淋'},{id:'D',icon:'🥃',text:'白酒'}],
+        right:[{id:'1',icon:'🥓',text:'饱和脂肪酸高'},{id:'2',icon:'⚠️',text:'反式脂肪+热量高'},{id:'3',icon:'🍬',text:'糖+饱和脂肪'},{id:'4',icon:'🍺',text:'升 TG+肝损伤'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'肥肉饱和脂肪高；油炸食品反式脂肪+热量；冰淇淋糖+饱和脂肪；白酒升 TG+损伤肝脏。' },
+      { type:'scenario', prompt:'🍽 宴请点菜：高血脂患者点菜技巧',
+        scenario:'老张血脂高，参加婚宴点菜，怎么选？',
+        choices:[{key:'A',text:'红烧肉+炸虾+奶油蛋糕'},{key:'B',text:'清蒸鱼+凉拌菜+蒜蓉西兰花+少油菜'},{key:'C',text:'红烧蹄膀+动物血'},{key:'D',text:'麻辣火锅+肥牛+午餐肉'}],
+        answer:1, exp:'宴席选择：清蒸、白灼、凉拌、蒜蓉蔬菜；少选红烧、油炸、动物内脏、肥肉、奶油制品。' },
+      { type:'image-choice', prompt:'🍟 反式脂肪来源：以下哪种含量最高？', image:'🍟',
+        choices:[{icon:'①',text:'人造黄油/人造奶油'},{icon:'②',text:'橄榄油'},{icon:'③',text:'菜籽油'},{icon:'④',text:'花生油'}],
+        answer:0, exp:'反式脂肪主要来自人造黄油、起酥油、植脂末（奶茶常用）、酥皮糕点；植物油几乎不含反式脂肪。' },
+      { type:'image-choice', prompt:'🍬 高糖食物影响：高糖饮食主要影响？', image:'🍬',
+        choices:[{icon:'①',text:'LDL-C'},{icon:'②',text:'甘油三酯 TG'},{icon:'③',text:'HDL-C'},{icon:'④',text:'血压'}],
+        answer:1, exp:'高糖饮食（特别是果糖、蔗糖）会显著升高甘油三酯 TG；应限制添加糖<25 g/天（高血脂更严格）。' }
+    ]},
+    'lip-4': { title: '烹调方法', questions: [
+      { type:'image-choice', prompt:'🍳 推荐烹调方法：以下哪种最适合高血脂？', image:'🍳',
+        choices:[{icon:'①',text:'炸'},{icon:'②',text:'蒸·煮·炖·凉拌'},{icon:'③',text:'煎'},{icon:'④',text:'烤（明火）'}],
+        answer:1, exp:'推荐蒸、煮、炖、凉拌、白灼、焯水；避免油炸、油煎、明火烤；减少用油量和反式脂肪生成。' },
+      { type:'drag-bin', prompt:'🥘 烹调分类：把烹调方式分到推荐/不推荐', hint:'💡 减少用油是核心',
+        items:[{id:'steam',name:'蒸',icon:'♨️'},{id:'stir',name:'炒（少油）',icon:'🍳'},{id:'deep',name:'油炸',icon:'🍟'},{id:'stew',name:'清炖'}],
+        bins:[{id:'good',name:'推荐',icon:'✅'},{id:'bad',name:'不推荐',icon:'❌'}],
+        answer:{'steam':'good','stir':'good','deep':'bad','stew':'good'},
+        exp:'蒸、清炖、少油炒推荐；油炸、红烧、糖醋不推荐（高油高糖）；控油<25-30 g/天。' },
+      { type:'match', prompt:'🔗 烹调-特点：把烹调方式和特点配对',
+        left:[{id:'A',icon:'♨️',text:'蒸'},{id:'B',icon:'🍲',text:'清炖'},{id:'C',icon:'🥗',text:'凉拌'},{id:'D',icon:'🍳',text:'爆炒'}],
+        right:[{id:'1',icon:'✅',text:'保留营养·低油'},{id:'2',icon:'✅',text:'少油·原味'},{id:'3',icon:'✅',text:'少油·清爽'},{id:'4',icon:'⚠️',text:'高油·高温'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'蒸保留营养低油；清炖少油原味；凉拌少油清爽；爆炒用油多温度高易产生有害物质。' },
+      { type:'image-choice', prompt:'🛢 控油技巧：以下哪种最有效？', image:'🛢',
+        choices:[{icon:'①',text:'用喷油壶定量'},{icon:'②',text:'多放油好吃'},{icon:'③',text:'用动物油'},{icon:'④',text:'炸后沥油'}],
+        answer:0, exp:'控油技巧：喷油壶定量、用不粘锅少油、用勺量油、蔬菜先焯水再少油快炒、汤菜代替炒菜。' },
+      { type:'scenario', prompt:'🍲 实操：清蒸鱼替代红烧鱼',
+        scenario:'老王喜欢红烧鱼，血脂高后应如何调整？',
+        choices:[{key:'A',text:'继续红烧'},{key:'B',text:'改清蒸鱼+葱姜+少豉油（少油版）'},{key:'C',text:'改炸鱼'},{key:'D',text:'不吃了'}],
+        answer:1, exp:'红烧鱼含大量油糖；清蒸鱼少油保留 DHA；加葱姜蒜和少量低盐豉油提味，减少用油量 80% 以上。' },
+      { type:'image-choice', prompt:'🧂 调料选择：以下哪种最适合高血脂？', image:'🧂',
+        choices:[{icon:'①',text:'沙拉酱'},{icon:'②',text:'辣椒酱（少油版）'},{icon:'③',text:'沙茶酱'},{icon:'④',text:'黄油'}],
+        answer:1, exp:'选择：葱姜蒜、醋、柠檬、辣椒、花椒、八角、香菇等天然低油调味；少用沙拉酱、沙茶酱、黄油（含大量饱和脂肪）。' }
+    ]},
+
+    /* ========== 糖尿病患者 ========== */
+    'dia-1': { title: 'GI 与 GL', questions: [
+      { type:'image-choice', prompt:'🍬 GI（升糖指数）：数值多少算高 GI 食物？', image:'🍬',
+        choices:[{icon:'①',text:'>70'},{icon:'②',text:'56-69'},{icon:'③',text:'<55'},{icon:'④',text:'100 以上'}],
+        answer:0, exp:'GI ≥70 为高 GI（升糖快）；56-69 中 GI；≤55 低 GI（升糖慢）。糖尿病患者宜选低中 GI 食物。' },
+      { type:'image-choice', prompt:'📊 GL 公式：GL = ？', image:'📊',
+        choices:[{icon:'①',text:'GI ÷ 碳水克数'},{icon:'②',text:'GI × 碳水克数 ÷ 100'},{icon:'③',text:'GI + 碳水'},{icon:'④',text:'GI × 脂肪'}],
+        answer:1, exp:'GL（血糖负荷）= GI × 碳水克数 ÷ 100；GL<10 低、11-19 中、≥20 高。比 GI 更全面。' },
+      { type:'drag-bin', prompt:'🍚 GI 分类：把食物分到高/中/低 GI', hint:'💡 GI 反映升糖速度',
+        items:[{id:'rice',name:'白米饭',icon:'🍚'},{id:'noodle',name:'荞麦面',icon:'🍜'},{id:'corn',name:'玉米',icon:'🌽'},{id:'candy2',name:'葡萄糖'}],
+        bins:[{id:'high',name:'高 GI（≥70）',icon:'⬆️'},{id:'mid',name:'中 GI（56-69）',icon:'➡️'},{id:'low',name:'低 GI（≤55）',icon:'⬇️'}],
+        answer:{'rice':'high','noodle':'mid','corn':'low','candy2':'high'},
+        exp:'白米饭 GI 83（高）；荞麦面 GI 59（中）；玉米 GI 55（低）；葡萄糖 GI 100（高，参照标准）。' },
+      { type:'match', prompt:'🔗 食物-GI 等级：把食物和 GI 等级配对',
+        left:[{id:'A',icon:'🍚',text:'白米饭'},{id:'B',icon:'🥖',text:'全麦面包'},{id:'C',icon:'🫘',text:'红豆（干）'},{id:'D',icon:'🍰',text:'蛋糕'}],
+        right:[{id:'1',icon:'⬆️',text:'高 GI 83'},{id:'2',icon:'➡️',text:'中 GI 70'},{id:'3',icon:'⬇️',text:'低 GI 25'},{id:'4',icon:'⬆️',text:'高 GI 67'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'白米饭 GI 83（高）；全麦面包 GI 70（中）；红豆 GI 25（低）；蛋糕 GI 67（高，含糖高）。' },
+      { type:'image-choice', prompt:'🥦 低 GI 食物：以下哪种适合糖尿病患者？', image:'🥦',
+        choices:[{icon:'①',text:'白米粥'},{icon:'②',text:'燕麦'},{icon:'③',text:'白面包'},{icon:'④',text:'糯米饭'}],
+        answer:1, exp:'燕麦 GI 55（低），β-葡聚糖延缓糖吸收；白米粥、白面包、糯米饭 GI 高不适合糖尿病患者。' },
+      { type:'scenario', prompt:'🍽 实操选择：糖尿病患者应选哪些食物？',
+        scenario:'李阿姨 60 岁，糖尿病，应选择以下哪些食物？',
+        choices:[{key:'A',text:'白粥+白面包+糖'},{key:'B',text:'燕麦+糙米+蔬菜+鱼+低 GI 水果'},{key:'C',text:'糯米饭+蛋糕'},{key:'D',text:'薯片+可乐'}],
+        answer:1, exp:'糖尿病患者主食选低 GI（燕麦、糙米、全麦），搭配高纤维蔬菜、优质蛋白、低 GI 水果（苹果、梨），避免精制糖和高 GI 主食。' }
+    ]},
+    'dia-2': { title: '碳水计算', questions: [
+      { type:'image-choice', prompt:'🍚 碳水占比：糖尿病患者每日碳水应占总能量？', image:'🍚',
+        choices:[{icon:'①',text:'30%'},{icon:'②',text:'45-60%'},{icon:'③',text:'70%'},{icon:'④',text:'不限'}],
+        answer:1, exp:'糖尿病患者每日碳水占总能量 45-60%（不刻意低碳水，会影响脑功能）；关键是选低 GI 优质碳水。' },
+      { type:'image-choice', prompt:'🍽 一餐碳水：糖尿病患者一餐碳水推荐多少？', image:'🍽',
+        choices:[{icon:'①',text:'15-20 g'},{icon:'②',text:'45-60 g'},{icon:'③',text:'100 g'},{icon:'④',text:'不限'}],
+        answer:1, exp:'糖尿病患者一餐碳水 45-60 g（相当于 1 拳头主食），全日 200-250 g；可分 3 主餐+2-3 加餐。' },
+      { type:'match', prompt:'🔗 食物-碳水含量：把食物和碳水含量配对',
+        left:[{id:'A',icon:'🍚',text:'白米饭（1 碗）'},{id:'B',icon:'🍞',text:'全麦面包（2 片）'},{id:'C',icon:'🍌',text:'香蕉（1 根）'},{id:'D',icon:'🥛',text:'牛奶（250 ml）'}],
+        right:[{id:'1',icon:'🌾',text:'约 45 g 碳水'},{id:'2',icon:'🌾',text:'约 30 g 碳水'},{id:'3',icon:'🍌',text:'约 27 g 碳水'},{id:'4',icon:'🥛',text:'约 12 g 碳水'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'白米饭 1 碗约 45 g；全麦面包 2 片约 30 g；香蕉 1 根约 27 g；牛奶 250 ml 约 12 g。学会食物交换份是控糖核心。' },
+      { type:'drag-bin', prompt:'🌾 食物分类：把食物分到碳水/蛋白/脂肪类', hint:'💡 糖尿病配餐三大类',
+        items:[{id:'rice2',name:'米饭',icon:'🍚'},{id:'meat',name:'瘦肉',icon:'🥩'},{id:'oil',name:'植物油',icon:'🛢️'},{id:'veg2',name:'绿叶菜'}],
+        bins:[{id:'carb',name:'碳水类',icon:'🍚'},{id:'pro',name:'蛋白类',icon:'🥩'},{id:'fat',name:'脂肪类',icon:'🛢️'},{id:'free',name:'几乎不含三大产能',icon:'🥬'}],
+        answer:{'rice2':'carb','meat':'pro','oil':'fat','veg2':'free'},
+        exp:'米饭碳水；瘦肉蛋白；植物油脂肪；绿叶菜几乎不含三大产能营养素（含维矿纤维），可适量多吃。' },
+      { type:'scenario', prompt:'🔢 配餐计算实操',
+        scenario:'糖尿病患者一日 1800 kcal，碳水应占 50%（225 g），如何分配三餐+加餐？',
+        choices:[{key:'A',text:'三餐各 75 g，无加餐'},{key:'B',text:'早餐 50g、午餐 75g、晚餐 50g、加餐各 25g'},{key:'C',text:'只晚餐吃 225g'},{key:'D',text:'不吃主食'}],
+        answer:1, exp:'1800 kcal × 50% = 225 g 碳水。建议：早 50、午 75、晚 50，加餐 25×2=50（上下午各 25g），分餐减少单次血糖波动。' },
+      { type:'image-choice', prompt:'🌾 碳水来源：糖尿病患者碳水应主要来自？', image:'🌾',
+        choices:[{icon:'①',text:'精制糖'},{icon:'②',text:'全谷物·薯类·杂豆'},{icon:'③',text:'含糖饮料'},{icon:'④',text:'蛋糕饼干'}],
+        answer:1, exp:'优质碳水来源：全谷物（燕麦、糙米、玉米）、薯类（土豆、红薯）、杂豆（红豆、绿豆）；避免精制糖和含糖饮料。' }
+    ]},
+    'dia-3': { title: '糖尿病配餐', questions: [
+      { type:'image-choice', prompt:'🍽 餐盘法：糖尿病患者餐盘最佳比例？', image:'🍽',
+        choices:[{icon:'①',text:'1/2 蔬菜 + 1/4 蛋白 + 1/4 主食'},{icon:'②',text:'1/2 主食 + 1/2 肉'},{icon:'③',text:'全肉'},{icon:'④',text:'全水果'}],
+        answer:0, exp:'餐盘法：1/2 非淀粉类蔬菜（绿叶、瓜类）+ 1/4 优质蛋白（鱼禽蛋瘦肉）+ 1/4 主食（全谷物）。简单实用。' },
+      { type:'drag-bin', prompt:'🥗 食物交换份：把同类的食物配对', hint:'💡 1 交换份 = 90 kcal',
+        items:[{id:'rice3',name:'白米 25g'},{id:'noodle2',text:'挂面 25g'},{id:'apple4',name:'苹果 200g'},{id:'pear',name:'梨 200g'}],
+        bins:[{id:'grain',name:'主食类',icon:'🍚'},{id:'fruit',name:'水果类',icon:'🍎'}],
+        targets:[],
+        answer:{'rice3':'grain','noodle2':'grain','apple4':'fruit','pear':'fruit'},
+        exp:'主食 1 交换份：25 g 米/面/馒头；水果 1 交换份：200 g 苹果/梨（都是约 90 kcal、20 g 碳水）。' },
+      { type:'match', prompt:'🔗 食物-交换份：把食物和每份克数配对',
+        left:[{id:'A',icon:'🥛',text:'牛奶 1 份'},{id:'B',icon:'🥩',text:'瘦肉 1 份'},{id:'C',icon:'🛢️',text:'植物油 1 份'},{id:'D',icon:'🥜',text:'坚果 1 份'}],
+        right:[{id:'1',icon:'160',text:'160 ml'},{id:'2',icon:'50',text:'50 g'},{id:'3',icon:'10',text:'10 g（约 1 勺）'},{id:'4',icon:'15',text:'15 g'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'奶 160 ml、瘦肉 50 g、油 10 g（约 1 勺）、坚果 15 g 都是 1 交换份 = 90 kcal。学会交换就能灵活搭配。' },
+      { type:'image-choice', prompt:'🕐 加餐时机：糖尿病患者最佳加餐时间？', image:'🕐',
+        choices:[{icon:'①',text:'上午 10 点、下午 3 点、睡前'},{icon:'②',text:'随时饿了就吃'},{icon:'③',text:'只吃正餐'},{icon:'④',text:'睡前大餐'}],
+        answer:0, exp:'糖尿病患者少食多餐：早 10 点、下午 3 点、睡前 1 小时（用低 GI 食物）有助稳定血糖，避免低血糖和高血糖波动。' },
+      { type:'scenario', prompt:'🍽 一日食谱实操',
+        scenario:'为糖尿病患者设计一日食谱，正确的是？',
+        choices:[{key:'A',text:'白粥+馒头+糖醋排骨'},{key:'B',text:'燕麦+蒸蛋+凉拌青菜+清蒸鱼+糙米饭+低 GI 水果加餐'},{key:'C',text:'糯米饭+红烧肉+可乐'},{key:'D',text:'汉堡+薯条+奶昔'}],
+        answer:1, exp:'低 GI 主食（燕麦、糙米）+ 优质蛋白（蒸蛋、清蒸鱼）+ 高纤维蔬菜 + 低 GI 水果加餐。符合糖尿病餐盘法。' },
+      { type:'image-choice', prompt:'🍚 主食选择：以下哪种主食最适合糖尿病？', image:'🍚',
+        choices:[{icon:'①',text:'白米饭'},{icon:'②',text:'白米粥（长时间煮）'},{icon:'③',text:'糙米+燕麦+杂豆混合饭'},{icon:'④',text:'糯米饭'}],
+        answer:2, exp:'糙米+燕麦+杂豆混合饭 GI 低、纤维高、营养丰富；白米饭、白粥、糯米饭 GI 高不适合。' }
+    ]},
+    'dia-4': { title: '特殊情况', questions: [
+      { type:'image-choice', prompt:'⚠️ 低血糖症状：以下哪个是？', image:'⚠️',
+        choices:[{icon:'①',text:'心慌、出汗、手抖、头晕'},{icon:'②',text:'多饮多食多尿'},{icon:'③',text:'体重增加'},{icon:'④',text:'皮肤瘙痒'}],
+        answer:0, exp:'低血糖（<3.9 mmol/L）：心慌、出汗、手抖、头晕、饥饿感、严重时意识模糊。需立即补糖。' },
+      { type:'image-choice', prompt:'🍬 15-15 原则：低血糖时应？', image:'🍬',
+        choices:[{icon:'①',text:'立刻吃 15-20 g 糖，15 分钟后测血糖'},{icon:'②',text:'立刻吃一大碗饭'},{icon:'③',text:'等 30 分钟看情况'},{icon:'④',text:'不用处理'}],
+        answer:0, exp:'15-15 原则：低血糖时立即吃 15-20 g 快速糖（3-4 块方糖/1 杯果汁/2 勺蜂蜜），15 分钟后复测；如仍<3.9 再吃一次。' },
+      { type:'match', prompt:'🔗 情况-应对：把情况和应对方法配对',
+        left:[{id:'A',icon:'⚠️',text:'低血糖'},{id:'B',icon:'🍽',text:'外出就餐'},{id:'C',icon:'🤒',text:'生病没胃口'},{id:'D',icon:'🏃',text:'运动后'}],
+        right:[{id:'1',icon:'🍬',text:'15-15 原则'},{id:'2',icon:'🥗',text:'提前看菜单选低 GI'},{id:'3',icon:'🍲',text:'少量多餐+易消化'},{id:'4',icon:'🥪',text:'补充碳水+监测血糖'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'低血糖 15-15 原则；外出就餐提前选菜（少油炸多蔬菜）；生病少食多餐易消化；运动后补碳水+测血糖。' },
+      { type:'scenario', prompt:'🍽 外出就餐技巧',
+        scenario:'李叔糖尿病，出差酒店早餐自助，怎么选？',
+        choices:[{key:'A',text:'白粥+油条+糖糕'},{key:'B',text:'燕麦+低脂奶+鸡蛋+蔬菜+一份坚果'},{key:'C',text:'糯米饭+红烧肉'},{key:'D',text:'甜麦片+糖牛奶'}],
+        answer:1, exp:'酒店自助选低 GI 主食（燕麦）+优质蛋白（鸡蛋）+蔬菜+健康脂肪（坚果），避免精制糖和油炸食物。' },
+      { type:'drag-bin', prompt:'⚠️ 风险食物：把食物分到低血糖风险/正常', hint:'💡 运动或注射胰岛素后注意',
+        items:[{id:'cake',name:'蛋糕',icon:'🍰'},{id:'banana',name:'香蕉',icon:'🍌'},{id:'cola',name:'可乐',icon:'🥤'},{id:'meal',name:'正餐主食'}],
+        bins:[{id:'risk',name:'低血糖风险（运动前后慎用）',icon:'⚠️'},{id:'safe',name:'稳定血糖',icon:'✅'}],
+        answer:{'cake':'safe','banana':'safe','cola':'risk','meal':'safe'},
+        exp:'蛋糕、香蕉、正餐主食都能稳定血糖；可乐高 GI 升糖快降糖也快，运动前后吃易致血糖剧烈波动，应避免。' },
+      { type:'image-choice', prompt:'🩺 合并症管理：糖尿病+高血压双重患者应？', image:'🩺',
+        choices:[{icon:'①',text:'只控糖'},{icon:'②',text:'低 GI + 低钠 双控'},{icon:'③',text:'只控盐'},{icon:'④',text:'不用特别'}],
+        answer:1, exp:'糖尿病合并高血压：低 GI（控糖）+ 低钠<5 g（控压）+ 优质蛋白 + 高纤维；定期监测糖化血红蛋白和血压。' }
+    ]},
+
+    /* ========== 运动员 ========== */
+    'ath-1': { title: '能量需求', questions: [
+      { type:'image-choice', prompt:'⚡ 能量单位：营养学常用能量单位？', image:'⚡',
+        choices:[{icon:'①',text:'千卡（kcal）'},{icon:'②',text:'焦耳（J）'},{icon:'③',text:'瓦特（W）'},{icon:'④',text:'牛顿（N）'}],
+        answer:0, exp:'营养学常用千卡（kcal）；1 kcal = 4.184 kJ。运动消耗、能量需求都以 kcal 计算。' },
+      { type:'match', prompt:'🔗 项目-能量需求：把运动项目和能量需求配对',
+        left:[{id:'A',icon:'🏃',text:'马拉松'},{id:'B',icon:'🏊',text:'游泳（中强度）'},{id:'C',icon:'🧘',text:'瑜伽'},{id:'D',icon:'🏋️',text:'举重（短时间）'}],
+        right:[{id:'1',icon:'⚡',text:'约 800-1000 kcal/h'},{id:'2',icon:'⚡',text:'约 400-600 kcal/h'},{id:'3',icon:'⚡',text:'约 150-250 kcal/h'},{id:'4',icon:'⚡',text:'约 300-500 kcal/h'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'马拉松等耐力项目 800-1000 kcal/h；游泳中强度 400-600；瑜伽低强度 150-250；举重短时间大强度 300-500。' },
+      { type:'image-choice', prompt:'⚖️ 三大营养素供能比：耐力运动员应？', image:'⚖️',
+        choices:[{icon:'①',text:'碳水 60-70% · 蛋白 15% · 脂肪 20%'},{icon:'②',text:'碳水 30% · 蛋白 40% · 脂肪 30%'},{icon:'③',text:'碳水 80% · 蛋白 10% · 脂肪 10%'},{icon:'④',text:'低碳水高脂肪'}],
+        answer:0, exp:'耐力运动员：碳水 60-70%（糖原储备）、蛋白 15%（修复肌肉）、脂肪 20%；肌糖原是耐力关键。' },
+      { type:'image-choice', prompt:'🔥 运动消耗：60 kg 慢跑 1 小时约消耗？', image:'🔥',
+        choices:[{icon:'①',text:'100 kcal'},{icon:'②',text:'400-500 kcal'},{icon:'③',text:'1000 kcal'},{icon:'④',text:'不限'}],
+        answer:1, exp:'60 kg 体重慢跑 1 小时约消耗 400-500 kcal（≈ 8 倍基础代谢）；运动后需补充能量和电解质。' },
+      { type:'scenario', prompt:'🍽 训练日能量补充',
+        scenario:'小王 70 kg，每天跑步训练 2 小时，如何安排能量？',
+        choices:[{key:'A',text:'不补充，会胖'},{key:'B',text:'基础代谢+训练消耗+10%富余'},{key:'C',text:'只喝水'},{key:'D',text:'只吃蛋白粉'}],
+        answer:1, exp:'总能量 = BMR（基础代谢 1700 kcal）+ 训练消耗（约 1000 kcal）+ 10% 富余 ≈ 3000 kcal/d。合理补充才能恢复。' },
+      { type:'image-choice', prompt:'📊 RMR 估算：Harris-Benedict 公式中，RMR 是指？', image:'📊',
+        choices:[{icon:'①',text:'运动时最大心率'},{icon:'②',text:'静息代谢率（基础代谢）'},{icon:'③',text:'运动后过量氧耗'},{icon:'④',text:'脂肪燃烧率'}],
+        answer:1, exp:'RMR = Resting Metabolic Rate，静息代谢率；BMR 基础代谢率；总能量 = BMR × 活动系数 + 食物特殊动力效应。' }
+    ]},
+    'ath-2': { title: '运动前中后营养', questions: [
+      { type:'image-choice', prompt:'⏰ 赛前正餐：赛前多少小时吃主餐最佳？', image:'⏰',
+        choices:[{icon:'①',text:'30 分钟'},{icon:'②',text:'2-3 小时'},{icon:'③',text:'睡前'},{icon:'④',text:'赛前立刻'}],
+        answer:1, exp:'赛前 2-3 小时吃主餐（低脂低纤维高碳水）；避免赛前 1 小时内大量进食，否则运动时胃肠不适。' },
+      { type:'match', prompt:'🔗 时段-营养：把运动时段和营养建议配对',
+        left:[{id:'A',icon:'⏰',text:'赛前 2-3 小时'},{id:'B',icon:'🥤',text:'赛中（>60 分）'},{id:'C',icon:'🍲',text:'赛后 30 分内'},{id:'D',icon:'🛌',text:'睡前'}],
+        right:[{id:'1',icon:'🍝',text:'低脂高碳水正餐'},{id:'2',icon:'🥤',text:'运动饮料补糖电解质'},{id:'3',icon:'🥩',text:'蛋白+碳水恢复餐'},{id:'4',icon:'🥛',text:'酪蛋白缓释蛋白'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'赛前低脂高碳水正餐（2-3h 前）；赛中>60 分补糖电解质；赛后 30 分内蛋白+碳水恢复；睡前酪蛋白缓释蛋白。' },
+      { type:'image-choice', prompt:'🍝 赛前餐选择：以下哪种最佳？', image:'🍝',
+        choices:[{icon:'①',text:'炸鸡+薯条+可乐'},{icon:'②',text:'意面+低脂酱+面包+香蕉'},{icon:'3',text:'红烧肉+米饭'},{icon:'④',text:'方便面+火腿肠'}],
+        answer:1, exp:'赛前餐应低脂高碳水易消化：意面+面包+香蕉；避免高脂（炸鸡、肥肉）和高纤维（豆类）致胃肠不适。' },
+      { type:'image-choice', prompt:'🥤 赛中补充：长距离跑步 1 小时以上应补？', image:'🥤',
+        choices:[{icon:'①',text:'只喝白水'},{icon:'②',text:'运动饮料（糖+电解质）'},{icon:'③',text:'可乐'},{icon:'④',text:'不喝'}],
+        answer:1, exp:'>60 分钟运动：每 15-20 分钟补 150-250 ml 运动饮料（含 6-8% 碳水+电解质）；只补水易致低血糖和电解质紊乱。' },
+      { type:'scenario', prompt:'🏃 比赛日实操',
+        scenario:'小李明天参加半程马拉松，如何安排今天和明天饮食？',
+        choices:[{key:'A',text:'赛前大餐+赛中不补+赛后不补'},{key:'B',text:'今天碳水化合物负荷+赛中运动饮料+赛后蛋白恢复'},{key:'C',text:'只吃蛋白粉'},{key:'D',text:'不吃不喝'}],
+        answer:1, exp:'比赛日：赛前 3-4 天碳水化合物负荷（10-12 g/kg/d）；赛中每 20 分补饮料；赛后 30 分内 1-1.2 g/kg 蛋白+1-1.5 g/kg 碳水恢复。' },
+      { type:'image-choice', prompt:'🍲 赛后恢复窗：运动后多久是"合成代谢窗"？', image:'🍲',
+        choices:[{icon:'①',text:'15 分钟内'},{icon:'②',text:'30 分钟-2 小时'},{icon:'③',text:'6 小时后'},{icon:'④',text:'第二天'}],
+        answer:1, exp:'合成代谢窗：运动后 30 分钟-2 小时，是糖原合成和肌肉修复的最佳窗口；及时补充蛋白（20-30 g）+碳水（1-1.5 g/kg）。' }
+    ]},
+    'ath-3': { title: '项目专项', questions: [
+      { type:'match', prompt:'🔗 项目-营养重点：把运动项目和营养重点配对',
+        left:[{id:'A',icon:'🏃',text:'马拉松/长跑'},{id:'B',icon:'🏋️',text:'举重/力量'},{id:'C',icon:'⚽',text:'足球/球类'},{id:'D',icon:'🤸',text:'体操/技巧'}],
+        right:[{id:'1',icon:'🍚',text:'高碳水+补水'},{id:'2',icon:'🥩',text:'高蛋白+肌酸'},{id:'3',icon:'⚖️',text:'均衡+耐力爆发力'},{id:'4',icon:'🥗',text:'控体重+优质蛋白'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'长跑：高碳水+补水；力量：高蛋白+肌酸；球类：均衡+耐力爆发力；体操：控体重（不能重）+优质蛋白。' },
+      { type:'image-choice', prompt:'🏃 耐力项目：每天碳水化合物推荐量？', image:'🏃',
+        choices:[{icon:'①',text:'3-5 g/kg'},{icon:'②',text:'6-10 g/kg'},{icon:'③',text:'15 g/kg'},{icon:'④',text:'不限'}],
+        answer:1, exp:'耐力项目训练日：碳水 6-10 g/kg/d（如 70 kg 运动员每天 420-700 g）；比赛前 3-4 天可增至 10-12 g/kg（糖原超量恢复）。' },
+      { type:'image-choice', prompt:'🏋️ 力量项目：每天蛋白推荐量？', image:'🏋️',
+        choices:[{icon:'①',text:'0.8 g/kg'},{icon:'②',text:'1.6-2.2 g/kg'},{icon:'③',text:'3.0 g/kg'},{icon:'④',text:'不限'}],
+        answer:1, exp:'力量项目蛋白 1.6-2.2 g/kg/d（高于普通人）；优质蛋白为主，每餐 20-40 g；训练后 30 分内补蛋白合成肌肉。' },
+      { type:'image-choice', prompt:'⚽ 球类项目：饮食特点？', image:'⚽',
+        choices:[{icon:'①',text:'只吃肉'},{icon:'②',text:'均衡+足够碳水+优质蛋白'},{icon:'③',text:'只吃碳水'},{icon:'④',text:'节食'}],
+        answer:1, exp:'球类需要耐力+爆发力+敏捷：均衡饮食（碳水 55-60% + 蛋白 15-20% + 脂肪 20-25%）；赛中运动饮料补水补糖。' },
+      { type:'scenario', prompt:'⚖️ 减控体重实操（摔跤/举重）',
+        scenario:'小张是摔跤运动员，比赛前需降体重 3 kg，如何操作？',
+        choices:[{key:'A',text:'一周不吃饭'},{key:'B',text:'提前 2-3 周每周减 0.5-1 kg + 控水控盐'},{key:'C',text:'赛前蒸桑拿脱水'},{key:'D',text:'吃减肥药'}],
+        answer:1, exp:'运动员控重应科学：提前 2-3 周逐渐减能量（每周 0.5-1 kg）；避免赛前急性脱水（影响发挥）；保持蛋白和力量训练。' },
+      { type:'drag-bin', prompt:'🏅 项目分类：把食物分配到不同项目运动员',
+        items:[{id:'pasta',name:'意面+面包',icon:'🍝'},{id:'whey',name:'乳清蛋白粉',icon:'🥛'},{id:'banana2',name:'香蕉+运动饮料',icon:'🍌'},{id:'chicken',name:'鸡胸肉+蔬菜'}],
+        bins:[{id:'end',name:'耐力项目',icon:'🏃'},{id:'str',name:'力量项目',icon:'🏋️'}],
+        answer:{'pasta':'end','whey':'str','banana2':'end','chicken':'str'},
+        exp:'耐力项目（马拉松）需要高碳水（意面、香蕉、运动饮料）；力量项目（举重）需要高蛋白（乳清、鸡胸）。' }
+    ]},
+    'ath-4': { title: '补液与补剂', questions: [
+      { type:'image-choice', prompt:'💧 补液原则：运动中每小时应补多少水？', image:'💧',
+        choices:[{icon:'①',text:'100-200 ml'},{icon:'②',text:'400-800 ml'},{icon:'③',text:'2000 ml'},{icon:'④',text:'不渴不喝'}],
+        answer:1, exp:'运动中每小时补 400-800 ml（含电解质运动饮料）；少量多次（每 15-20 分补 150-250 ml）；不要等渴了再喝。' },
+      { type:'image-choice', prompt:'⚠️ 脱水危害：体重下降 2% 时运动能力下降？', image:'⚠️',
+        choices:[{icon:'①',text:'10-20%'},{icon:'②',text:'5%'},{icon:'③',text:'1%'},{icon:'④',text:'不影响'}],
+        answer:0, exp:'体重下降 2% 脱水即可使运动能力下降 10-20%；及时补液（运动前 500 ml、运动中每 15-20 分 150-250 ml）。' },
+      { type:'match', prompt:'🔗 补剂-作用：把补剂和作用配对',
+        left:[{id:'A',icon:'🥛',text:'乳清蛋白'},{id:'B',icon:'💪',text:'肌酸'},{id:'C',icon:'🫘',text:'BCAA'},{id:'D',icon:'🐟',text:'鱼油'}],
+        right:[{id:'1',icon:'💪',text:'促进肌肉蛋白合成'},{id:'2',icon:'⚡',text:'提高爆发力+增肌'},{id:'3',icon:'🩹',text:'减少肌肉分解（争议）'},{id:'4',icon:'🧠',text:'抗炎+保护关节'}],
+        answer:{'A':'1','B':'2','C':'3','D':'4'},
+        exp:'乳清蛋白促进肌肉合成；肌酸提高爆发力+增肌（最有效补剂）；BCAA 减少分解（效果有争议）；鱼油抗炎保护关节。' },
+      { type:'image-choice', prompt:'🥤 蛋白粉：什么人群真正需要？', image:'🥤',
+        choices:[{icon:'①',text:'所有健身者'},{icon:'②',text:'蛋白摄入不足者（老人、力量运动员、素食）'},{icon:'③',text:'只想要肌肉的青少年'},{icon:'④',text:'所有人'}],
+        answer:1, exp:'蛋白粉适合蛋白摄入不足人群：力量运动员训练后、老年人防肌少症、素食者；普通人正常饮食无需额外补充。' },
+      { type:'scenario', prompt:'💊 补剂使用：高三学生想增肌买蛋白粉',
+        scenario:'小张 17 岁高中生，想增肌买蛋白粉吃，合适吗？',
+        choices:[{key:'A',text:'合适，赶紧吃'},{key:'B',text:'先正常饮食+力量训练，蛋白粉非必需'},{key:'C',text:'代替正餐吃'},{key:'D',text:'越多越好'}],
+        answer:1, exp:'17 岁青少年增肌应优先保证正常饮食（肉蛋奶豆）+规律力量训练；蛋白粉只是补充非必需，避免盲目依赖。' },
+      { type:'image-choice', prompt:'🥤 运动饮料 vs 白水：何时选运动饮料？', image:'🥤',
+        choices:[{icon:'①',text:'任何运动'},{icon:'②',text:'>60 分钟中高强度运动/大量出汗'},{icon:'③',text:'日常喝水'},{icon:'④',text:'不运动时'}],
+        answer:1, exp:'运动饮料适用于>60 分钟中高强度运动或大量出汗时（含 6-8% 碳水+电解质）；日常或短时运动喝白水即可。' }
     ]}
   }
 };
@@ -1866,6 +2471,17 @@ function enterGeneralRole(roleId) {
 }
 
 /* =============================================
+   特殊人群子分类统一入口（老年人/高血压/高血脂/糖尿病/运动员）
+   ============================================= */
+function enterSpecialRole(roleId) {
+  state.currentRole = 'newbie';  // 复用 SUB_ROLES 结构
+  state.currentSubRole = roleId;
+  state.finishedLevels = [];
+  renderLevelMap();
+  showView('view-nutri-map');
+}
+
+/* =============================================
    特殊人群子分类
    ============================================= */
 function renderSpecialRoles() {
@@ -1873,18 +2489,22 @@ function renderSpecialRoles() {
   const roles = [
     { id: 'pregnant', icon: '🤰', name: '孕妇', age: '备孕·孕期·产后', desc: '叶酸·DHA·铁·钙·体重管理·食物安全', cssClass: 'sr-newborn', onclick: "enterRole('pregnant')" },
     { id: 'infant', icon: '👶', name: '婴幼儿', age: '0-6 岁', desc: '母乳·辅食·挑食·喂养难题全解（4 个阶段）', cssClass: 'sr-infant', onclick: "enterRole('infant')" },
-    { id: 'elder', icon: '👵', name: '老年人', age: '65 岁以上', desc: '老年膳食·骨质疏松·慢病预防', cssClass: 'sr-preschool', onclick: "alert('该人群路线开发中，敬请期待～')" },
-    { id: 'disease', icon: '💊', name: '疾病人群', age: '三高·慢病', desc: '高血压·高血脂·糖尿病·痛风等饮食方案', cssClass: 'sr-child', onclick: "alert('该人群路线开发中，敬请期待～')" },
-    { id: 'athlete', icon: '🏃', name: '运动员', age: '运动人群', desc: '运动营养·能量补充·赛前赛后饮食', cssClass: 'sr-newborn', onclick: "alert('该人群路线开发中，敬请期待～')" }
+    { id: 'elder', icon: '👵', name: '老年人', age: '65 岁以上', desc: '膳食基础·慢病营养·误区破解·特殊场景', cssClass: 'sr-preschool', onclick: "enterSpecialRole('elder')" },
+    { id: 'hypertension', icon: '💔', name: '高血压患者', age: '高血压人群', desc: 'DASH 饮食·低钠<5g·控压实操', cssClass: 'sr-infant', onclick: "enterSpecialRole('hypertension')" },
+    { id: 'hyperlipidemia', icon: '🩸', name: '高血脂患者', age: '高血脂人群', desc: '低脂高纤维·控胆固醇·血管清道夫', cssClass: 'sr-child', onclick: "enterSpecialRole('hyperlipidemia')" },
+    { id: 'diabetes', icon: '🍬', name: '糖尿病患者', age: '糖尿病人群', desc: '低 GI 饮食·碳水计算·血糖管理', cssClass: 'sr-newborn', onclick: "enterSpecialRole('diabetes')" },
+    { id: 'athlete', icon: '🏃', name: '运动员', age: '运动人群', desc: '能量需求·运动前中后·补液补剂', cssClass: 'sr-newborn', onclick: "enterSpecialRole('athlete')" }
   ];
   let html = '';
   roles.forEach(r => {
-    const ready = (r.id === 'pregnant' || r.id === 'infant');
-    const btnText = ready ? '开始闯关' : '敬请期待';
+    const ready = true;  // 全部已开放
+    const finished = state.finishedSubRoles && state.finishedSubRoles.includes(r.id);
+    const finishedBadge = finished ? '<span style="color:#4CAF50;font-size:12px;">✅ 已通关</span>' : '<span style="color:#FFD54F;font-size:12px;">🎯 已开放</span>';
+    const btnText = finished ? '重新挑战' : '开始闯关';
     html += `<div class="subrole-card ${r.cssClass}" onclick="${r.onclick}">
               <div class="subrole-icon">${r.icon}</div>
               <div class="subrole-name">${r.name}</div>
-              <div class="subrole-age">${r.age} ${ready ? '<span style="color:#4CAF50;font-size:12px;">✅ 已开放</span>' : ''}</div>
+              <div class="subrole-age">${r.age} ${finishedBadge}</div>
               <div class="subrole-desc">${r.desc}</div>
               <button class="subrole-btn">${btnText} →</button>
             </div>`;
@@ -2059,17 +2679,86 @@ function renderQuestion() {
 }
 
 function renderDragBin(q) {
+  // 移动端 / 触屏提示
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   let html = '<div class="bin-pool-row">';
+  if (isMobile) {
+    html += '<div style="text-align:center;margin-bottom:8px;"><span class="mobile-tip">📱 点击物品选中（黄色高亮），再点击目标框放置</span></div>';
+  } else {
+    html += '<div style="text-align:center;margin-bottom:8px;"><span class="mobile-tip" style="background:#E8F5E9;color:#2E7D32;">🖱 拖拽物品到目标框；也可点击物品+点击目标框放置</span></div>';
+  }
   html += `<div class="bin-pool" id="binPool"><span class="pool-label">物品池：</span>`;
   q.items.forEach(it => {
-    html += `<div class="drag-item" draggable="true" data-id="${it.id}" ondragstart="dragStart(event)" ondragend="dragEnd(event)"><span class="di-icon">${it.icon}</span>${it.name}</div>`;
+    html += `<div class="drag-item" draggable="true" data-id="${it.id}" ondragstart="dragStart(event)" ondragend="dragEnd(event)" onclick="selectItemForTap('${it.id}')"><span class="di-icon">${it.icon}</span>${it.name}</div>`;
   });
   html += `</div><div class="bin-grid">`;
   q.bins.forEach(b => {
-    html += `<div class="bin-cell" data-id="${b.id}" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropItem(event)"><div class="bin-head"><span class="bh-icon">${b.icon}</span>${b.name}</div><div class="bin-body" id="binBody-${b.id}"></div></div>`;
+    html += `<div class="bin-cell" data-id="${b.id}" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropItem(event)" onclick="placeItemToBin('${b.id}')"><div class="bin-head"><span class="bh-icon">${b.icon}</span>${b.name}</div><div class="bin-body" id="binBody-${b.id}"></div></div>`;
   });
   html += `</div></div>`;
   return html;
+}
+
+/* ===== 移动端点击放置支持 ===== */
+let tapSelectedItem = null;
+
+function selectItemForTap(itemId) {
+  if (state.submitted[state.currentQIdx]) return;
+  // 清除其他选中
+  document.querySelectorAll('.drag-item.selected-tap').forEach(el => el.classList.remove('selected-tap'));
+  const item = document.querySelector(`[data-id="${itemId}"]`);
+  if (item) {
+    item.classList.add('selected-tap');
+    tapSelectedItem = itemId;
+  }
+}
+
+function placeItemToBin(binId) {
+  if (state.submitted[state.currentQIdx]) return;
+  if (!tapSelectedItem) {
+    // 第一次点击 bin，可能是误触，忽略
+    return;
+  }
+  const itemId = tapSelectedItem;
+  // 复用 dropItem 的核心逻辑
+  const q = state.currentQuestions[state.currentQIdx];
+  const item = q.items.find(it => it.id === itemId);
+  if (!item) return;
+
+  // 从物品池或原 bin 移除
+  const oldBinId = getItemBin(q, itemId);
+  const oldBinBody = oldBinId ? document.getElementById(`binBody-${oldBinId}`) : null;
+  if (oldBinBody) {
+    const oldItem = oldBinBody.querySelector(`[data-id="${itemId}"]`);
+    if (oldItem) oldBinBody.removeChild(oldItem);
+  }
+  const pool = document.getElementById('binPool');
+  if (pool) {
+    const poolItem = pool.querySelector(`[data-id="${itemId}"]`);
+    if (poolItem) pool.removeChild(poolItem);
+  }
+
+  // 添加到目标 bin（保留点击和拖拽事件）
+  const targetBody = document.getElementById(`binBody-${binId}`);
+  const div = document.createElement('div');
+  div.className = 'drag-item';
+  div.draggable = true;
+  div.dataset.id = itemId;
+  div.ondragstart = dragStart;
+  div.ondragend = dragEnd;
+  div.onclick = function() { selectItemForTap(itemId); };
+  div.innerHTML = `<span class="di-icon">${item.icon}</span>${item.name}`;
+  targetBody.appendChild(div);
+
+  // 保存答案
+  if (!state.answers[state.currentQIdx]) state.answers[state.currentQIdx] = {};
+  state.answers[state.currentQIdx][itemId] = binId;
+
+  // 清除选中状态
+  tapSelectedItem = null;
+  document.querySelectorAll('.drag-item.selected-tap').forEach(el => el.classList.remove('selected-tap'));
+
+  autoSubmit();
 }
 
 let dragData = null;
