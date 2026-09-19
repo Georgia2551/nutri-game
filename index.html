@@ -2679,22 +2679,33 @@ function renderQuestion() {
 }
 
 function renderDragBin(q) {
-  // 移动端 / 触屏提示
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  // 检测移动端：禁用原生拖拽，仅用点击
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+                  || ('ontouchstart' in window);
   let html = '<div class="bin-pool-row">';
   if (isMobile) {
-    html += '<div style="text-align:center;margin-bottom:8px;"><span class="mobile-tip">📱 点击物品选中（黄色高亮），再点击目标框放置</span></div>';
+    html += '<div style="text-align:center;margin-bottom:10px;"><span class="mobile-tip">📱 操作：① 点击物品选中（黄色高亮）→ ② 点击目标框放置</span>';
+    html += '<span id="bin-tip-msg" class="mobile-tip" style="display:none;background:#FFEBEE;color:#C62828;margin-left:8px;">⚠️ 请先点击物品</span></div>';
+    html += `<div class="bin-pool" id="binPool"><span class="pool-label">物品池：</span>`;
+    q.items.forEach(it => {
+      // 移动端：draggable=false，避免长按变灰
+      html += `<div class="drag-item" data-id="${it.id}" onclick="selectItemForTap('${it.id}')"><span class="di-icon">${it.icon}</span>${it.name}</div>`;
+    });
+    html += `</div><div class="bin-grid">`;
+    q.bins.forEach(b => {
+      html += `<div class="bin-cell" data-id="${b.id}" onclick="placeItemToBin('${b.id}')"><div class="bin-head"><span class="bh-icon">${b.icon}</span>${b.name}</div><div class="bin-body" id="binBody-${b.id}"></div></div>`;
+    });
   } else {
-    html += '<div style="text-align:center;margin-bottom:8px;"><span class="mobile-tip" style="background:#E8F5E9;color:#2E7D32;">🖱 拖拽物品到目标框；也可点击物品+点击目标框放置</span></div>';
+    html += '<div style="text-align:center;margin-bottom:10px;"><span class="mobile-tip" style="background:#E8F5E9;color:#2E7D32;">🖱 操作：拖拽物品到目标框；也可点击物品 + 点击目标框放置</span></div>';
+    html += `<div class="bin-pool" id="binPool"><span class="pool-label">物品池：</span>`;
+    q.items.forEach(it => {
+      html += `<div class="drag-item" draggable="true" data-id="${it.id}" ondragstart="dragStart(event)" ondragend="dragEnd(event)" onclick="selectItemForTap('${it.id}')"><span class="di-icon">${it.icon}</span>${it.name}</div>`;
+    });
+    html += `</div><div class="bin-grid">`;
+    q.bins.forEach(b => {
+      html += `<div class="bin-cell" data-id="${b.id}" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropItem(event)" onclick="placeItemToBin('${b.id}')"><div class="bin-head"><span class="bh-icon">${b.icon}</span>${b.name}</div><div class="bin-body" id="binBody-${b.id}"></div></div>`;
+    });
   }
-  html += `<div class="bin-pool" id="binPool"><span class="pool-label">物品池：</span>`;
-  q.items.forEach(it => {
-    html += `<div class="drag-item" draggable="true" data-id="${it.id}" ondragstart="dragStart(event)" ondragend="dragEnd(event)" onclick="selectItemForTap('${it.id}')"><span class="di-icon">${it.icon}</span>${it.name}</div>`;
-  });
-  html += `</div><div class="bin-grid">`;
-  q.bins.forEach(b => {
-    html += `<div class="bin-cell" data-id="${b.id}" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropItem(event)" onclick="placeItemToBin('${b.id}')"><div class="bin-head"><span class="bh-icon">${b.icon}</span>${b.name}</div><div class="bin-body" id="binBody-${b.id}"></div></div>`;
-  });
   html += `</div></div>`;
   return html;
 }
@@ -2716,7 +2727,12 @@ function selectItemForTap(itemId) {
 function placeItemToBin(binId) {
   if (state.submitted[state.currentQIdx]) return;
   if (!tapSelectedItem) {
-    // 第一次点击 bin，可能是误触，忽略
+    // 提示用户先选物品
+    const tip = document.getElementById('bin-tip-msg');
+    if (tip) {
+      tip.style.display = 'inline-block';
+      setTimeout(() => { tip.style.display = 'none'; }, 1500);
+    }
     return;
   }
   const itemId = tapSelectedItem;
